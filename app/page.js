@@ -120,14 +120,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 2. Faixa de valor (sem números inventados) */}
+        {/* 2. Faixa de credibilidade */}
         <section className="border-y border-sand/40 bg-sand-light">
           <Reveal>
-            <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-8 text-center sm:flex-row sm:justify-center sm:gap-8 sm:divide-x sm:divide-sand md:px-8">
-              <p className="text-sm font-bold text-cacau/75 sm:pr-8">Conteúdo 100% bíblico</p>
-              <p className="text-sm font-bold text-cacau/75 sm:px-8">Pronto pra imprimir</p>
-              <p className="text-sm font-bold text-cacau/75 sm:pl-8">Baby, Kids e Júnior</p>
-            </div>
+            <p className="mx-auto max-w-3xl px-4 py-8 text-center text-xs font-bold uppercase tracking-wide text-cacau/70 sm:text-sm md:px-8">
+              +1.000 professoras já compraram os materiais &middot; 2 anos ensinando a geração que vem aí
+            </p>
           </Reveal>
         </section>
 

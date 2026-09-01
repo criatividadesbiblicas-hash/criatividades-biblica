@@ -177,6 +177,15 @@ export default function PlanoAnualPage() {
           </div>
         </section>
 
+        {/* 2. Faixa de credibilidade */}
+        <section className="border-y border-sand/40 bg-sand-light">
+          <Reveal>
+            <p className="mx-auto max-w-3xl px-4 py-8 text-center text-xs font-bold uppercase tracking-wide text-cacau/70 sm:text-sm md:px-8">
+              +1.000 professoras já compraram os materiais &middot; 2 anos ensinando a geração que vem aí
+            </p>
+          </Reveal>
+        </section>
+
         {/* 3. É pra você se */}
         <section className="bg-sand-light px-4 py-20 md:px-8 md:py-28">
           <div className="mx-auto max-w-4xl">
