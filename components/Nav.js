@@ -11,7 +11,9 @@ const LINKS = [
   { href: "/materiais", label: "Outros materiais" },
 ];
 
-export default function Nav() {
+const DEFAULT_CTA = { label: "Quero meu ano pronto", href: "/plano-anual#oferta" };
+
+export default function Nav({ cta = DEFAULT_CTA }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -39,10 +41,10 @@ export default function Nav() {
             </Link>
           ))}
           <Link
-            href="/plano-anual#oferta"
+            href={cta.href}
             className="rounded-full bg-coral-deep px-5 py-2.5 text-sm font-bold text-white transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
           >
-            Quero meu ano pronto
+            {cta.label}
           </Link>
         </div>
 
@@ -71,11 +73,11 @@ export default function Nav() {
               </Link>
             ))}
             <Link
-              href="/plano-anual#oferta"
+              href={cta.href}
               onClick={() => setOpen(false)}
               className="mt-2 rounded-full bg-coral-deep px-5 py-3 text-center text-base font-bold text-white"
             >
-              Quero meu ano pronto
+              {cta.label}
             </Link>
           </div>
         </div>

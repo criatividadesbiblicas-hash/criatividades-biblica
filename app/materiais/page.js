@@ -25,10 +25,10 @@ const ITENS = [
     imagem: "/produtos/biblinho-baby.png",
   },
   {
-    nome: "Emoções",
-    descricao: "Um material dedicado a ajudar as crianças a nomear e lidar com o que sentem, com base bíblica.",
-    href: "https://www.criatividadesbiblicas.com.br/emocoes",
-    label: "Foto: material Emoções",
+    nome: "Jesus Cuida das Minhas Emoções",
+    descricao: "Estudo completo das 9 emoções com a Bíblia: cards, história do Salmo 23, caixinha de perguntas, atividades e lembrancinhas.",
+    href: "/emocoes",
+    imagem: "/emocoes/logo-estudo.png",
   },
   {
     nome: "Planner Não Temas",
@@ -68,8 +68,8 @@ export default function MateriaisPage() {
               <Reveal key={item.nome} delay={i * 0.06}>
                 <a
                   href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="group flex h-full flex-col overflow-hidden rounded-2xl border border-sand/50 bg-white transition-shadow hover:shadow-[0_16px_40px_-16px_rgba(46,31,23,0.2)]"
                 >
                   {item.imagem ? (
