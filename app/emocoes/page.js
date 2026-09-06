@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import TestimonialCard from "@/components/TestimonialCard";
 import FaqItem from "@/components/FaqItem";
 import VideoFacade from "@/components/emocoes/VideoFacade";
+import Tracking from "@/components/emocoes/Tracking";
 import {
   Tag,
   MoonStars,
@@ -303,6 +304,7 @@ export default function EmocoesPage() {
   return (
     <>
       <Nav cta={{ label: CTA, href: "#oferta" }} />
+      <Tracking />
       <main>
         {/* 1. Hero */}
         <section className="emo-dots relative overflow-hidden">
