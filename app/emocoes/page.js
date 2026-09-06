@@ -6,6 +6,7 @@ import TestimonialCard from "@/components/TestimonialCard";
 import FaqItem from "@/components/FaqItem";
 import VideoFacade from "@/components/emocoes/VideoFacade";
 import Tracking from "@/components/emocoes/Tracking";
+import { SITE_URL } from "@/lib/site";
 import {
   Tag,
   MoonStars,
@@ -32,13 +33,27 @@ const DESCRIPTION =
 export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
+  alternates: { canonical: "/emocoes" },
+  keywords: [
+    "estudo bíblico infantil emoções", "emoções crianças bíblia", "ministério infantil emoções",
+    "EBD emoções", "material bíblico infantil", "Jesus cuida das minhas emoções", "Criatividades Bíblicas",
+  ],
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
+    url: "/emocoes",
+    siteName: "Criatividades Bíblicas",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "/emocoes/og.png", width: 600, height: 315 }],
+    images: [{ url: "/emocoes/og.png", width: 1200, height: 630, alt: "Jesus Cuida das Minhas Emoções — estudo bíblico infantil sobre as 9 emoções" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/emocoes/og.png"],
+  },
+  robots: { index: true, follow: true },
 };
 
 const KIWIFY_URL = "https://pay.kiwify.com.br/gnhrmc2";
@@ -257,6 +272,39 @@ const FAQ = [
   },
 ];
 
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      name: "Jesus Cuida das Minhas Emoções",
+      description: DESCRIPTION,
+      image: `${SITE_URL}/emocoes/og.png`,
+      brand: { "@type": "Brand", name: "Criatividades Bíblicas" },
+      category: "Material bíblico infantil (digital, PDF)",
+      offers: {
+        "@type": "Offer",
+        price: "57.90",
+        priceCurrency: "BRL",
+        availability: "https://schema.org/InStock",
+        url: `${SITE_URL}/emocoes`,
+        seller: { "@type": "Organization", name: "Criatividades Bíblicas" },
+      },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+    {
+      "@type": "Organization",
+      name: "Criatividades Bíblicas",
+      url: SITE_URL,
+      logo: `${SITE_URL}/emocoes/logo-wordmark.png`,
+      sameAs: ["https://www.instagram.com/criatividadesbiblicas", "https://www.tiktok.com/@criatividadesbiblicas"],
+    },
+  ],
+};
+
 function BotaoComprar({ className = "" }) {
   return (
     <a
@@ -305,6 +353,7 @@ export default function EmocoesPage() {
     <>
       <Nav cta={{ label: CTA, href: "#oferta" }} />
       <Tracking />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <main>
         {/* 1. Hero */}
         <section className="emo-dots relative overflow-hidden">
