@@ -26,7 +26,7 @@ import {
 
 const TITLE = "Jesus Cuida das Minhas Emoções | Criatividades Bíblicas";
 const DESCRIPTION =
-  "Estudo bíblico completo pra ensinar as 9 emoções às crianças: cards com versículo, história do Salmo 23, caixinha Pergunta ou Desafio, atividades e lembrancinhas. Pronto pra imprimir. R$ 47, acesso imediato.";
+  "Estudo bíblico completo pra ensinar as 9 emoções às crianças: cards com versículo, história do Salmo 23, caixinha Pergunta ou Desafio, atividades e lembrancinhas. Pronto pra imprimir. R$ 57,90, acesso imediato.";
 
 export const metadata = {
   title: TITLE,
@@ -272,7 +272,7 @@ function BotaoComprar({ className = "" }) {
 function Preco({ className = "" }) {
   return (
     <p className={`text-xs font-semibold text-cacau/55 ${className}`}>
-      R$ 47 à vista · acesso imediato · garantia de 7 dias
+      R$ 57,90 à vista · acesso imediato · garantia de 7 dias
     </p>
   );
 }
@@ -651,9 +651,9 @@ export default function EmocoesPage() {
                 </ul>
 
                 <div className="mt-8 flex flex-wrap items-end gap-x-3 gap-y-1">
-                  <p className="whitespace-nowrap font-display text-5xl font-semibold text-coral-deep">R$ 47</p>
+                  <p className="whitespace-nowrap font-display text-5xl font-semibold text-coral-deep">R$ 57,90</p>
                   <p className="pb-2 text-sm text-cacau/60">
-                    <span className="line-through">R$ 67</span> · pagamento único
+                    pagamento único
                   </p>
                 </div>
                 <p className="mt-1 text-sm text-cacau/70">Sem mensalidade. Compra uma vez, usa quantas vezes quiser.</p>
@@ -758,7 +758,7 @@ export default function EmocoesPage() {
             </p>
             <BotaoComprar className="mt-8" />
             <p className="mt-3 text-xs font-semibold text-cacau/55">
-              R$ 47 · garantia de 7 dias · pagamento seguro pela Kiwify
+              R$ 57,90 · garantia de 7 dias · pagamento seguro pela Kiwify
             </p>
           </Reveal>
         </section>
