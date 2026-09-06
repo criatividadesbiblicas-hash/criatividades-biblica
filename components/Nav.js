@@ -13,13 +13,14 @@ const LINKS = [
 
 const DEFAULT_CTA = { label: "Quero meu ano pronto", href: "https://www.criatividadesbiblicas.com.br/plano-anual" };
 
-export default function Nav({ cta = DEFAULT_CTA }) {
+export default function Nav({ cta = DEFAULT_CTA, links = LINKS, logoHref = "/" }) {
   const [open, setOpen] = useState(false);
+  const semLinks = links.length === 0; // modo landing: só logo + botão, nenhuma saída
 
   return (
     <header className="sticky top-0 z-40 border-b border-sand/40 bg-ivory/90 backdrop-blur">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
-        <Link href="/" className="flex items-center" aria-label="Criatividades Bíblicas, início">
+        <Link href={logoHref} className="flex items-center" aria-label="Criatividades Bíblicas, início">
           <Image
             src="/marca/logo-horizontal.png"
             alt="Criatividades Bíblicas"
@@ -30,8 +31,8 @@ export default function Nav({ cta = DEFAULT_CTA }) {
           />
         </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
-          {LINKS.map((link) => (
+        <div className={`${semLinks ? "flex" : "hidden md:flex"} items-center gap-8`}>
+          {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -48,6 +49,7 @@ export default function Nav({ cta = DEFAULT_CTA }) {
           </Link>
         </div>
 
+        {!semLinks && (
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -57,12 +59,13 @@ export default function Nav({ cta = DEFAULT_CTA }) {
         >
           {open ? <X size={22} /> : <List size={22} />}
         </button>
+        )}
       </nav>
 
-      {open && (
+      {open && !semLinks && (
         <div className="border-t border-sand/40 bg-ivory px-4 pb-6 pt-2 md:hidden">
           <div className="flex flex-col gap-1">
-            {LINKS.map((link) => (
+            {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

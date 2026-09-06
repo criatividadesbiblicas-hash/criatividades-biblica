@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { InstagramLogo, TiktokLogo, EnvelopeSimple } from "@phosphor-icons/react/dist/ssr";
 
-export default function Footer() {
+export default function Footer({ showNav = true }) {
   return (
     <footer className="border-t border-sand/40 bg-sand-light">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-3 md:px-8">
+      <div className={`mx-auto grid max-w-7xl gap-10 px-4 py-14 md:px-8 ${showNav ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
         <div>
           <Image
             src="/marca/logo-horizontal.png"
@@ -19,6 +19,7 @@ export default function Footer() {
           </p>
         </div>
 
+        {showNav && (
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-cacau/50">Navegação</p>
           <div className="mt-4 flex flex-col gap-2 text-sm font-semibold text-cacau/80">
@@ -33,6 +34,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
+        )}
 
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-cacau/50">Contato</p>

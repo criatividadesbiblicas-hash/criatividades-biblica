@@ -351,7 +351,7 @@ function CardsLeque() {
 export default function EmocoesPage() {
   return (
     <>
-      <Nav cta={{ label: CTA, href: "#oferta" }} />
+      <Nav cta={{ label: CTA, href: "#oferta" }} links={[]} logoHref="/emocoes" />
       <Tracking />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <main>
@@ -814,7 +814,7 @@ export default function EmocoesPage() {
           </Reveal>
         </section>
       </main>
-      <Footer />
+      <Footer showNav={false} />
     </>
   );
 }
