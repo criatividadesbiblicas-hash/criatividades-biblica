@@ -651,7 +651,7 @@ export default function EmocoesPage() {
               <div className="relative mx-auto max-w-sm">
                 <div className="absolute inset-0 -rotate-3 rounded-[2rem] bg-emo-alegria/40" />
                 <Image
-                  src="/emocoes/previews/salmo-vale.webp"
+                  src="/emocoes/previews/salmo-vale-v2.webp"
                   alt="Lâmina do Salmo 23: ainda que eu ande pelo vale da sombra da morte"
                   width={828}
                   height={1170}
