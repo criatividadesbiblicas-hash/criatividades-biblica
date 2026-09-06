@@ -6,6 +6,7 @@ import TestimonialCard from "@/components/TestimonialCard";
 import FaqItem from "@/components/FaqItem";
 import VideoFacade from "@/components/emocoes/VideoFacade";
 import Tracking from "@/components/emocoes/Tracking";
+import MiniCarrossel from "@/components/emocoes/MiniCarrossel";
 import { SITE_URL } from "@/lib/site";
 import {
   Tag,
@@ -121,7 +122,8 @@ const PECAS = [
   {
     titulo: "Caixinha Pergunta ou Desafio",
     texto: "Molde da caixa, 20 fichas e gabarito. A dinâmica que fecha o encontro.",
-    imagem: "/emocoes/previews/caixa.webp",
+    imagem: "/emocoes/previews/caixa-montada.webp",
+    tipo: "inteira",
     cor: "bg-emo-vergonha/30",
   },
   {
@@ -133,20 +135,26 @@ const PECAS = [
   {
     titulo: "2 atividades",
     texto: "Uma pra até 5 anos, outra pra 6 anos ou mais. As duas trabalham todas as emoções.",
-    imagem: "/emocoes/previews/atividade-6.webp",
+    tipo: "carrossel",
+    imagens: [
+      { src: "/emocoes/previews/atividade-1.webp", legenda: "Atividade 1 · até 5 anos" },
+      { src: "/emocoes/previews/atividade-2.webp", legenda: "Atividade 2 · 6 anos ou mais" },
+      { src: "/emocoes/previews/atividade-area.webp", legenda: "O que cada atividade desenvolve" },
+    ],
     cor: "bg-emo-inveja/20",
   },
   {
     titulo: "Lembrancinhas",
     texto: "Relógio e tag de pirulito pra criança levar a aula pra casa.",
-    imagem: "/emocoes/previews/tag-pirulito.webp",
-    tipo: "larga",
+    imagem: "/emocoes/previews/lembrancinhas.webp",
+    tipo: "inteira",
     cor: "bg-emo-ansiedade/20",
   },
   {
     titulo: "Versículo de memorização",
     texto: "Salmos 145:20a em banner pra parede e em cartão pra mão.",
     imagem: "/emocoes/previews/versiculo.webp",
+    tipo: "inteira",
     cor: "bg-emo-repulsa/20",
   },
   {
@@ -158,7 +166,8 @@ const PECAS = [
   {
     titulo: "Bônus: versículos ilustrados",
     texto: "Mais de 30 versículos sobre emoções, prontos pra imprimir e espalhar pela sala.",
-    imagem: "/emocoes/previews/bonus-2.webp",
+    imagem: "/emocoes/previews/bonus-arte.webp",
+    tipo: "inteira",
     cor: "bg-emo-alegria/30",
   },
 ];
@@ -535,6 +544,16 @@ export default function EmocoesPage() {
                       >
                         {p.tipo === "cards" ? (
                           <CardsLeque />
+                        ) : p.tipo === "carrossel" ? (
+                          <MiniCarrossel imagens={p.imagens} alt={`Prévia: ${p.titulo}`} />
+                        ) : p.tipo === "inteira" ? (
+                          <Image
+                            src={p.imagem}
+                            alt={`Prévia: ${p.titulo}`}
+                            width={828}
+                            height={1170}
+                            className="max-h-[420px] w-auto rounded-xl object-contain shadow-[0_18px_40px_-16px_rgba(46,31,23,0.35)]"
+                          />
                         ) : p.tipo === "alta" ? (
                           <div className="relative h-full min-h-[420px] w-full overflow-hidden rounded-t-xl shadow-[0_18px_40px_-16px_rgba(46,31,23,0.35)]">
                             <Image
