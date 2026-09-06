@@ -115,14 +115,14 @@ const PECAS = [
   {
     titulo: "História ilustrada do Salmo 23",
     texto: "15 lâminas, uma pra cada trecho do salmo. Você conta a história mostrando.",
-    imagem: "/emocoes/previews/salmo-pastos-inner.webp",
+    imagem: "/emocoes/previews/salmo-historia.webp",
     tipo: "alta",
     cor: "bg-emo-tristeza/15",
   },
   {
     titulo: "Caixinha Pergunta ou Desafio",
     texto: "Molde da caixa, 20 fichas e gabarito. A dinâmica que fecha o encontro.",
-    imagem: "/emocoes/previews/caixa-montada.webp",
+    imagem: "/emocoes/previews/caixa-montada-v2.webp",
     tipo: "inteira",
     cor: "bg-emo-vergonha/30",
   },
