@@ -10,7 +10,7 @@ const nextConfig = {
       { source: "/materiais", destination: "/emocoes", permanent: false },
       { source: "/materiais/:path*", destination: "/emocoes", permanent: false },
     ];
-
+  },
 };
 
 export default nextConfig;
