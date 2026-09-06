@@ -22,13 +22,13 @@ export default function Footer() {
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-cacau/50">Navegação</p>
           <div className="mt-4 flex flex-col gap-2 text-sm font-semibold text-cacau/80">
-            <Link href="/" className="hover:text-coral-deep">
+            <Link href="https://www.criatividadesbiblicas.com.br" className="hover:text-coral-deep">
               Início
             </Link>
-            <Link href="/plano-anual" className="hover:text-coral-deep">
+            <Link href="https://www.criatividadesbiblicas.com.br/plano-anual" className="hover:text-coral-deep">
               Plano Anual Biblinho
             </Link>
-            <Link href="/materiais" className="hover:text-coral-deep">
+            <Link href="https://www.criatividadesbiblicas.com.br/materiais" className="hover:text-coral-deep">
               Outros materiais
             </Link>
           </div>

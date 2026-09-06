@@ -7,11 +7,11 @@ import { List, X } from "@phosphor-icons/react";
 
 const LINKS = [
   { href: "/", label: "Início" },
-  { href: "/plano-anual", label: "Plano Anual" },
-  { href: "/materiais", label: "Outros materiais" },
+  { href: "https://www.criatividadesbiblicas.com.br/plano-anual", label: "Plano Anual" },
+  { href: "https://www.criatividadesbiblicas.com.br/materiais", label: "Outros materiais" },
 ];
 
-const DEFAULT_CTA = { label: "Quero meu ano pronto", href: "/plano-anual#oferta" };
+const DEFAULT_CTA = { label: "Quero meu ano pronto", href: "https://www.criatividadesbiblicas.com.br/plano-anual" };
 
 export default function Nav({ cta = DEFAULT_CTA }) {
   const [open, setOpen] = useState(false);
