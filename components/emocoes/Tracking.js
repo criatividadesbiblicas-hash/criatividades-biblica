@@ -10,7 +10,7 @@ import Script from "next/script";
 // O Purchase NÃO é disparado aqui: vem pelo servidor (webhook Kiwify → Supabase → API de Conversões).
 
 const PIXEL_ID = "493199083223154";
-const CLARITY_ID = ""; // ex.: "abcd1234ef" — Clarity → Settings → Setup → o código depois de clarity.ms/tag/
+const CLARITY_ID = "ydn96d2tri"; // Clarity → Settings → Setup (projeto Criatividades Bíblicas)
 const PRODUTO = {
   content_name: "Jesus Cuida das Minhas Emocoes",
   content_ids: ["gnhrmc2"],
