@@ -720,7 +720,15 @@ export default function EmocoesPage() {
                   ))}
                 </ul>
 
-                <div className="mt-8 flex flex-wrap items-end gap-x-3 gap-y-1">
+                <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <p className="text-sm text-cacau/55">
+                    De <s className="font-semibold">R$ 97,00</s> por
+                  </p>
+                  <span className="rounded-full bg-emo-alegria/30 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide text-cacau">
+                    40% off
+                  </span>
+                </div>
+                <div className="mt-1 flex flex-wrap items-end gap-x-3 gap-y-1">
                   <p className="whitespace-nowrap font-display text-5xl font-semibold text-coral-deep">R$ 57,90</p>
                   <p className="pb-2 text-sm text-cacau/60">
                     pagamento único
