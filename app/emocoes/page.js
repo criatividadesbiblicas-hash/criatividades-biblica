@@ -330,7 +330,7 @@ function BotaoComprar({ className = "" }) {
 function Preco({ className = "" }) {
   return (
     <p className={`text-xs font-semibold text-cacau/55 ${className}`}>
-      R$ 57,90 à vista · acesso imediato · garantia de 7 dias
+      Acesso imediato · garantia de 7 dias
     </p>
   );
 }
