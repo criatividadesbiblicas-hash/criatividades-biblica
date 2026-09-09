@@ -24,7 +24,7 @@ const HOST = "https://materiais.criatividadesbiblicas.com.br";
 const PAGE_URL = `${HOST}/plano-anual`;
 const TITLE = "Plano Anual Biblinho: um ano de aula bíblica pronta | Criatividades Bíblicas";
 const DESCRIPTION =
-  "Uma história bíblica por mês, com a aula pronta pra Kids (4 a 6) e Júnior (7 a 10) e o material Baby de bônus: apostila com a fala da professora, quadro de história, atividades, versículo e lembrancinha. R$ 597 à vista ou 12x de R$ 61,74.";
+  "Uma história bíblica por mês, com a aula pronta pra Kids (4 a 6) e Júnior (7 a 10) e o material Baby: apostila com a fala da professora, quadro de história, atividades, versículo e lembrancinha. R$ 597 à vista ou 12x de R$ 61,74.";
 
 export const metadata = {
   title: TITLE,
@@ -91,7 +91,7 @@ export default function PlanoAnualPage() {
         <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#eaf6ff_100%)]">
           <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 pb-14 pt-10 md:grid-cols-[1.1fr_1fr] md:px-8 md:pb-20 md:pt-16">
             <div className="relative z-10">
-              <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-campo">Plano Anual Biblinho · Kids + Júnior · bônus Baby</p>
+              <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-campo">Plano Anual Biblinho · Baby, Kids e Júnior</p>
               <h1 className="mt-4 text-balance font-display text-[2.7rem] leading-[1.02] text-pa-tinta md:text-[4.1rem]">
                 Cinquenta e dois domingos.
                 <br />
@@ -153,7 +153,7 @@ export default function PlanoAnualPage() {
               Foi pra esse ano que existe o <span className="text-pa-campo">Plano Anual Biblinho.</span>
             </h2>
             <Texto className="mt-6 max-w-[60ch]">
-              Uma história por mês, com quatro ou cinco domingos dentro dela. Kids e Júnior na mesma história, e o material Baby junto, de bônus. Sua igreja inteira aprendendo a mesma coisa no mesmo mês, do berçário ao Júnior.
+              Uma história por mês, com quatro ou cinco domingos dentro dela. Kids e Júnior na mesma história, e o material Baby junto. Sua igreja inteira aprendendo a mesma coisa no mesmo mês, do berçário ao Júnior.
             </Texto>
           </div>
         </section>
