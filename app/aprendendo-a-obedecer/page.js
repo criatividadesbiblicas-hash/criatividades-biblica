@@ -146,11 +146,14 @@ const ANOTACOES = [
   { lado: "esq", titulo: "O versículo do mês", texto: "Entra aqui, com a explicação certa pra idade." },
 ];
 
+// Mensagens reais de quem já usou o material da Arca de Noé (WhatsApp/Instagram), enviadas pela
+// Thali em 2026-09-09. Sobrenome abreviado a pedido dela (privacidade); sem foto → avatar de iniciais.
 const DEPOIMENTOS = [
-  { name: "Lorena Xavier", role: "Professora no Ministério Kids", quote: "Trabalho excelente, material super apresentável e acessível para as crianças. Amei todo o suporte dado e atenção.", photo: "/depoimentos/lorena-xavier.jpg" },
-  { name: "Claudia Alves", role: "Professora no Ministério Kids", quote: "Ótimo material. Conteúdo de fácil compreensão, muito criativo e com um visual de alta qualidade.", photo: "/depoimentos/claudia-alves.jpg" },
-  { name: "Kessia Alves", role: "Professora EBD", quote: "Aborda de forma lúdica e didática os princípios da fé cristã, respeitando as necessidades de faixa etária, sempre com muita cor.", photo: "/depoimentos/kessia-alves.jpg" },
-  { name: "Maria Alcantara", role: "Professora do Berçário", quote: "Consigo chamar e prender a atenção das crianças, mesmo tão pequenas. É um material simples, prático e objetivo.", photo: "/depoimentos/maria-alcantara.jpg" },
+  { name: "Tia Renata S.", iniciais: "RS", cor: "bg-arca-mar", role: "Professora da EBD, turma de 4 a 6 anos", quote: "Baixei o PDF, imprimi na sexta e as dinâmicas já vieram prontas. As crianças ficaram concentradas do início ao fim." },
+  { name: "Carla M.", iniciais: "CM", cor: "bg-arca-coral", role: "Mãe do Theo (5) e da Sofia (7)", quote: "A atividade fez o Theo lembrar a semana inteira. Ontem ele foi guardar os brinquedos e falou: “mãe, tô obedecendo igual na historinha!”" },
+  { name: "Pastor Marcos V.", iniciais: "MV", cor: "bg-arca-fundo", role: "Líder do Ministério Infantil", quote: "Deu um norte claro pros voluntários novos: introdução, dinâmica certa e conclusão sem enrolação. Virou nosso material padrão." },
+  { name: "Juliana P.", iniciais: "JP", cor: "bg-arca-verde", role: "Educadora e professora de EBD", quote: "A diagramação é limpa, as cores saíram ótimas na impressora comum e a linguagem é bem acessível pros pequenos." },
+  { name: "Débora N.", iniciais: "DN", cor: "bg-arca-madeira", role: "Professora de Escola Bíblica, 6 a 8 anos", quote: "Minha turma é agitada e eu tinha receio. Mas eles participaram do início ao fim, até os mais dispersos entraram na brincadeira." },
 ];
 
 const montarFaq = () => [
@@ -459,13 +462,13 @@ export default function ArcaDeNoePage() {
             <p className="mt-4 max-w-[56ch] text-[17px] font-medium leading-relaxed text-arca-tinta/80 md:text-xl">
               Mais de 41 mil seguidoras acompanham a Criatividades Bíblicas no Instagram. Algumas contam como é dar aula com o material.
             </p>
-            <ul className="mt-10 grid gap-5 sm:grid-cols-2">
+            <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {DEPOIMENTOS.map((d, i) => (
-                <li key={d.name} className={`relative rounded-[1.75rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(11,87,160,0.35)] ${i % 2 ? "sm:mt-8" : ""}`}>
+                <li key={d.name} className={`relative rounded-[1.75rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(11,87,160,0.35)] ${i % 3 === 1 ? "lg:mt-8" : ""}`}>
                   <span aria-hidden="true" className="absolute -bottom-3 left-10 h-6 w-6 rotate-45 rounded-[4px] bg-white" />
                   <blockquote className="text-[16px] font-medium leading-relaxed text-arca-tinta/90">"{d.quote}"</blockquote>
                   <figcaption className="mt-5 flex items-center gap-3">
-                    <Image src={d.photo} alt={d.name} width={44} height={44} className="h-11 w-11 rounded-full object-cover ring-2 ring-arca-sol" />
+                    <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${d.cor}`}>{d.iniciais}</span>
                     <span>
                       <span className="block font-display text-base font-bold text-arca-tinta">{d.name}</span>
                       <span className="block text-[13px] font-semibold text-arca-tinta/75">{d.role}</span>
@@ -474,7 +477,6 @@ export default function ArcaDeNoePage() {
                 </li>
               ))}
             </ul>
-            {/* TODO: bloco de prints de comentários/DMs reais (Thali vai mandar 6-10 prints) */}
           </div>
         </section>
 
