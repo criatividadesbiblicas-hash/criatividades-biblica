@@ -136,7 +136,7 @@ components:
 
 # Design System: Criatividades Bíblicas — mundo Arca / Packs
 
-> **Escopo e coexistência.** Este arquivo descreve o mundo **"Arca / Packs"**: a rota `/arca-de-noe` e as futuras páginas de Pack avulso da Criatividades Bíblicas. Ele vive inteiro dentro do escopo `.arca` (bloco no fim de `app/globals.css` + variáveis `--font-baloo` / `--font-quicksand` carregadas por `next/font` em `app/arca-de-noe/page.js`). A rota `/emocoes` e o restante do site usam **outro mundo** (Fraunces + Nunito, marfim `#fbf7f1`, coral `#f26b5e`, cacau `#2e1f17`, definido no primeiro `@theme` de `globals.css`) que **não é governado por este documento e não deve ser sobrescrito**. Os dois mundos coexistem no mesmo repositório: o base pinta o `body`; o `.arca` re-declara `--font-display`, `--font-body`, cor e fundo só dentro da landing, e `body:has(> .arca)` troca o fundo do documento pra branco pra não aparecer creme no overscroll.
+> **Escopo e coexistência.** Este arquivo descreve o mundo **"Arca / Packs"**: a rota `/arca-de-noe` e as futuras páginas de Pack avulso da Criatividades Bíblicas. Ele vive inteiro dentro do escopo `.arca` (bloco no fim de `app/globals.css` + variáveis `--font-baloo` / `--font-quicksand` carregadas por `next/font` em `app/arca-de-noe/page.js`). A rota `/emocoes` e o restante do site usam **outro mundo** (Fraunces + Nunito, marfim `#fbf7f1`, coral `#f26b5e`, cacau `#2e1f17`, definido no primeiro `@theme` de `globals.css`) que **não é governado por este documento e não deve ser sobrescrito**. Os dois mundos coexistem no mesmo repositório: o base pinta o `body`; o `.arca` re-declara `--font-display`, `--font-body`, cor e fundo só dentro da landing, e `body:has(> .arca)` troca o fundo do documento pra branco pra não aparecer creme no overscroll. Uma terceira landing, `/plano-anual`, tem seção própria mais abaixo neste mesmo arquivo ("Mundo Plano Anual / Letra da capa"): ela também não compartilha token, fonte ou fundo com os outros dois mundos, e vive inteira dentro do escopo `.pa`.
 
 ## Overview
 
@@ -332,3 +332,99 @@ A verdade da oferta vem de `components/arca/promo.js`: `FIM_PROMO = "2026-09-16T
 - **Don't** trocar Baloo 2 / Quicksand por Fraunces / Nunito (ou qualquer outra face) dentro do `.arca`, nem usar Baloo abaixo do peso 700.
 - **Don't** prometer Baby, acesso vitalício ou R$ 67 fora do `promoAtiva()`, nem afirmar prazo de acesso, número de alunos ou igrejas que não existem em `PRODUCT.md`.
 - **Don't** usar mockup, ilustração genérica ou imagem gerada no lugar das páginas reais do material.
+
+---
+
+# Design System: Criatividades Bíblicas — mundo Plano Anual / "Letra da capa"
+
+> **Escopo.** Este bloco descreve o mundo **"Plano Anual / Letra da capa"**: a rota perene `/plano-anual` (`app/plano-anual/page.js`), o carrossel `components/plano-anual/Roda.js` e os tokens `pa-*` no fim de `app/globals.css` (bloco `.pa`, logo depois do bloco `.arca`). É o terceiro mundo do repositório, peer do mundo "Arca / Packs" descrito acima e do mundo de `/emocoes` — nenhum dos três se sobrescreve; cada landing carrega sua própria classe raiz (`.arca`, `.pa`) ou o `@theme` base. As fontes são carregadas via `next/font`: Lilita One dentro do próprio `app/plano-anual/page.js` (só essa rota usa), Nunito em `app/layout.js` (compartilhada com o resto do site).
+
+## Overview
+
+**Creative North Star: "A letra da capa virou o mundo"**
+
+A capa de cada apostila usa uma letra gorda e redonda pra gritar o nome da história; essa letra virou o H1 e os H2 da página. O argumento aqui não é "olha que bonito": é sequência — uma história por mês, quatro ou cinco domingos dentro dela — então o mundo visual fica quase todo em dois tons (branco e céu claro), sem competir com esse argumento, e usa cor cheia (`pa-campo`, verde) só nas duas seções que precisam de peso: o diagnóstico da dor e o bônus Baby. O sol amarelo, como no mundo Arca, é o único botão. O sinal autoral não é uma forma nem uma animação de fundo: é a **roda 3D das capas girando**, sem número e sem ordem — decisão trancada pela cliente em 2026-09-09 (spec, §2) porque a assinatura segue a trilha de quem assina, não o calendário civil.
+
+Rejeições confirmadas no build: fundo creme, numeração ou ordem na roda (nada de "mês 1", nada de índice), preço, selo de desconto ou contador no hero ou em qualquer seção antes de `#oferta`, ilustração genérica no lugar de página real.
+
+**Key characteristics:**
+- Fundo quase sempre branco ou céu claro; verde campo só em dois campos inteiros de seção (diagnóstico, bônus).
+- Lilita One (peso único, 400) nos títulos e nos números; Nunito no texto corrido.
+- A roda 3D (`components/plano-anual/Roda.js`) como sinal autoral — não uma forma estática nem uma animação de fundo.
+- Páginas reais dos PDFs, em leque ou em foto avulsa, nunca mockup nem ilustração gerada.
+- Pílulas sol carregam toda badge/etiqueta da página (faixa etária, "Domingo N", "X estudos" da roda), sempre com texto tinta.
+
+## Colors
+
+| Token | Hex | Uso |
+|---|---|---|
+| `pa-branco` | `#ffffff` | fundo padrão do documento (`.pa { background }`, `body:has(> .pa)`); raramente aparece como classe utilitária porque o branco já é o fundo-base da página |
+| `pa-ceu-claro` | `#eaf6ff` | fundo das seções de respiro ("o que chega todo mês", "três faixas, uma história", "como funciona"), casca do card de oferta, notas de anotação, balão de depoimento, caixa de garantia, véu da roda |
+| `pa-ceu` | `#59b6f0` | token reservado da paleta aprovada pra detalhe/véu com opacidade; **o build atual não pinta nenhuma superfície com ele** — o véu da roda usa `pa-ceu-claro` no lugar. Reserva, não padrão |
+| `pa-campo` | `#2a8a3e` | os dois campos inteiros de peso da página (diagnóstico "é falta de sequência", bônus Baby), span de destaque nos H2 ("todo mês.", "Plano Anual Biblinho."), ícone de check da oferta, traço conector das anotações |
+| `pa-campo-escuro` | `#1f6b2f` | título das notas de anotação sobre céu claro — mais escuro que `pa-campo` pra manter contraste em texto pequeno |
+| `pa-sol` | `#ffc531` | o botão, sempre; toda pílula/badge (faixa etária das três apostilas, "Domingo N" das quatro aulas, "X estudos" na legenda da roda), CTA do header, ícones do bônus, aro da capa Baby na oferta |
+| `pa-laranja` | `#e8562a` | ponto de atenção único da página: a frase-virada da cena da dor, "Quanto do que eu ensino fica?" — a única linha em toda a página nessa cor |
+| `pa-terra` | `#8a5a3c` | token reservado da paleta aprovada (madeira/terra); **não aparece em nenhuma superfície do build atual** |
+| `pa-tinta` | `#22303f` | o texto: títulos a 100%, corpo em opacidades fixas (85/80/78/75/70/65/60%, conforme a seção) |
+
+### Named Rules
+**A Regra do Botão Sol.** Todo botão da página é `pa-sol` com texto `pa-tinta`, em pílula, sem exceção — não existe aqui um segundo tom de botão reservado, como o coral no mundo Arca.
+
+**A Regra do Fundo Claro.** Fundo de seção é `pa-branco` ou `pa-ceu-claro`, nunca creme, marfim ou areia (essas cores pertencem a outros mundos do repositório). `pa-campo` cheio é reservado às duas seções de maior peso argumentativo; nenhuma seção usa `pa-sol` ou `pa-laranja` como fundo.
+
+## Typography
+
+**Display Font:** Lilita One (peso único 400 — **a fonte não publica outro peso**; carregada via `next/font/google` em `app/plano-anual/page.js` com `weight: "400"`. Ênfase vem de cor e tamanho, nunca de negrito ou itálico, porque não existe variante pra sintetizar)
+**Body Font:** Nunito (carregada em `app/layout.js`, compartilhada com o resto do site, pesos `["400","600","700","800"]` — **não inclui 500**. As classes `font-medium` usadas no corpo desta página pedem peso 500, que a fonte não tem carregado; o navegador resolve pro peso disponível mais próximo, 600. Na prática, o corpo lê em 600/700/800, não em 500/700/800 como o companion visual original previa — vale registrar aqui, não corrigir escondido)
+
+### Hierarchy (levantada em `app/plano-anual/page.js` e `components/plano-anual/Roda.js`)
+- **Display** (400, `text-balance`, leading 1.02–1.08): H1 do hero, três linhas (2,7rem → 4,1rem no `md`), e o H2 que nomeia o produto na virada, "Foi pra esse ano que existe o Plano Anual Biblinho." (2,4rem → 3,5rem).
+- **Headline** (400, leading 1.06–1.08): H2 padrão de cada seção, via o componente local `H2` (2rem → 2,75rem no `md`), e o H2 do diagnóstico sobre campo verde, "É falta de sequência." (2,2rem → 3,2rem).
+- **Frase-virada** (400, leading 1.15, `pa-laranja`, largura contida): o parágrafo que fecha a cena da dor, "Quanto do que eu ensino fica?" (1,6rem → 2,1rem no `md`). Uma por página, mesma regra do mundo Arca.
+- **Title** (400, leading tight, 1,3rem–1,6rem): H3 dos cards — aulas da Arca (1,35rem), peças do que chega todo mês (1,45rem), card de oferta (1,6rem), passos de "como funciona" (1,3rem) — e o nome da história em destaque na legenda da roda (1,35rem).
+- **Anotação** (400, `text-lg`/18px, leading tight): título das notas laterais em "a fala já vem escrita".
+- **Body** (Nunito, leading relaxed, 17px → 20px no `md`): parágrafos de abertura de seção e blocos narrativos, via o componente local `Texto` (largura máxima 44–60ch).
+- **Body card** (Nunito, leading relaxed, 15px): texto dentro de cards de peça, notas de anotação, blockquotes das três faixas e da oferta.
+- **Small** (Nunito, 12–14px): rótulo do hero (12px, uppercase, tracking 0.12em), citação em itálico dos versículos do quadro da Arca (14px), legendas de rodapé de bloco (13–14px: "arrasta pro lado ou usa as setas", "Pix, boleto ou cartão…").
+- **Label / badge** (400, `text-sm`/14px a `text-base`/16px, sempre dentro de pílula `pa-sol`): "Domingo N", a faixa etária ("Baby · 1 a 3 anos"), "X estudos" na legenda da roda.
+- **Números** (400, `leading-none`): preço grande da oferta (3,4rem, `pa-campo`); dígitos dos três passos de "como funciona" (text-xl dentro do círculo sol).
+
+### Named Rules
+**A Regra do Peso Único do Display.** Lilita One só existe em 400. Se um título precisa de mais peso visual, o recurso é tamanho ou cor (`pa-campo`, `pa-laranja`), nunca negrito forçado pelo navegador sobre uma fonte que não tem essa variante.
+
+**A Regra do Corpo Redondo.** Nunito carrega o texto corrido em 400/600/700/800 (ver nota acima sobre o 500 ausente); a letra é geométrica e redonda, mantendo a mesma leitura confortável em 17–20px do mundo Arca.
+
+## Shapes
+
+Raio cresce com o tamanho do objeto — mesma lógica do mundo Arca: capas da roda e do hero 12px, imagem grande da apostila anotada 14px, capas empilhadas da oferta 10px, caixas pequenas (nota de anotação no celular, caixa de garantia) 1,25rem, notas de anotação e blockquotes das faixas 1,5rem, balão de depoimento e cards de "como funciona" 1,75rem, card de peça e card das três faixas 2rem, casca do card de oferta 2,25rem. Botões, badges e avatares são pílula (`9999px`). Não há canto reto em nenhuma superfície do mundo; a exceção de sempre são as próprias páginas reais, que trazem canto de papel e recebem 12–14px por cima.
+
+## Components
+
+### Buttons
+Um único formato, sem variante secundária — o mundo Arca reserva um botão coral que o build não usa; aqui não existe nem essa reserva. Pílula `pa-sol`, texto `pa-tinta` em Lilita One 18px `leading-none`, padding 16px × 32px, brilho `0 12px 28px -10px rgba(233,164,0,0.75)`; hover sobe 2px e clareia pra `#ffd15a`; `active` encolhe pra `scale(0.98)`. Um botão por bloco, componente local `Botao()` em `app/plano-anual/page.js`.
+
+### A roda das histórias (sinal autoral)
+`components/plano-anual/Roda.js`: carrossel 3D circular (CSS `perspective` + `rotateY`/`translateZ`), gira por arrasto (mouse e toque via Pointer Events), setas e teclado (`ArrowLeft`/`ArrowRight`), e encaixa na capa mais próxima ao soltar. A capa da frente fica nítida, com reflexo suave embaixo e uma legenda (`aria-live="polite"`) com o nome da história e o número de estudos; as capas laterais inclinam, encolhem e recebem um véu `pa-ceu-claro`; as de trás somem (opacidade 0.35). A matemática pura do giro (ângulo, passo, raio) vive em `components/plano-anual/roda-math.js`, coberta por testes (`roda-math.test.mjs`) — o raio do círculo é função do número de capas e da largura de cada uma (`raio(n, larguraCapa)`), então qualquer ajuste de tamanho muda a geometria inteira e pede conferência visual, não só a conta. Com `prefers-reduced-motion: reduce`, a roda vira uma fila horizontal estática com a capa central maior — nunca some, nunca quebra.
+
+**A Regra da Roda Sem Calendário.** Nenhuma capa carrega número, ordem ou rótulo de mês — nem na roda, nem na legenda, nem em nenhum outro leque da página. Decisão trancada pela cliente: quem assina começa pela própria história 1 da trilha, não pelo mês 1 do calendário civil, então numerar a roda mentiria sobre a experiência de quem assina em outubro.
+
+## Do's and Don'ts
+
+### Do:
+- **Do** escrever em português do Brasil, em segunda pessoa, frase curta antes de argumento: cena primeiro, diagnóstico depois, nunca o contrário.
+- **Do** manter fundo branco ou céu claro em toda seção que não seja o diagnóstico ou o bônus; `pa-campo` cheio é reservado só a essas duas.
+- **Do** usar Lilita One só em 400 e Nunito pro corpo; nenhuma outra face dentro do `.pa`.
+- **Do** dar a cada H2 um parágrafo Nunito de 17–20px e no máximo um botão sol por bloco.
+- **Do** mostrar página real de apostila em toda peça de prova (leques, faixas, apostila anotada); nunca ilustração genérica.
+- **Do** manter a roda sem número, sem ordem e sem rótulo de mês, com `prefers-reduced-motion` sempre respeitado.
+- **Do** conferir a roda pelo olho depois de qualquer ajuste de tamanho: o raio muda com a largura da capa (`raio(n, larguraCapa)` em `roda-math.js`), então a conta certa nem sempre parece certa na tela.
+- **Do** vestir Nav, Footer e FaqItem compartilhados pelo escopo `.pa` (mesma técnica do `.arca`), em vez de duplicar componentes.
+
+### Don't:
+- **Don't** usar fundo creme, marfim ou areia como superfície de seção — essas cores pertencem a outros mundos do repositório.
+- **Don't** numerar a roda, ordenar as histórias ou escrever "mês 1" em qualquer lugar da página: é uma decisão trancada pela cliente, não um detalhe de estilo.
+- **Don't** mostrar preço, contador ou selo de desconto no hero ou em qualquer seção antes de `#oferta`: esta é uma página perene, sem prazo.
+- **Don't** forçar negrito ou itálico em Lilita One — a fonte só existe em 400; use `pa-campo` ou `pa-laranja` pra dar peso a um título.
+- **Don't** pintar `pa-ceu` ou `pa-terra` só "porque estão na paleta": são tokens reservados; se um dia forem usados de fato, esta seção precisa ser atualizada junto.
+- **Don't** usar mockup, ilustração genérica ou imagem gerada no lugar das páginas reais do material — mesma regra do mundo Arca.

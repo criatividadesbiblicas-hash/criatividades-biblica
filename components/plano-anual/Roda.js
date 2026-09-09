@@ -5,7 +5,9 @@ import Image from "next/image";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { passo, indiceDaFrente, encaixar, estadoCapa, raio } from "./roda-math";
 
-const LARGURA = 220; // px da capa em desktop
+const LARGURA = 260; // px da capa (elemento de assinatura da pagina: precisa ler "substancial")
+const RAZAO_CAPA = 1273 / 900; // proporcao real da capa (altura / largura)
+const ALTURA = Math.round(LARGURA * RAZAO_CAPA); // altura da capa, derivada da largura
 const SENSIBILIDADE = 0.28; // graus por pixel arrastado
 
 // Carrossel 3D circular das capas. Sem numero, sem ordem. Gira por arrasto (mouse/toque),
@@ -73,11 +75,11 @@ export default function Roda({ historias }) {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        className={`relative mx-auto h-[420px] w-full max-w-5xl touch-pan-y outline-none [perspective:1400px] [perspective-origin:50%_40%] md:h-[470px] ${arrastando ? "cursor-grabbing" : "cursor-grab"}`}
+        className={`relative mx-auto h-[430px] w-full max-w-5xl touch-pan-y outline-none [perspective:1400px] [perspective-origin:50%_40%] md:h-[460px] ${arrastando ? "cursor-grabbing" : "cursor-grab"}`}
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-16 left-1/2 h-24 w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(42,138,62,0.16),rgba(42,138,62,0))]"
+          className="pointer-events-none absolute bottom-10 left-1/2 h-24 w-[600px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(42,138,62,0.16),rgba(42,138,62,0))]"
         />
         <div
           className="absolute left-1/2 top-1/2 h-0 w-0 [transform-style:preserve-3d]"
@@ -95,7 +97,7 @@ export default function Roda({ historias }) {
                 style={{
                   width: LARGURA,
                   left: -LARGURA / 2,
-                  top: -150,
+                  top: -ALTURA / 2,
                   zIndex: s.z,
                   opacity: s.oculta ? 0.35 : 1,
                   transform: `rotateY(${i * passo(n)}deg) translateZ(${R}px)`,

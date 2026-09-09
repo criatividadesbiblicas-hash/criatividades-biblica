@@ -169,7 +169,7 @@ export default function PlanoAnualPage() {
             <Texto className="mx-auto mt-4 max-w-[56ch] text-center">
               Cada uma com quatro ou cinco domingos dentro, pra Kids e Júnior, com o Baby junto. A criança acompanha a mesma história o mês inteiro.
             </Texto>
-            <div className="mt-8">
+            <div className="mt-6">
               <Roda historias={HISTORIAS} />
             </div>
           </div>
@@ -270,7 +270,7 @@ export default function PlanoAnualPage() {
                 <article key={f.faixa} className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)]">
                   <div className="relative aspect-[3/4] overflow-hidden">
                     <Image src={f.src} alt={`Página real da apostila ${f.faixa}: Hora da História da Arca de Noé`} fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover object-top" />
-                    <span className="absolute left-4 top-4 rounded-full bg-pa-sol px-3 py-1 font-display text-sm text-pa-tinta">{f.faixa} · {f.idade}</span>
+                    <span className="absolute bottom-4 left-4 rounded-full bg-pa-sol px-3 py-1 font-display text-sm text-pa-tinta">{f.faixa} · {f.idade}</span>
                   </div>
                   <blockquote className="p-6 text-[15px] font-medium italic leading-relaxed text-pa-tinta/85">"{f.trecho}"</blockquote>
                 </article>
