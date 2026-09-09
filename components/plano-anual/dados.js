@@ -48,12 +48,15 @@ export const ANOTACOES = [
   { lado: "esq", titulo: "O versículo do mês", texto: "Entra aqui, com a explicação certa pra idade." },
 ];
 
-// "Tres faixas, uma historia": a Hora da Historia do Estudo 1 da Arca nas tres apostilas.
-// Os trechos abaixo sao TRANSCRITOS das paginas renderizadas (conferir na Task 1, Step 2) — nao inventar.
+// "Tres faixas, uma historia": o momento em que a professora explica o que e obediencia,
+// a mesma cena didatica nas tres apostilas — progressao de exemplo concreto (Baby) pra
+// definicao (Kids) pra motivo interior (Junior). Trechos TRANSCRITOS das paginas
+// renderizadas — nao inventar. Baby: "Roda de Conversa"; Kids: bloco de abertura;
+// Junior: "Explorando a Biblia".
 export const FAIXAS = [
-  { faixa: "Baby", idade: "1 a 3 anos", src: "/plano-anual/arca-baby-hora.webp", trecho: "A Bíblia conta que o mundo estava fazendo coisas que deixou o coração de Deus triste, porque as pessoas estavam desobedecendo muito a Deus." },
-  { faixa: "Kids", idade: "4 a 6 anos", src: "/plano-anual/arca-kids-hora.webp", trecho: "A Bíblia conta que o mundo ficou cheio de pecado, porque as pessoas estavam desobedecendo muito a Deus." },
-  { faixa: "Júnior", idade: "7 a 10 anos", src: "/plano-anual/arca-junior-hora.webp", trecho: "Mas ele escolheu fazer o certo e obedeceu a Deus, mesmo quando ninguém ao seu redor fazia isso." },
+  { faixa: "Baby", idade: "1 a 3 anos", src: "/plano-anual/arca-baby-hora.webp", trecho: "Vocês já ouviram a mamãe ou o papai dizendo: “Vamos escovar os dentinhos?” ou “Guarde os brinquedos”?" },
+  { faixa: "Kids", idade: "4 a 6 anos", src: "/plano-anual/arca-kids-hora.webp", trecho: "Obediência é quando a gente faz o que alguém nos pede com carinho e atenção. Pode ser o papai, a mamãe, a professora... e principalmente Deus!" },
+  { faixa: "Júnior", idade: "7 a 10 anos", src: "/plano-anual/arca-junior-hora.webp", trecho: "Significa que a gente não obedece só porque alguém está olhando, mas porque a gente ama a Deus e sabe que os Seus ensinamentos são o melhor para nós." },
 ];
 
 // Depoimentos REAIS enviados pela Thali. Enquanto vazio, a secao nao renderiza.

@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { HISTORIAS, AULAS_ARCA, PECAS, FAIXAS, FAQ, OFERTA, KIWIFY_URL, DEPOIMENTOS } from "./dados.js";
+import { HISTORIAS, AULAS_ARCA, PECAS, ANOTACOES, FAIXAS, DEPOIMENTOS, FAQ, OFERTA, KIWIFY_URL } from "./dados.js";
 
 const pub = (src) => join(process.cwd(), "public", src);
 
@@ -45,7 +45,7 @@ test("depoimentos: array (vazio ate a Thali mandar)", () => {
 });
 
 test("nada de portugues de Portugal nos textos", () => {
-  const tudo = JSON.stringify({ AULAS_ARCA, PECAS, FAIXAS, FAQ });
+  const tudo = JSON.stringify({ AULAS_ARCA, PECAS, ANOTACOES, FAIXAS, HISTORIAS, DEPOIMENTOS, FAQ });
   for (const pt of ["está a ", "de seguida", "ecrã", "miúdos", "ficheiro", "estás a "]) {
     assert.ok(!tudo.includes(pt), `PT-PT encontrado: ${pt}`);
   }
