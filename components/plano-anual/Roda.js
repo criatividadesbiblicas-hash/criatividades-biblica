@@ -53,10 +53,15 @@ export default function Roda({ historias }) {
   if (reduzido) {
     return (
       <div className="flex items-end justify-center gap-4 overflow-x-auto px-4 py-6">
+        {/* A capa maior e a mesma que a roda mostra de frente em repouso (indice 0),
+            e a legenda carrega o numero de estudos igual a versao com movimento. */}
         {historias.map((h, i) => (
-          <figure key={h.slug} className={`shrink-0 text-center ${i === 2 ? "w-56" : "w-36 opacity-80"}`}>
+          <figure key={h.slug} className={`shrink-0 text-center ${i === 0 ? "w-56" : "w-36 opacity-80"}`}>
             <Image src={h.src} alt={`Capa: ${h.nome}`} width={900} height={1273} className="rounded-[12px] border-4 border-white shadow-[0_18px_40px_-16px_rgba(11,60,100,0.35)]" />
-            <figcaption className="mt-2 text-sm font-bold">{h.nome}</figcaption>
+            <figcaption className="mt-2 text-sm font-bold">
+              {h.nome}
+              <span className="mt-0.5 block text-[13px] font-semibold text-pa-tinta/75">{h.estudos} estudos</span>
+            </figcaption>
           </figure>
         ))}
       </div>

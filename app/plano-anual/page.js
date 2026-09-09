@@ -91,11 +91,13 @@ export default function PlanoAnualPage() {
       <main>
         {/* 1. Hero: a promessa, sem preço */}
         <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#eaf6ff_100%)]">
-          <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 pb-14 pt-10 md:grid-cols-[1.1fr_1fr] md:px-8 md:pb-20 md:pt-16">
+          {/* A coluna do titulo so divide o hero em duas a partir de xl: em 768-1279px a coluna
+              de 1.1fr dava 344-570px, e o titulo de 65.6px quebrava em 6 a 8 linhas. */}
+          <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 pb-14 pt-10 md:px-8 md:pb-20 md:pt-16 xl:grid-cols-[1.1fr_1fr]">
             <div className="relative z-10">
-              <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-campo">Plano Anual Biblinho · Baby, Kids e Júnior</p>
+              <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-campo-escuro">Plano Anual Biblinho · Baby, Kids e Júnior</p>
               <h1 className="mt-4 text-balance font-display text-[2.7rem] leading-[1.02] text-pa-tinta md:text-[4.1rem]">
-                Cinquenta e dois domingos.
+                <span className="whitespace-nowrap">Cinquenta e dois</span> domingos.
                 <br />
                 <span className="text-pa-campo">Uma história por mês.</span>
                 <br />
@@ -110,7 +112,7 @@ export default function PlanoAnualPage() {
                 </Botao>
               </div>
             </div>
-            <div className="relative mx-auto aspect-[5/4] w-full max-w-lg md:max-w-none">
+            <div className="relative mx-auto aspect-[5/4] w-full max-w-lg xl:max-w-none">
               <Image src={HISTORIAS[0].src} alt="" width={900} height={1273} priority className="pa-flutua absolute left-[2%] top-[10%] hidden h-[72%] w-auto rounded-[12px] border-4 border-white shadow-[0_28px_44px_-18px_rgba(11,60,100,0.45)] sm:block" style={{ "--r": "-8deg", "--dur": "7.5s", "--delay": "0.4s" }} />
               <Image src={HISTORIAS[1].src} alt={`Capa do material: ${HISTORIAS[1].nome}`} width={900} height={1273} priority className="pa-flutua absolute left-[30%] top-[2%] z-10 h-[86%] w-auto rounded-[12px] border-4 border-white shadow-[0_34px_54px_-18px_rgba(11,60,100,0.5)]" style={{ "--r": "2deg", "--dur": "6.4s" }} />
               <Image src={HISTORIAS[2].src} alt="" width={900} height={1273} priority className="pa-flutua absolute left-[60%] top-[12%] h-[70%] w-auto rounded-[12px] border-4 border-white shadow-[0_28px_44px_-18px_rgba(11,60,100,0.45)]" style={{ "--r": "8deg", "--dur": "8.2s", "--delay": "1s" }} />
@@ -136,7 +138,9 @@ export default function PlanoAnualPage() {
         </section>
 
         {/* 3. O diagnóstico */}
-        <section className="bg-pa-campo text-white">
+        {/* Campo verde escuro: sobre pa-campo (#2a8a3e) nenhuma cor de texto passa de 4,37:1,
+            entao nem o corpo branco alcancava AA. pa-campo-escuro leva o corpo pra 5,6:1. */}
+        <section className="bg-pa-campo-escuro text-white">
           <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
             <h2 className="text-balance font-display text-[2.2rem] leading-[1.06] md:text-[3.2rem]">
               Não é falta de esforço. <span className="text-pa-sol">É falta de sequência.</span>
@@ -191,9 +195,9 @@ export default function PlanoAnualPage() {
                   </div>
                   <h3 className="mt-5 font-display text-[1.35rem] leading-tight text-pa-tinta">{a.titulo}</h3>
                   <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/75">{a.texto}</p>
-                  <p className="mt-3 font-display text-base text-pa-campo">{a.licao}</p>
+                  <p className="mt-3 font-display text-base text-pa-campo-escuro">{a.licao}</p>
                   <p className="mt-2 text-[14px] italic leading-relaxed text-pa-tinta/75">
-                    "{a.verso}" <span className="not-italic font-bold">{a.ref}</span>
+                    “{a.verso}” <span className="not-italic font-bold">{a.ref}</span>
                   </p>
                 </li>
               ))}
@@ -280,7 +284,7 @@ export default function PlanoAnualPage() {
         </section>
 
         {/* 10. Bônus Baby (permanente) */}
-        <section id="bonus" className="bg-pa-campo text-white">
+        <section id="bonus" className="bg-pa-campo-escuro text-white">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[0.9fr_1.1fr] md:px-8 md:py-24">
             <div className="relative mx-auto w-full max-w-sm">
               <Leque imagens={["/arca-de-noe/ativ-baby-1.webp", "/arca-de-noe/capa-baby.webp", "/arca-de-noe/ativ-baby-4.webp"]} alt="Páginas reais do material Baby" />
@@ -307,7 +311,7 @@ export default function PlanoAnualPage() {
               <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {DEPOIMENTOS.map((d, i) => (
                   <li key={d.name} className={`relative rounded-[1.75rem] bg-pa-ceu-claro p-6 ${i % 3 === 1 ? "lg:mt-8" : ""}`}>
-                    <blockquote className="text-[16px] font-medium leading-relaxed text-pa-tinta/90">"{d.quote}"</blockquote>
+                    <blockquote className="text-[16px] font-medium leading-relaxed text-pa-tinta/90">“{d.quote}”</blockquote>
                     <figcaption className="mt-5 flex items-center gap-3">
                       <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${d.cor}`}>{d.iniciais}</span>
                       <span>
@@ -349,7 +353,7 @@ export default function PlanoAnualPage() {
                   </p>
                   <p className="mt-1 text-[17px] font-bold text-pa-tinta">ou {OFERTA.parcela}</p>
                   <Botao className="mt-7 w-full sm:w-auto">Quero o Plano Anual</Botao>
-                  <p className="mt-3 text-[13px] font-semibold text-pa-tinta/65">Pix, boleto ou cartão · pagamento seguro pela Kiwify</p>
+                  <p className="mt-3 text-[13px] font-semibold text-pa-tinta/70">Pix, boleto ou cartão · pagamento seguro pela Kiwify</p>
                   <div className="mt-7 flex items-center gap-4 rounded-[1.25rem] bg-pa-ceu-claro p-4">
                     <Image src="/emocoes/garantia.png" alt="Selo: 7 dias de garantia ou seu dinheiro de volta" width={454} height={390} className="w-16 shrink-0" />
                     <p className="text-[14px] font-medium leading-relaxed text-pa-tinta/80"><strong className="font-bold text-pa-tinta">7 dias de garantia.</strong> Se o material não for o que você esperava, devolvemos o valor inteiro. Sem burocracia.</p>

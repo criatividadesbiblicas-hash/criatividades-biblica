@@ -195,7 +195,9 @@ body:has(> .arca) { background: #ffffff; }
   scrollbar-color: var(--color-pa-campo) var(--color-pa-ceu-claro);
 }
 .pa ::selection { background: var(--color-pa-sol); color: var(--color-pa-tinta); }
-.pa :focus-visible { outline: 3px solid var(--color-pa-campo); outline-offset: 3px; border-radius: 999px; }
+/* O anel de foco segue o raio do proprio elemento: forcar pilula aqui deformava o
+   foco da roda (regiao de 1024x460, o anel virava uma lozango) e o do item de FAQ. */
+.pa :focus-visible { outline: 3px solid var(--color-pa-campo); outline-offset: 3px; }
 .pa a { text-underline-offset: 0.18em; }
 body:has(> .pa) { background: #ffffff; }
 
@@ -222,8 +224,9 @@ body:has(> .pa) { background: #ffffff; }
 .pa header a[href="#oferta"]:hover { background: #ffd15a; }
 .pa footer { background: #ffffff; border-color: #cfe7f7; }
 .pa footer p, .pa footer a, .pa footer div { color: #22303f; }
-.pa footer .text-cacau\/50, .pa footer .text-cacau\/70 { color: rgba(34, 48, 63, 0.6); }
-.pa footer a:hover { color: #2a8a3e; }
+/* 0.72 e o piso pra 12-14px sobre branco ficar em 5.4:1; com 0.6 media 3.85:1 e reprovava AA. */
+.pa footer .text-cacau\/50, .pa footer .text-cacau\/70 { color: rgba(34, 48, 63, 0.72); }
+.pa footer a:hover { color: #1f6b2f; }
 .pa footer > div:last-child { border-color: #cfe7f7; }
 
 /* FAQ compartilhado vestido */
