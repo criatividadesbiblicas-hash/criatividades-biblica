@@ -11,13 +11,14 @@
 */
 import Image from "next/image";
 import { Lilita_One } from "next/font/google";
-import { ArrowDown } from "@phosphor-icons/react/dist/ssr";
+import { ArrowDown, CheckCircle, Gift } from "@phosphor-icons/react/dist/ssr";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Roda from "@/components/plano-anual/Roda";
 import Tracking from "@/components/plano-anual/Tracking";
 import Leque from "@/components/arca/Leque";
-import { KIWIFY_URL, OFERTA, HISTORIAS, FAQ, AULAS_ARCA, PECAS, ANOTACOES, FAIXAS } from "@/components/plano-anual/dados";
+import FaqItem from "@/components/FaqItem";
+import { KIWIFY_URL, OFERTA, HISTORIAS, FAQ, AULAS_ARCA, PECAS, ANOTACOES, FAIXAS, DEPOIMENTOS } from "@/components/plano-anual/dados";
 
 const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
 
@@ -278,8 +279,126 @@ export default function PlanoAnualPage() {
           </div>
         </section>
 
-        <section id="oferta" className="bg-white py-16 text-center">
-          <Botao>Quero o Plano Anual</Botao>
+        {/* 10. Bônus Baby (permanente) */}
+        <section id="bonus" className="bg-pa-campo text-white">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[0.9fr_1.1fr] md:px-8 md:py-24">
+            <div className="relative mx-auto w-full max-w-sm">
+              <Leque imagens={["/arca-de-noe/ativ-baby-1.webp", "/arca-de-noe/capa-baby.webp", "/arca-de-noe/ativ-baby-4.webp"]} alt="Páginas reais do material Baby" />
+            </div>
+            <div>
+              <h2 className="text-balance font-display text-[2rem] leading-[1.08] md:text-[2.75rem]">Do berçário ao Júnior, todo mês.</h2>
+              <p className="mt-5 text-[17px] font-medium leading-relaxed text-white/90 md:text-xl">
+                Junto com o Plano vai o <strong className="text-pa-sol">material Baby completo</strong> (1 a 3 anos) de todas as doze histórias: apostila, atividades, balão de história, lembrancinha e carta pra família. Sem custo. Pra ninguém ficar de fora.
+              </p>
+              <ul className="mt-7 space-y-3 text-[16px] font-semibold">
+                <li className="flex items-start gap-3"><Gift size={24} weight="fill" className="mt-0.5 shrink-0 text-pa-sol" />O berçário recebe a mesma história que o Kids e o Júnior, no mesmo mês</li>
+                <li className="flex items-start gap-3"><Gift size={24} weight="fill" className="mt-0.5 shrink-0 text-pa-sol" />Linguagem de colo: frases curtas, gesto, repetição, oração simples</li>
+                <li className="flex items-start gap-3"><Gift size={24} weight="fill" className="mt-0.5 shrink-0 text-pa-sol" />Uma igreja, uma história, três faixas</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* 11. Quem já usa (só com depoimentos reais) */}
+        {DEPOIMENTOS.length > 0 ? (
+          <section className="bg-white">
+            <div className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-24">
+              <H2>Quem dá aula com o Plano.</H2>
+              <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {DEPOIMENTOS.map((d, i) => (
+                  <li key={d.name} className={`relative rounded-[1.75rem] bg-pa-ceu-claro p-6 ${i % 3 === 1 ? "lg:mt-8" : ""}`}>
+                    <blockquote className="text-[16px] font-medium leading-relaxed text-pa-tinta/90">"{d.quote}"</blockquote>
+                    <figcaption className="mt-5 flex items-center gap-3">
+                      <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${d.cor}`}>{d.iniciais}</span>
+                      <span>
+                        <span className="block font-display text-base text-pa-tinta">{d.name}</span>
+                        <span className="block text-[13px] font-semibold text-pa-tinta/75">{d.role}</span>
+                      </span>
+                    </figcaption>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        ) : null}
+
+        {/* 12. Oferta */}
+        <section id="oferta" className="bg-white">
+          <div className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
+            <H2 className="text-center">Quanto custa um ano de aula pronta.</H2>
+            <div className="mt-10 overflow-hidden rounded-[2.25rem] bg-pa-ceu-claro shadow-[0_24px_60px_-30px_rgba(11,60,100,0.45)]">
+              <div className="grid md:grid-cols-[0.85fr_1.15fr]">
+                <div className="relative flex items-center justify-center p-8 md:p-10">
+                  <div className="relative h-72 w-full max-w-[16rem] md:h-96 md:max-w-[20rem]">
+                    <Image src={HISTORIAS[2].src} alt="" width={900} height={1273} className="absolute left-0 top-4 h-[85%] w-auto -rotate-6 rounded-[10px] border-4 border-white shadow-[0_18px_36px_-14px_rgba(11,60,100,0.45)]" />
+                    <Image src={HISTORIAS[0].src} alt="Capas do material" width={900} height={1273} className="absolute left-[22%] top-0 z-10 h-[92%] w-auto rotate-2 rounded-[10px] border-4 border-white shadow-[0_24px_40px_-14px_rgba(11,60,100,0.5)]" />
+                    <Image src="/arca-de-noe/capa-baby.webp" alt="Capa Baby, bônus" width={1000} height={1415} className="absolute bottom-0 right-0 z-20 h-[48%] w-auto rotate-6 rounded-[10px] shadow-[0_18px_36px_-14px_rgba(11,60,100,0.45)] ring-4 ring-pa-sol" />
+                  </div>
+                </div>
+                <div className="bg-white p-8 md:p-10">
+                  <h3 className="font-display text-[1.6rem] leading-tight text-pa-tinta">Plano Anual Biblinho</h3>
+                  <ul className="mt-5 space-y-2.5 text-[15px] font-medium text-pa-tinta/85">
+                    {["Material Kids (4 a 6) completo, 12 histórias", "Material Júnior (7 a 10) completo, 12 histórias", "Bônus: material Baby (1 a 3) completo, 12 histórias", "Uma história nova por mês, durante 12 meses"].map((item) => (
+                      <li key={item} className="flex items-start gap-2.5"><CheckCircle size={22} weight="fill" className="mt-0.5 shrink-0 text-pa-campo" />{item}</li>
+                    ))}
+                  </ul>
+                  <p className="mt-8 text-[15px] font-semibold text-pa-tinta/75">De <s>{OFERTA.de}</s> por</p>
+                  <p className="mt-1 flex flex-wrap items-end gap-x-3">
+                    <span className="font-display text-[3.4rem] leading-none text-pa-campo">{OFERTA.por}</span>
+                    <span className="pb-2 text-[15px] font-semibold text-pa-tinta/75">à vista</span>
+                  </p>
+                  <p className="mt-1 text-[17px] font-bold text-pa-tinta">ou {OFERTA.parcela}</p>
+                  <Botao className="mt-7 w-full sm:w-auto">Quero o Plano Anual</Botao>
+                  <p className="mt-3 text-[13px] font-semibold text-pa-tinta/65">Pix, boleto ou cartão · pagamento seguro pela Kiwify</p>
+                  <div className="mt-7 flex items-center gap-4 rounded-[1.25rem] bg-pa-ceu-claro p-4">
+                    <Image src="/emocoes/garantia.png" alt="Selo: 7 dias de garantia ou seu dinheiro de volta" width={454} height={390} className="w-16 shrink-0" />
+                    <p className="text-[14px] font-medium leading-relaxed text-pa-tinta/80"><strong className="font-bold text-pa-tinta">7 dias de garantia.</strong> Se o material não for o que você esperava, devolvemos o valor inteiro. Sem burocracia.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 13a. Como funciona */}
+        <section className="bg-pa-ceu-claro">
+          <div className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-20">
+            <H2 className="text-center">Como funciona.</H2>
+            <ol className="mt-10 grid gap-6 md:grid-cols-3">
+              {[
+                { n: 1, t: "Você assina pela Kiwify.", d: "Pix, boleto ou cartão. O acesso chega no seu e-mail assim que o pagamento é aprovado." },
+                { n: 2, t: "A primeira história abre na hora.", d: "Parábola do Semeador: apostila, quadro, atividades, versículo, lembrancinha e carta pra família. Baixa, imprime, dá a aula." },
+                { n: 3, t: "Todo mês, uma história nova.", d: "Durante 12 meses. Kids, Júnior e Baby na mesma história, no mesmo mês." },
+              ].map((p) => (
+                <li key={p.n} className="rounded-[1.75rem] bg-white p-6">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pa-sol font-display text-xl text-pa-tinta">{p.n}</span>
+                  <h3 className="mt-4 font-display text-[1.3rem] leading-tight text-pa-tinta">{p.t}</h3>
+                  <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/75">{p.d}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* 13b. FAQ */}
+        <section className="bg-white">
+          <div className="mx-auto max-w-2xl px-5 py-16 md:px-8 md:py-20">
+            <H2>Perguntas que sempre chegam.</H2>
+            <div className="mt-8">
+              {FAQ.map((item) => <FaqItem key={item.q} question={item.q} answer={item.a} />)}
+            </div>
+          </div>
+        </section>
+
+        {/* 13c. Fechamento */}
+        <section className="bg-[linear-gradient(180deg,#eaf6ff_0%,#dcefff_100%)] text-center">
+          <div className="mx-auto max-w-2xl px-5 py-20 md:py-28">
+            <Image src={HISTORIAS[0].src} alt="" width={900} height={1273} className="pa-flutua mx-auto h-52 w-auto rounded-[12px] border-4 border-white shadow-[0_18px_40px_-16px_rgba(11,60,100,0.45)]" style={{ "--dur": "6s", "--r": "-3deg" }} />
+            <H2 className="mt-8">Domingo que vem pode ser sobre o Semeador.</H2>
+            <Texto className="mt-3">Assina hoje, baixa em minutos, imprime amanhã.</Texto>
+            <Botao className="mt-8">Quero o Plano Anual</Botao>
+            <p className="mt-4 text-[14px] font-semibold text-pa-tinta/70">{OFERTA.por} à vista ou {OFERTA.parcela} · 7 dias de garantia</p>
+          </div>
         </section>
       </main>
       <Footer showNav={false} />
