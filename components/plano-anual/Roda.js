@@ -114,16 +114,18 @@ export default function Roda({ historias }) {
                     alt={i === frente ? `Capa: ${h.nome}` : ""}
                     width={900}
                     height={1273}
-                    sizes="220px"
-                    priority={i < 3}
+                    sizes="260px"
                     draggable={false}
                     className="pointer-events-none block w-full rounded-[12px] border-4 border-white shadow-[0_22px_48px_rgba(11,60,100,0.28)]"
                   />
                   <span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[12px] bg-pa-ceu-claro transition-opacity duration-300" style={{ opacity: s.veu }} />
+                  {/* Reflexo: escondido abaixo de md (o celular nunca busca essa imagem) e, no desktop,
+                      aponta pra rota otimizada do Next (mesmo cache da capa já pedida acima) em vez do
+                      arquivo bruto de 900px — a versao anterior baixava ~1,3MB extra por carga. */}
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute left-0 right-0 top-full mt-1.5 h-[70px] rounded-[12px] opacity-[0.14] blur-[1px] [mask-image:linear-gradient(#000,transparent)]"
-                    style={{ background: `url(${h.src}) center top / 100% auto no-repeat`, transform: "scaleY(-1)" }}
+                    className="pointer-events-none absolute left-0 right-0 top-full mt-1.5 hidden h-[70px] rounded-[12px] opacity-[0.14] blur-[1px] [mask-image:linear-gradient(#000,transparent)] md:block"
+                    style={{ background: `url(/_next/image?url=${encodeURIComponent(h.src)}&w=384&q=70) center top / 100% auto no-repeat`, transform: "scaleY(-1)" }}
                   />
                 </div>
               </figure>
@@ -134,7 +136,7 @@ export default function Roda({ historias }) {
 
       <p className="min-h-[3.25rem] text-center" aria-live="polite">
         <span className="block font-display text-[1.35rem] text-pa-tinta">{historias[frente].nome}</span>
-        <span className="block text-sm font-semibold text-pa-tinta/70">{historias[frente].estudos} estudos</span>
+        <span className="block text-sm font-semibold text-pa-tinta/75">{historias[frente].estudos} estudos</span>
       </p>
 
       <div className="mt-3 flex items-center justify-center gap-3">
@@ -145,7 +147,7 @@ export default function Roda({ historias }) {
           <CaretRight size={22} weight="bold" />
         </button>
       </div>
-      <p className="mt-3 text-center text-[13px] font-semibold text-pa-tinta/60">arrasta pro lado ou usa as setas</p>
+      <p className="mt-3 text-center text-[13px] font-semibold text-pa-tinta/75">arrasta pro lado ou usa as setas</p>
     </div>
   );
 }

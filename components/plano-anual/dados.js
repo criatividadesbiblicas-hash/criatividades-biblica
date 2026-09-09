@@ -36,7 +36,7 @@ export const PECAS = [
   { titulo: "Quadro de história", texto: "Lâminas grandes pra contar mostrando. A criança vê a cena enquanto ouve, e a história gruda.", imagens: ["/plano-anual/semeador-quadro.webp", "/arca-de-noe/quadro-noe.webp", "/plano-anual/prodigo-quadro.webp", "/arca-de-noe/quadro-animais.webp", "/arca-de-noe/quadro-arcoiris.webp"] },
   { titulo: "Atividades das crianças", texto: "Uma folha por estudo, em cada faixa. Pintar, recortar, colar, montar. A mão trabalha e a lição fica.", imagens: ["/arca-de-noe/ativ-kids-1.webp", "/plano-anual/zaqueu-atividade.webp", "/arca-de-noe/ativ-junior-2.webp", "/arca-de-noe/ativ-kids-3.webp", "/arca-de-noe/ativ-junior-4.webp"] },
   { titulo: "Versículo pra parede", texto: "O versículo do mês em cartaz. No Júnior, um por estudo. Decorar vira parte da sala.", imagens: ["/arca-de-noe/versiculo-junior-1.webp", "/arca-de-noe/versiculo-kids.webp", "/plano-anual/prodigo-versiculo.webp"], paisagem: true },
-  { titulo: "Lembrancinha", texto: "Em papel 180g. A criança sai da aula com a história na mão e conta em casa.", imagens: ["/arca-de-noe/lembranca.webp", "/plano-anual/prodigo-lembranca.webp"], paisagem: true },
+  { titulo: "Lembrancinha", texto: "Imprime em papel 180g. A criança sai da aula com a história na mão e conta em casa.", imagens: ["/arca-de-noe/lembranca.webp", "/plano-anual/prodigo-lembranca.webp"], paisagem: true },
   { titulo: "Carta pra família", texto: "Uma página explicando o que a criança aprendeu no mês e como continuar em casa. A aula não termina no domingo.", imagens: ["/arca-de-noe/querida-familia.webp", "/plano-anual/zaqueu-familia.webp"], largo: true },
 ];
 

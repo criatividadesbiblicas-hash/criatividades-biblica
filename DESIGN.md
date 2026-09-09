@@ -376,7 +376,7 @@ Rejeições confirmadas no build: fundo creme, numeração ou ordem na roda (nad
 ## Typography
 
 **Display Font:** Lilita One (peso único 400 — **a fonte não publica outro peso**; carregada via `next/font/google` em `app/plano-anual/page.js` com `weight: "400"`. Ênfase vem de cor e tamanho, nunca de negrito ou itálico, porque não existe variante pra sintetizar)
-**Body Font:** Nunito (carregada em `app/layout.js`, compartilhada com o resto do site, pesos `["400","600","700","800"]` — **não inclui 500**. As classes `font-medium` usadas no corpo desta página pedem peso 500, que a fonte não tem carregado; o navegador resolve pro peso disponível mais próximo, 600. Na prática, o corpo lê em 600/700/800, não em 500/700/800 como o companion visual original previa — vale registrar aqui, não corrigir escondido)
+**Body Font:** Nunito (carregada em `app/layout.js`, compartilhada com o resto do site, pesos `["400","500","600","700","800"]`. O peso 500 foi acrescentado especificamente pra suportar as classes `font-medium` usadas no corpo desta página; é inerte nas outras rotas — `font-medium` só aparece nesta página e em `/aprendendo-a-obedecer`, e essa última usa Quicksand, não Nunito, como fonte de corpo, já carregada com o peso 500 dela mesma)
 
 ### Hierarchy (levantada em `app/plano-anual/page.js` e `components/plano-anual/Roda.js`)
 - **Display** (400, `text-balance`, leading 1.02–1.08): H1 do hero, três linhas (2,7rem → 4,1rem no `md`), e o H2 que nomeia o produto na virada, "Foi pra esse ano que existe o Plano Anual Biblinho." (2,4rem → 3,5rem).
@@ -393,7 +393,7 @@ Rejeições confirmadas no build: fundo creme, numeração ou ordem na roda (nad
 ### Named Rules
 **A Regra do Peso Único do Display.** Lilita One só existe em 400. Se um título precisa de mais peso visual, o recurso é tamanho ou cor (`pa-campo`, `pa-laranja`), nunca negrito forçado pelo navegador sobre uma fonte que não tem essa variante.
 
-**A Regra do Corpo Redondo.** Nunito carrega o texto corrido em 400/600/700/800 (ver nota acima sobre o 500 ausente); a letra é geométrica e redonda, mantendo a mesma leitura confortável em 17–20px do mundo Arca.
+**A Regra do Corpo Redondo.** Nunito carrega o texto corrido em 400/500/600/700/800 (ver nota acima sobre o 500 acrescentado pra esta página); a letra é geométrica e redonda, mantendo a mesma leitura confortável em 17–20px do mundo Arca.
 
 ## Shapes
 

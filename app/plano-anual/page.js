@@ -26,7 +26,7 @@ const HOST = "https://materiais.criatividadesbiblicas.com.br";
 const PAGE_URL = `${HOST}/plano-anual`;
 const TITLE = "Plano Anual Biblinho: um ano de aula bíblica pronta | Criatividades Bíblicas";
 const DESCRIPTION =
-  "Uma história bíblica por mês, com a aula pronta pra Kids (4 a 6) e Júnior (7 a 10) e o material Baby de bônus: apostila com a fala da professora, quadro de história, atividades, versículo e lembrancinha. R$ 597 à vista ou 12x de R$ 61,74.";
+  `Uma história bíblica por mês, com a aula pronta pra Kids (4 a 6) e Júnior (7 a 10) e o material Baby de bônus: apostila com a fala da professora, quadro de história, atividades, versículo e lembrancinha. ${OFERTA.por} à vista ou ${OFERTA.parcela}.`;
 
 export const metadata = {
   title: TITLE,
@@ -96,7 +96,7 @@ export default function PlanoAnualPage() {
           <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 pb-14 pt-10 md:px-8 md:pb-20 md:pt-16 xl:grid-cols-[1.1fr_1fr]">
             <div className="relative z-10">
               <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-campo-escuro">Plano Anual Biblinho · Baby, Kids e Júnior</p>
-              <h1 className="mt-4 text-balance font-display text-[2.7rem] leading-[1.02] text-pa-tinta md:text-[4.1rem]">
+              <h1 className="mt-4 text-balance font-display text-[2.35rem] leading-[1.02] text-pa-tinta min-[360px]:text-[2.7rem] md:text-[4.1rem]">
                 <span className="whitespace-nowrap">Cinquenta e dois</span> domingos.
                 <br />
                 <span className="text-pa-campo">Uma história por mês.</span>
@@ -113,9 +113,9 @@ export default function PlanoAnualPage() {
               </div>
             </div>
             <div className="relative mx-auto aspect-[5/4] w-full max-w-lg xl:max-w-none">
-              <Image src={HISTORIAS[0].src} alt="" width={900} height={1273} priority className="pa-flutua absolute left-[2%] top-[10%] hidden h-[72%] w-auto rounded-[12px] border-4 border-white shadow-[0_28px_44px_-18px_rgba(11,60,100,0.45)] sm:block" style={{ "--r": "-8deg", "--dur": "7.5s", "--delay": "0.4s" }} />
+              <Image src={HISTORIAS[0].src} alt="" width={900} height={1273} className="pa-flutua absolute left-[2%] top-[10%] hidden h-[72%] w-auto rounded-[12px] border-4 border-white shadow-[0_28px_44px_-18px_rgba(11,60,100,0.45)] sm:block" style={{ "--r": "-8deg", "--dur": "7.5s", "--delay": "0.4s" }} />
               <Image src={HISTORIAS[1].src} alt={`Capa do material: ${HISTORIAS[1].nome}`} width={900} height={1273} priority className="pa-flutua absolute left-[30%] top-[2%] z-10 h-[86%] w-auto rounded-[12px] border-4 border-white shadow-[0_34px_54px_-18px_rgba(11,60,100,0.5)]" style={{ "--r": "2deg", "--dur": "6.4s" }} />
-              <Image src={HISTORIAS[2].src} alt="" width={900} height={1273} priority className="pa-flutua absolute left-[60%] top-[12%] h-[70%] w-auto rounded-[12px] border-4 border-white shadow-[0_28px_44px_-18px_rgba(11,60,100,0.45)]" style={{ "--r": "8deg", "--dur": "8.2s", "--delay": "1s" }} />
+              <Image src={HISTORIAS[2].src} alt="" width={900} height={1273} className="pa-flutua absolute left-[60%] top-[12%] h-[70%] w-auto rounded-[12px] border-4 border-white shadow-[0_28px_44px_-18px_rgba(11,60,100,0.45)]" style={{ "--r": "8deg", "--dur": "8.2s", "--delay": "1s" }} />
             </div>
           </div>
         </section>
@@ -209,7 +209,7 @@ export default function PlanoAnualPage() {
         <section className="bg-pa-ceu-claro">
           <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
             <H2>O que chega todo mês.</H2>
-            <Texto className="mt-4 max-w-[56ch]">Kids e Júnior, cada um com o material completo, e o Baby de bônus. As imagens abaixo são páginas de verdade, sem mockup.</Texto>
+            <Texto className="mt-4 max-w-[56ch]">Kids e Júnior, cada um com o material completo, e o Baby de bônus. As imagens abaixo são páginas de verdade, sem mockup — você imprime em casa, na igreja ou na gráfica.</Texto>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {PECAS.map((p) => (
                 <article key={p.titulo} className={`flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] ${p.grande ? "sm:col-span-2 lg:col-span-2 lg:flex-row" : ""} ${p.largo ? "sm:col-span-2 lg:col-span-3 sm:flex-row" : ""}`}>
@@ -276,7 +276,7 @@ export default function PlanoAnualPage() {
                     <Image src={f.src} alt={`Página real da apostila ${f.faixa}: Hora da História da Arca de Noé`} fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover object-top" />
                     <span className="absolute bottom-4 left-4 rounded-full bg-pa-sol px-3 py-1 font-display text-sm text-pa-tinta">{f.faixa} · {f.idade}</span>
                   </div>
-                  <blockquote className="p-6 text-[15px] font-medium italic leading-relaxed text-pa-tinta/85">"{f.trecho}"</blockquote>
+                  <blockquote className="p-6 text-[15px] font-medium italic leading-relaxed text-pa-tinta/85">“{f.trecho}”</blockquote>
                 </article>
               ))}
             </div>
