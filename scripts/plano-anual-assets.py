@@ -16,6 +16,11 @@ def pdf(rel_glob):
     hits = glob.glob(os.path.join(BASE, rel_glob))
     if not hits:
         raise SystemExit(f"PDF nao encontrado: {rel_glob}")
+    if len(hits) > 1:
+        raise SystemExit(
+            f"PDF ambiguo: '{rel_glob}' bateu em {len(hits)} arquivos, "
+            f"esperava exatamente 1: {hits}"
+        )
     return hits[0]
 
 # (nome, glob relativo a BASE, pagina 1-based, largura final)
@@ -52,17 +57,17 @@ APOSTILAS_ARCA = {
     "arca-junior-hora": ("4 ARCA DE NOE/3 JUNIOR/2 APOSTILA/J*NIOR APOSTILA PROFESSOR*.pdf", 12),
 }
 
-def render(rel, page, width, dest_png):
-    doc = pymupdf.open(pdf(rel))
+def render(origem, page, width, dest_png):
+    doc = pymupdf.open(origem)
     pg = doc[page - 1]
     zoom = width / pg.rect.width
     pix = pg.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom), alpha=False)
     pix.save(dest_png)
-    return pdf(rel)
 
 def salvar(nome, rel, page, width):
+    origem = pdf(rel)  # resolvido uma unica vez; render() e o sidecar usam o mesmo caminho
     tmp = os.path.join(OUT, nome + ".png")
-    origem = render(rel, page, width, tmp)
+    render(origem, page, width, tmp)
     img = Image.open(tmp).convert("RGB")
     img.save(os.path.join(OUT, nome + ".webp"), "WEBP", quality=82, method=6)
     os.remove(tmp)
