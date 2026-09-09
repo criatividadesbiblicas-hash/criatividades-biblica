@@ -205,7 +205,7 @@ function Escotilha({ src, alt, n }) {
     <div className="relative mx-auto aspect-square w-full max-w-[15rem] [container-type:inline-size]">
       <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_25%,#d9a15f,#b8783a_55%,#8a5527)] shadow-[0_18px_34px_-14px_rgba(23,50,77,0.55)]" />
       <div className="absolute inset-[9%] overflow-hidden rounded-full ring-4 ring-arca-areia/70">
-        <Image src={src} alt={alt} fill sizes="(min-width: 768px) 22vw, 60vw" className="object-cover object-top" />
+        <Image src={src} alt={alt} fill sizes="(min-width: 768px) 22vw, 60vw" className="scale-[1.42] object-cover object-[center_46%]" />
       </div>
       {[0, 90, 180, 270].map((g) => (
         <span
@@ -252,9 +252,9 @@ export default function ArcaDeNoePage() {
   const JSON_LD = montarJsonLd(FAQ);
   return (
     <div className={`arca ${baloo.variable} ${quicksand.variable}`}>
-      <Nav cta={{ label: "Quero o Pack", href: "#oferta" }} links={[]} logoHref="/aprendendo-a-obedecer" />
+      <Nav cta={{ label: "Quero o Pack", href: "#pack" }} links={[]} logoHref="/aprendendo-a-obedecer" />
       <Tracking />
-      <BarraContador href={KIWIFY_URL} />
+      <BarraContador href="#oferta" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
 
       <main>

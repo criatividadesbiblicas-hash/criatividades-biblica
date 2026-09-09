@@ -53,7 +53,8 @@ export function ContadorBlocos({ className = "" }) {
 
 // Barra fixa no rodapé. Só aparece depois que a visitante viu o bônus (sentinela #bonus),
 // pra não entregar preço antes da história. Some quando a oferta está na tela.
-export function BarraContador({ href, label = "Quero o Pack por R$ 67" }) {
+// O botão leva pro bloco da oferta (não pro checkout): a compra acontece só no card de preço.
+export function BarraContador({ href, label = "Quero o Pack" }) {
   const { r, pronto } = useRestante();
   const [liberada, setLiberada] = useState(false);
   const [sobreOferta, setSobreOferta] = useState(false);
@@ -78,8 +79,6 @@ export function BarraContador({ href, label = "Quero o Pack por R$ 67" }) {
         </p>
         <a
           href={href}
-          target="_blank"
-          rel="noopener noreferrer"
           className="shrink-0 rounded-full bg-arca-sol px-5 py-2.5 font-display text-[15px] font-extrabold text-arca-tinta transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
         >
           {label}
