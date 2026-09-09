@@ -26,3 +26,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# impeccable: capturas de revisão (pesadas)
+/.impeccable/review/

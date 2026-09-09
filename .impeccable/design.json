@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-08T21:20:00-03:00",
+  "title": "Design System: Criatividades Bíblicas — mundo Arca / Packs",
+  "scope": {
+    "selector": ".arca",
+    "routes": ["/arca-de-noe", "futuras páginas de Pack avulso"],
+    "coexistsWith": "Mundo base /emocoes (Fraunces + Nunito, marfim #fbf7f1, coral #f26b5e, cacau #2e1f17) definido no primeiro @theme de app/globals.css; não governado por este arquivo."
+  },
+  "extensions": {
+    "colorMeta": {
+      "branco": { "role": "neutral", "displayName": "Branco", "canonical": "#ffffff", "tonalRamp": ["#17324d", "#33608a", "#5f86ab", "#93b0c9", "#bfe4ff", "#dcedfb", "#eef7ff", "#ffffff"] },
+      "ceu-claro": { "role": "neutral", "displayName": "Céu claro", "canonical": "#eef7ff", "tonalRamp": ["#083f78", "#0b57a0", "#1c86d6", "#4ea3e4", "#83bfee", "#bfe4ff", "#dcedfb", "#eef7ff"] },
+      "ceu": { "role": "neutral", "displayName": "Céu", "canonical": "#bfe4ff", "tonalRamp": ["#083f78", "#0b57a0", "#1c86d6", "#4ea3e4", "#83bfee", "#bfe4ff", "#dcedfb", "#eef7ff"] },
+      "mar": { "role": "primary", "displayName": "Mar", "canonical": "#1c86d6", "tonalRamp": ["#062a4a", "#083f78", "#0b57a0", "#1c86d6", "#4ea3e4", "#83bfee", "#bfe4ff", "#eef7ff"] },
+      "fundo": { "role": "primary", "displayName": "Fundo (mar profundo)", "canonical": "#0b57a0", "tonalRamp": ["#062a4a", "#083f78", "#0b57a0", "#1c86d6", "#4ea3e4", "#83bfee", "#bfe4ff", "#eef7ff"] },
+      "abismo": { "role": "primary", "displayName": "Abismo", "canonical": "#083f78", "tonalRamp": ["#041c33", "#062a4a", "#083f78", "#0b57a0", "#1c86d6", "#4ea3e4", "#83bfee", "#bfe4ff"] },
+      "sol": { "role": "secondary", "displayName": "Sol", "canonical": "#ffc531", "tonalRamp": ["#4d3600", "#7a5600", "#b07d00", "#e9a400", "#ffc531", "#ffd15a", "#ffe08a", "#fff3cc"] },
+      "sol-escuro": { "role": "secondary", "displayName": "Sol escuro (base da sombra do botão)", "canonical": "#e9a400", "tonalRamp": ["#4d3600", "#7a5600", "#b07d00", "#e9a400", "#ffc531", "#ffd15a", "#ffe08a", "#fff3cc"] },
+      "coral": { "role": "tertiary", "displayName": "Coral", "canonical": "#ea4d3d", "tonalRamp": ["#4a120c", "#7a1e14", "#b12f21", "#ea4d3d", "#f05a4a", "#f4867a", "#f9b9b1", "#fdebe8"] },
+      "madeira": { "role": "tertiary", "displayName": "Madeira", "canonical": "#b8783a", "tonalRamp": ["#3d2410", "#5f3a1a", "#8a5527", "#b8783a", "#d9a15f", "#e6bd8a", "#f0d6b4", "#f6e3c2"] },
+      "areia": { "role": "tertiary", "displayName": "Areia", "canonical": "#f6e3c2", "tonalRamp": ["#5f3a1a", "#8a5527", "#b8783a", "#d9a15f", "#e6bd8a", "#f0d6b4", "#f6e3c2", "#fbf3e6"] },
+      "verde": { "role": "tertiary", "displayName": "Verde (check de incluído)", "canonical": "#4db15c", "tonalRamp": ["#10341a", "#1a5228", "#2f8040", "#4db15c", "#6fc47c", "#9ad8a3", "#c8ebcd", "#ebf7ed"] },
+      "tinta": { "role": "neutral", "displayName": "Tinta", "canonical": "#17324d", "tonalRamp": ["#0a1826", "#17324d", "#23486b", "#33608a", "#5f86ab", "#93b0c9", "#c7d6e3", "#eef3f8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "H1 do hero (três linhas à esquerda) e o H2 que nomeia o produto (2.4rem → 3.5rem)." },
+      "headline": { "displayName": "Headline", "purpose": "H2 de cada seção; tinta sobre claro, branco sobre azul. Sem eyebrow acima." },
+      "title": { "displayName": "Title", "purpose": "H3 de cards de peça (1.5rem), escotilhas (1.45rem) e card de oferta (1.6rem); também o texto dos botões (18px, leading-none)." },
+      "body": { "displayName": "Body", "purpose": "Parágrafos de abertura e blocos narrativos, 17px → 20px, largura 44–58ch, tinta a 80% ou branco a 88–90%." },
+      "body-card": { "displayName": "Body card", "purpose": "Texto dentro de cards, notas e listas, 15px, tinta a 75%." },
+      "label": { "displayName": "Label", "purpose": "Só as unidades dias/horas/min/seg sob os dígitos do contador. Único uso de caixa alta no mundo." }
+    },
+    "opacityRamp": {
+      "tinta": { "90": "citações", "85": "lista da oferta", "80": "parágrafos de abertura", "78": "resposta do FAQ", "75": "texto de card, legendas, rodapés de seção", "60": "footer secundário" },
+      "branco": { "90": "parágrafos sobre mar", "88": "parágrafos sobre fundo", "85": "nota final do bônus" }
+    },
+    "shadows": [
+      { "name": "card", "value": "0 10px 30px -18px rgba(11,87,160,0.35)", "purpose": "Cards de peça e balões de depoimento sobre céu claro." },
+      { "name": "card-oferta", "value": "0 24px 60px -30px rgba(11,87,160,0.5)", "purpose": "A única elevação alta sobre branco: o card do preço." },
+      { "name": "folha-leque", "value": "0 18px 30px -14px rgba(11,87,160,0.45)", "purpose": "Cada página real dentro de um leque (com ring-1 tinta a 10%)." },
+      { "name": "pagina-anotada", "value": "0 30px 60px -26px rgba(11,87,160,0.55)", "purpose": "A apostila grande no centro da seção 6 (com ring-1 tinta a 10%)." },
+      { "name": "capa-tras", "value": "0 28px 44px -18px rgba(8,63,120,0.55)", "purpose": "Capa de trás no hero." },
+      { "name": "capa-frente", "value": "0 34px 54px -18px rgba(8,63,120,0.6)", "purpose": "Capa da frente no hero; sempre maior que a de trás." },
+      { "name": "capa-oferta", "value": "0 18px 36px -14px rgba(8,63,120,0.5)", "purpose": "Capas empilhadas no card de oferta (a da frente: 0 24px 40px -14px rgba(8,63,120,0.55))." },
+      { "name": "lamina-sobre-azul", "value": "0 30px 60px -24px rgba(0,0,0,0.6)", "purpose": "A única sombra preta: lâmina sobre fundo #0b57a0, com ring-4 branco a 15%." },
+      { "name": "botao-sol", "value": "0 12px 28px -10px rgba(233,164,0,0.75)", "purpose": "Brilho do botão sol; a sombra é a própria cor." },
+      { "name": "botao-coral", "value": "0 12px 28px -10px rgba(234,77,61,0.7)", "purpose": "Brilho do botão coral (definido, não usado no build)." },
+      { "name": "cta-header", "value": "0 8px 20px -10px rgba(233,164,0,0.8)", "purpose": "CTA sol do header." },
+      { "name": "aro-escotilha", "value": "0 18px 34px -14px rgba(23,50,77,0.55)", "purpose": "Aro de madeira da escotilha." },
+      { "name": "badge-escotilha", "value": "0 6px 14px -4px rgba(23,50,77,0.45)", "purpose": "Badge numérico de 44px em sol." },
+      { "name": "rebite", "value": "0 1px 2px rgba(0,0,0,0.35)", "purpose": "Os quatro rebites de 10px; único contato curto do mundo." },
+      { "name": "barra-fixa", "value": "0 14px 36px -12px rgba(8,63,120,0.7)", "purpose": "Pílula abissal flutuando sobre qualquer seção." }
+    ],
+    "rings": [
+      { "name": "folha", "value": "0 0 0 1px rgba(23,50,77,0.10)", "purpose": "Folhas do leque e página anotada." },
+      { "name": "janela-escotilha", "value": "0 0 0 4px rgba(246,227,194,0.70)", "purpose": "Anel de areia dentro do aro de madeira." },
+      { "name": "lamina-azul", "value": "0 0 0 4px rgba(255,255,255,0.15)", "purpose": "Lâmina sobre fundo." },
+      { "name": "avatar", "value": "0 0 0 2px #ffc531", "purpose": "Avatar de 44px nos depoimentos." },
+      { "name": "capa-bonus", "value": "0 0 0 4px #ffc531", "purpose": "Capa Baby na oferta enquanto promoAtiva()." },
+      { "name": "bloco-contador", "value": "0 0 0 1px rgba(28,134,214,0.15)", "purpose": "Blocos do contador." }
+    ],
+    "motion": [
+      { "name": "arca-boia", "value": "translateY(0 → -10px) + rotate(var(--r) → var(--r) + 1.2deg); cubic-bezier(0.45,0,0.2,1); infinite; duration var(--dur, 6s); delay var(--delay, 0s)", "purpose": "Capas e lâminas boiando. Cada objeto com --r/--dur/--delay próprios: Júnior -7deg/7.5s/0.6s, Kids 3deg/6.4s, lâmina da virada -2deg/8s, arco-íris -3deg/6s." },
+      { "name": "arca-onda", "value": "translateX(0 → -50%); 14s linear infinite; SVG com 200% de largura", "purpose": "Onda divisória deslizando quando entra ou sai de um campo azul." },
+      { "name": "botao", "value": "transition: transform, background-color 200ms ease-out; hover translateY(-2px); active scale(0.98)", "purpose": "Todos os botões sol/coral e os CTAs de header e barra." },
+      { "name": "barra-fixa", "value": "transition: transform 500ms cubic-bezier(0.16,1,0.3,1); translateY(120%) ↔ 0", "purpose": "Entrada/saída da barra de contagem, gateada por IntersectionObserver (#bonus 0.3 libera; #oferta 0.15 esconde)." },
+      { "name": "faq", "value": "grid-template-rows 0fr ↔ 1fr + opacity, 300ms ease-out; ícone Plus rotate(45deg) 300ms", "purpose": "Abrir/fechar pergunta do FAQ." },
+      { "name": "reduced-motion", "value": "@media (prefers-reduced-motion: reduce) { .arca-boia, .arca-onda { animation: none } }", "purpose": "Desliga flutuação e onda; a regra global do site zera as demais durações." }
+    ],
+    "breakpoints": [
+      { "name": "escotilhas-2col", "value": "420px" },
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ],
+    "containers": [
+      { "name": "hero/header", "value": "80rem" },
+      { "name": "grade", "value": "72rem" },
+      { "name": "prova", "value": "64rem" },
+      { "name": "oferta", "value": "56rem" },
+      { "name": "narrativa", "value": "48rem" },
+      { "name": "faq/fechamento", "value": "42rem" }
+    ],
+    "onda": {
+      "viewBox": "0 0 2880 100",
+      "path": "M0,60 C180,20 360,20 540,55 C720,90 900,90 1080,55 C1260,20 1440,20 1620,55 C1800,90 1980,90 2160,55 C2340,20 2520,20 2700,55 C2760,66 2820,72 2880,60 L2880,100 L0,100 Z",
+      "height": { "base": "52px", "md": "84px" },
+      "rule": "Fica na base da seção de cima, pintada com a cor da seção de baixo. Invertida (rotate-180 + bg da seção de cima) quando precisa ir no topo da seção de baixo. Anima só ao entrar/sair de um campo azul."
+    },
+    "leque": {
+      "rotationPerSheet": "9deg",
+      "transformOrigin": "50% 135%",
+      "top": "6%",
+      "zIndex": "10 - round(|t| * 2)",
+      "widths": { "retrato": "46%", "retrato-unica": "52%", "paisagem": "62%", "paisagem-unica": "92%" },
+      "aspect": { "retrato": "4/3.3", "retrato-unica": "4/3.6", "paisagem": "4/3" },
+      "sheet": "rounded 6px, bg #fff, shadow folha-leque, ring folha"
+    },
+    "escotilha": {
+      "maxWidth": "15rem",
+      "aro": "radial-gradient(circle at 30% 25%, #d9a15f, #b8783a 55%, #8a5527)",
+      "janela": "inset 9%, ring janela-escotilha, img object-cover object-top",
+      "rebites": "4 × 10px em #f6e3c2 a 45/135/225/315deg, raio 47.5cqw",
+      "badge": "44px sol, Baloo 800 1.25rem tinta, -4px top-left"
+    },
+    "arcoiris": {
+      "value": "linear-gradient(90deg, #ea4d3d 0%, #ff9a3c 20%, #ffc531 40%, #4db15c 60%, #1c86d6 80%, #7d6bb5 100%)",
+      "purpose": "Faixa de 8px no topo do card de oferta. Único gradiente colorido do mundo; nunca em texto."
+    },
+    "promo": {
+      "source": "components/arca/promo.js",
+      "FIM_PROMO": "2026-09-16T23:59:59-03:00",
+      "revalidate": 600,
+      "afterEnd": "Seção #bonus vira sentinela vazia; oferta perde bônus, 'De R$ 97 por' e contador; preço vira R$ 97; botões viram 'Quero o Pack por R$ 97'; FAQ perde a pergunta do Baby; JSON-LD troca preço e remove priceValidUntil; barra fixa não renderiza; contador mostra mensagem coral de encerramento."
+    }
+  },
+  "components": [
+    {
+      "name": "Botão Sol",
+      "kind": "button",
+      "refersTo": "button-sol",
+      "description": "O único botão em tela: pílula de sol em Baloo 800 que sobe 2px e clareia no hover.",
+      "html": "<a class=\"ds-btn-sol\" href=\"#\">Quero o Pack por R$ 67</a>",
+      "css": ".ds-btn-sol { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 9999px; padding: 16px 32px; background: var(--color-arca-sol, #ffc531); color: var(--color-arca-tinta, #17324d); font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 18px; line-height: 1; text-decoration: none; box-shadow: 0 12px 28px -10px rgba(233,164,0,0.75); transition: transform 200ms ease-out, background-color 200ms ease-out; } .ds-btn-sol:hover { transform: translateY(-2px); background: #ffd15a; } .ds-btn-sol:active { transform: scale(0.98); } .ds-btn-sol:focus-visible { outline: 3px solid var(--color-arca-mar, #1c86d6); outline-offset: 3px; }"
+    },
+    {
+      "name": "Botão Coral",
+      "kind": "button",
+      "refersTo": "button-coral",
+      "description": "Variante de atenção definida no código (tom=\"coral\"); o build atual não a usa.",
+      "html": "<a class=\"ds-btn-coral\" href=\"#\">Quero o Pack</a>",
+      "css": ".ds-btn-coral { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 9999px; padding: 16px 32px; background: var(--color-arca-coral, #ea4d3d); color: #ffffff; font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 18px; line-height: 1; text-decoration: none; box-shadow: 0 12px 28px -10px rgba(234,77,61,0.7); transition: transform 200ms ease-out, background-color 200ms ease-out; } .ds-btn-coral:hover { transform: translateY(-2px); background: #f05a4a; } .ds-btn-coral:active { transform: scale(0.98); } .ds-btn-coral:focus-visible { outline: 3px solid var(--color-arca-mar, #1c86d6); outline-offset: 3px; }"
+    },
+    {
+      "name": "Header da landing",
+      "kind": "nav",
+      "refersTo": "nav-cta",
+      "description": "Sticky, branco a 92% com blur, borda céu, logo à esquerda e um único CTA sol; sem menu.",
+      "html": "<header class=\"ds-nav\"><span class=\"ds-nav-logo\">Criatividades Bíblicas</span><a class=\"ds-nav-cta\" href=\"#oferta\">Quero o Pack</a></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 16px; background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--color-arca-ceu, #bfe4ff); backdrop-filter: blur(8px); font-family: 'Quicksand', system-ui, sans-serif; } .ds-nav-logo { font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; color: var(--color-arca-tinta, #17324d); } .ds-nav-cta { border-radius: 9999px; padding: 10px 20px; background: var(--color-arca-sol, #ffc531); color: var(--color-arca-tinta, #17324d); font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 15px; text-decoration: none; box-shadow: 0 8px 20px -10px rgba(233,164,0,0.8); transition: transform 200ms ease-out, background-color 200ms ease-out; } .ds-nav-cta:hover { transform: translateY(-2px); background: #ffd15a; } .ds-nav-cta:active { transform: scale(0.98); } .ds-nav-cta:focus-visible { outline: 3px solid var(--color-arca-mar, #1c86d6); outline-offset: 3px; }"
+    },
+    {
+      "name": "Card de peça com leque",
+      "kind": "card",
+      "refersTo": "card-peca",
+      "description": "Card branco 2rem com três folhas em leque (rotação 9° por folha, pivô a 135%) e H3 + texto de 15px.",
+      "html": "<article class=\"ds-peca\"><div class=\"ds-leque\"><div class=\"ds-folha\" style=\"--t:-1\"></div><div class=\"ds-folha ds-folha-frente\" style=\"--t:0\"></div><div class=\"ds-folha\" style=\"--t:1\"></div></div><div class=\"ds-peca-txt\"><h3>Quadro de história</h3><p>13 lâminas grandes pra contar mostrando: Noé, os filhos, os animais, os 40 dias, a pomba e o arco-íris.</p></div></article>",
+      "css": ".ds-peca { width: 320px; overflow: hidden; border-radius: 2rem; background: #ffffff; box-shadow: 0 10px 30px -18px rgba(11,87,160,0.35); font-family: 'Quicksand', system-ui, sans-serif; color: var(--color-arca-tinta, #17324d); } .ds-leque { position: relative; margin: 24px 24px 0; aspect-ratio: 4 / 3.3; overflow: visible; } .ds-folha { position: absolute; left: 50%; top: 6%; width: 46%; aspect-ratio: 828 / 1170; border-radius: 6px; background: linear-gradient(180deg, #ffffff, #eef7ff); box-shadow: 0 18px 30px -14px rgba(11,87,160,0.45), 0 0 0 1px rgba(23,50,77,0.10); transform-origin: 50% 135%; transform: translateX(-50%) rotate(calc(var(--t) * 9deg)); z-index: 8; } .ds-folha-frente { z-index: 10; } .ds-peca-txt { padding: 12px 24px 24px; } .ds-peca-txt h3 { margin: 0; font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 1.5rem; line-height: 1.25; } .ds-peca-txt p { margin: 8px 0 0; font-size: 15px; font-weight: 500; line-height: 1.625; color: rgba(23,50,77,0.75); }"
+    },
+    {
+      "name": "Escotilha",
+      "kind": "custom",
+      "refersTo": "badge-escotilha",
+      "description": "Janela redonda com aro de madeira em gradiente radial, anel de areia, quatro rebites e badge numérico em sol.",
+      "html": "<div class=\"ds-escotilha\"><div class=\"ds-esc-aro\"></div><div class=\"ds-esc-janela\"></div><span class=\"ds-esc-rebite\" style=\"--g:45deg\"></span><span class=\"ds-esc-rebite\" style=\"--g:135deg\"></span><span class=\"ds-esc-rebite\" style=\"--g:225deg\"></span><span class=\"ds-esc-rebite\" style=\"--g:315deg\"></span><span class=\"ds-esc-badge\">1</span></div>",
+      "css": ".ds-escotilha { position: relative; width: 200px; aspect-ratio: 1; container-type: inline-size; } .ds-esc-aro { position: absolute; inset: 0; border-radius: 9999px; background: radial-gradient(circle at 30% 25%, #d9a15f, #b8783a 55%, #8a5527); box-shadow: 0 18px 34px -14px rgba(23,50,77,0.55); } .ds-esc-janela { position: absolute; inset: 9%; border-radius: 9999px; overflow: hidden; background: linear-gradient(180deg, #bfe4ff, #1c86d6); box-shadow: 0 0 0 4px rgba(246,227,194,0.7); } .ds-esc-rebite { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; border-radius: 9999px; background: #f6e3c2; box-shadow: 0 1px 2px rgba(0,0,0,0.35); transform: translate(-50%,-50%) rotate(var(--g)) translateY(-47.5cqw); } .ds-esc-badge { position: absolute; left: -4px; top: -4px; display: flex; width: 44px; height: 44px; align-items: center; justify-content: center; border-radius: 9999px; background: #ffc531; color: #17324d; font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 1.25rem; box-shadow: 0 6px 14px -4px rgba(23,50,77,0.45); }"
+    },
+    {
+      "name": "Balão de depoimento",
+      "kind": "card",
+      "refersTo": "balao-depoimento",
+      "description": "Card branco 1.75rem com cauda de fala, citação de 16px e avatar de 44px com anel de sol.",
+      "html": "<figure class=\"ds-balao\"><blockquote>\"Ótimo material. Conteúdo de fácil compreensão, muito criativo e com um visual de alta qualidade.\"</blockquote><figcaption><span class=\"ds-balao-avatar\"></span><span><b>Claudia Alves</b><small>Professora no Ministério Kids</small></span></figcaption></figure>",
+      "css": ".ds-balao { position: relative; width: 340px; margin: 0 0 16px; padding: 24px; border-radius: 1.75rem; background: #ffffff; box-shadow: 0 10px 30px -18px rgba(11,87,160,0.35); font-family: 'Quicksand', system-ui, sans-serif; color: var(--color-arca-tinta, #17324d); } .ds-balao::after { content: ''; position: absolute; left: 40px; bottom: -12px; width: 24px; height: 24px; border-radius: 4px; background: #ffffff; transform: rotate(45deg); } .ds-balao blockquote { margin: 0; font-size: 16px; font-weight: 500; line-height: 1.625; color: rgba(23,50,77,0.9); } .ds-balao figcaption { display: flex; align-items: center; gap: 12px; margin-top: 20px; } .ds-balao-avatar { width: 44px; height: 44px; border-radius: 9999px; background: linear-gradient(180deg, #bfe4ff, #1c86d6); box-shadow: 0 0 0 2px #ffc531; } .ds-balao b { display: block; font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 700; font-size: 1rem; } .ds-balao small { display: block; font-size: 13px; font-weight: 600; color: rgba(23,50,77,0.75); }"
+    },
+    {
+      "name": "Nota de anotação",
+      "kind": "card",
+      "refersTo": "nota-anotacao",
+      "description": "Caixa céu claro 1.5rem com título Baloo em fundo e traço conector de 18px em mar apontando pra página.",
+      "html": "<div class=\"ds-nota\"><span class=\"ds-nota-t\">A roda de conversa escrita</span><span class=\"ds-nota-p\">Em linguagem de criança. Você lê, adapta e conduz.</span></div>",
+      "css": ".ds-nota { position: relative; width: 260px; padding: 20px; border-radius: 1.5rem; background: var(--color-arca-ceu-claro, #eef7ff); font-family: 'Quicksand', system-ui, sans-serif; } .ds-nota::after { content: ''; position: absolute; right: -18px; top: 28px; width: 18px; height: 2px; background: var(--color-arca-mar, #1c86d6); } .ds-nota-t { display: block; font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 1.125rem; line-height: 1.25; color: var(--color-arca-fundo, #0b57a0); } .ds-nota-p { display: block; margin-top: 4px; font-size: 15px; font-weight: 500; line-height: 1.625; color: rgba(23,50,77,0.75); }"
+    },
+    {
+      "name": "Contador em blocos",
+      "kind": "custom",
+      "refersTo": "contador-bloco",
+      "description": "Quatro blocos céu claro com dígitos Baloo em fundo e rótulo de unidade em caixa alta; separador ':' em mar a 50%.",
+      "html": "<div class=\"ds-contador\" role=\"timer\"><div class=\"ds-cb\"><span class=\"ds-cb-n\">08</span><span class=\"ds-cb-l\">dias</span></div><span class=\"ds-cb-sep\">:</span><div class=\"ds-cb\"><span class=\"ds-cb-n\">03</span><span class=\"ds-cb-l\">horas</span></div><span class=\"ds-cb-sep\">:</span><div class=\"ds-cb\"><span class=\"ds-cb-n\">01</span><span class=\"ds-cb-l\">min</span></div><span class=\"ds-cb-sep\">:</span><div class=\"ds-cb\"><span class=\"ds-cb-n\">44</span><span class=\"ds-cb-l\">seg</span></div></div>",
+      "css": ".ds-contador { display: flex; align-items: center; gap: 8px; font-family: 'Quicksand', system-ui, sans-serif; } .ds-cb { display: flex; flex-direction: column; align-items: center; min-width: 3.9rem; padding: 8px; border-radius: 1.1rem; background: var(--color-arca-ceu-claro, #eef7ff); box-shadow: 0 0 0 1px rgba(28,134,214,0.15); } .ds-cb-n { font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 1.75rem; line-height: 1; color: var(--color-arca-fundo, #0b57a0); font-variant-numeric: tabular-nums; } .ds-cb-l { margin-top: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(23,50,77,0.75); } .ds-cb-sep { margin-top: -12px; font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 1.25rem; color: rgba(28,134,214,0.5); }"
+    },
+    {
+      "name": "Barra fixa de contagem",
+      "kind": "custom",
+      "refersTo": "barra-contador",
+      "description": "Pílula abissal com o tempo restante do bônus e CTA sol; só aparece depois de #bonus e some sobre #oferta.",
+      "html": "<div class=\"ds-barra\"><p><b>Bônus acaba em 8d 03h 01min</b></p><a class=\"ds-barra-cta\" href=\"#\">Quero o Pack por R$ 67</a></div>",
+      "css": ".ds-barra { display: flex; align-items: center; justify-content: space-between; gap: 12px; max-width: 42rem; padding: 8px 8px 8px 20px; border-radius: 9999px; background: var(--color-arca-abismo, #083f78); color: #ffffff; box-shadow: 0 14px 36px -12px rgba(8,63,120,0.7); font-family: 'Quicksand', system-ui, sans-serif; } .ds-barra p { margin: 0; font-size: 15px; line-height: 1.25; } .ds-barra-cta { flex-shrink: 0; border-radius: 9999px; padding: 10px 20px; background: var(--color-arca-sol, #ffc531); color: var(--color-arca-tinta, #17324d); font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 15px; text-decoration: none; transition: transform 200ms ease-out; } .ds-barra-cta:hover { transform: translateY(-2px); } .ds-barra-cta:active { transform: scale(0.98); } .ds-barra-cta:focus-visible { outline: 3px solid var(--color-arca-mar, #1c86d6); outline-offset: 3px; }"
+    },
+    {
+      "name": "Onda divisória",
+      "kind": "custom",
+      "description": "SVG de seis cristas, 200% de largura, pintado com a cor da seção de baixo; desliza 14s linear quando entra ou sai de um campo azul.",
+      "html": "<div class=\"ds-onda-wrap\"><svg class=\"ds-onda\" viewBox=\"0 0 2880 100\" preserveAspectRatio=\"none\" fill=\"#1c86d6\"><path d=\"M0,60 C180,20 360,20 540,55 C720,90 900,90 1080,55 C1260,20 1440,20 1620,55 C1800,90 1980,90 2160,55 C2340,20 2520,20 2700,55 C2760,66 2820,72 2880,60 L2880,100 L0,100 Z\"/></svg></div>",
+      "css": ".ds-onda-wrap { position: relative; width: 100%; height: 52px; overflow: hidden; background: linear-gradient(180deg, #eef7ff, #bfe4ff); } .ds-onda { position: absolute; left: 0; bottom: 0; height: 100%; width: 200%; animation: ds-onda 14s linear infinite; } @keyframes ds-onda { from { transform: translateX(0); } to { transform: translateX(-50%); } } @media (prefers-reduced-motion: reduce) { .ds-onda { animation: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A capa do material virou o mundo",
+    "overview": "A página é a capa do Pack aberta em tela cheia. O céu claro da capa vira o fundo do hero e das seções de respiro; o mar vira campos inteiros de azul (encharcados, sem card) onde a história é contada; o sol amarelo da capa vira o único botão que existe; a madeira da arca vira aro de escotilha. Nada aqui é \"site infantil genérico\": cada cor tem origem numa peça impressa que a professora vai segurar na mão, e as imagens são as páginas reais do material, nunca mockup.\n\nA densidade é de história contada, não de vitrine: seções longas, uma ideia por bloco, um H2 curto em Baloo e um parágrafo em Quicksand por cena. A página vai afundando (branco → céu → mar → fundo → abismo) e emergindo de novo a cada virada da narrativa, e a transição entre profundidades é sempre uma onda SVG, nunca uma linha reta. O tom é alegre e de professora pra professora: cantos muito redondos, sombras azuladas e macias, capas que boiam devagar.\n\nRejeições confirmadas no build: fundo creme (o mundo é branco e azul), eyebrows/kickers acima dos títulos, grade de cards iguais com ícone, texto em gradiente e sombra dura deslocada.",
+    "keyCharacteristics": [
+      "Campos de cor inteiros (mar #1c86d6, fundo #0b57a0) em vez de cards sobre fundo neutro.",
+      "Baloo 2 ExtraBold nos títulos, Quicksand Medium no texto; nenhuma outra face.",
+      "Ondas SVG autorais como divisórias; quatro delas animadas.",
+      "Páginas reais em leque (rotação 9° por folha) e escotilhas com aro de madeira.",
+      "Sol #ffc531 é o botão e o destaque; coral #ea4d3d só no preço e em pontos de atenção.",
+      "Todo canto é redondo (mínimo 6px nas folhas, pílula nos botões); toda sombra é tingida de azul."
+    ],
+    "rules": [
+      { "name": "A Regra do Sol Único", "body": "Amarelo é botão e destaque; nunca fundo de seção, nunca cor de texto corrido. Se há dois amarelos competindo num viewport, um deles vira tinta ou branco.", "section": "colors" },
+      { "name": "A Regra do Mergulho", "body": "A página muda de profundidade em degraus: branco/céu-claro → mar → fundo → (abismo só na barra). Nunca se pula de branco pra abismo, e nunca se volta do fundo direto pro mar; entre um degrau e outro há sempre uma onda.", "section": "colors" },
+      { "name": "A Regra da Tinta Opaca", "body": "Não existe cinza. Texto secundário é tinta com opacidade (80/75/60), e texto sobre azul é branco com opacidade (90/88/85).", "section": "colors" },
+      { "name": "A Regra do Título Nu", "body": "O H2 abre a seção sozinho: sem eyebrow, sem kicker, sem etiqueta em caixa alta acima dele. O que vem antes de um título é uma onda ou espaço em branco.", "section": "typography" },
+      { "name": "A Regra do Baloo Só Pesado", "body": "Baloo 2 aparece em 800 (títulos, botões, números) ou 700 (lição, nome); nunca em 600 ou abaixo. Texto de leitura é Quicksand.", "section": "typography" },
+      { "name": "A Regra da Sombra Azul", "body": "Sombra sobre fundo claro é sempre rgba(11,87,160, 0.35–0.55) ou rgba(8,63,120, 0.5–0.6) com spread negativo; preto só aparece sobre fundo/abismo, onde o azul não contrasta.", "section": "elevation" },
+      { "name": "A Regra do Brilho do Botão", "body": "Botão não projeta sombra cinza: projeta a própria cor a 70–80%, 12px pra baixo, 28px de blur, -10px de spread.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do escrever em português do Brasil, na voz de professora pra professora: frases curtas, \"pra\" em vez de \"para\", segunda pessoa direta (\"Você abre a pasta e encontra isto.\"), nunca frio ou corporativo.",
+      "Do manter a ordem da história: dor → virada → solução → prova → bônus → preço. Preço, desconto, contador, bônus e barra fixa só depois de #bonus.",
+      "Do contar cada seção com um H2 nu em Baloo 800 e um parágrafo em Quicksand 500 de 17–20px; um botão sol por bloco, no máximo.",
+      "Do mostrar página real antes de qualquer promessa: capas, leques, escotilhas e lâminas vêm de public/arca-de-noe/*.webp, com alt que diz o que é a peça.",
+      "Do separar cores com Onda (cor da seção de baixo, 52/84px), animada quando entra ou sai de um campo azul.",
+      "Do tingir toda sombra sobre claro com azul (rgba(11,87,160,…) ou rgba(8,63,120,…)), spread negativo, e dar aos botões o brilho da própria cor.",
+      "Do usar raio proporcional ao objeto (6px folha → 2.25rem card de oferta) e pílula em tudo que é botão, badge, avatar ou barra.",
+      "Do dar a cada objeto flutuante seu próprio --r, --dur e --delay, e respeitar prefers-reduced-motion.",
+      "Do ler a verdade da oferta de promoAtiva() / FIM_PROMO e manter revalidate = 600 em qualquer página de Pack com promoção datada.",
+      "Do vestir Nav, Footer e FaqItem compartilhados pelo escopo .arca em vez de duplicar componentes."
+    ],
+    "donts": [
+      "Don't usar fundo creme, marfim ou areia como superfície de seção (#fbf7f1, #f3ede3 pertencem ao mundo /emocoes). Aqui as superfícies são branco, céu claro e os azuis.",
+      "Don't colocar eyebrow, kicker ou etiqueta em caixa alta acima de um título. Caixa alta só nas unidades do contador.",
+      "Don't montar grade de cards iguais com ícone em cima e frase embaixo; as 4 aulas são escotilhas com a lâmina real, e as peças são leques.",
+      "Don't aplicar gradiente em texto. O único gradiente colorido é a faixa arco-íris de 8px no card de oferta; os gradientes de fundo são branco → céu.",
+      "Don't usar sombra dura, deslocada ou preta sobre fundo claro; preto só na lâmina sobre fundo.",
+      "Don't mostrar preço, \"R$ 67\", selo de desconto, contador ou bônus no hero, no header ou em qualquer seção antes de #bonus, nem pela barra fixa.",
+      "Don't usar amarelo como fundo de seção ou como cor de parágrafo, nem coral como botão enquanto o sol estiver na tela.",
+      "Don't trocar Baloo 2 / Quicksand por Fraunces / Nunito (ou qualquer outra face) dentro do .arca, nem usar Baloo abaixo do peso 700.",
+      "Don't prometer Baby, acesso vitalício ou R$ 67 fora do promoAtiva(), nem afirmar prazo de acesso, número de alunos ou igrejas que não existem em PRODUCT.md.",
+      "Don't usar mockup, ilustração genérica ou imagem gerada no lugar das páginas reais do material."
+    ]
+  },
+  "notCanonized": [
+    "O botão coral (tom=\"coral\") está definido em page.js mas nenhuma instância o usa; registrado como reserva, não como padrão.",
+    "As regras que vestem Footer e FaqItem via seletores de utilitário escapados (.text-cacau\\/50, .border-sand\\/50) são um shim de compatibilidade com componentes do mundo base; páginas novas devem usar os tokens arca diretamente.",
+    "A frase 'Mais de 41 mil seguidoras' na prova social é copy de evidência, não regra visual; PRODUCT.md continua a fonte do que pode ser afirmado."
+  ]
+}

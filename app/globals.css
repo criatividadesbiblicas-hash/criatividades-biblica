@@ -99,3 +99,76 @@ body {
   background-image: radial-gradient(rgba(74, 42, 122, 0.10) 1.5px, transparent 1.6px);
   background-size: 22px 22px;
 }
+
+/* Landing /arca-de-noe: paleta tirada da capa do material (mar, ceu, sol, madeira, coral) */
+@theme {
+  --color-arca-ceu-claro: #eef7ff;
+  --color-arca-ceu: #bfe4ff;
+  --color-arca-mar: #1c86d6;
+  --color-arca-fundo: #0b57a0;
+  --color-arca-abismo: #083f78;
+  --color-arca-sol: #ffc531;
+  --color-arca-sol-escuro: #e9a400;
+  --color-arca-coral: #ea4d3d;
+  --color-arca-madeira: #b8783a;
+  --color-arca-areia: #f6e3c2;
+  --color-arca-verde: #4db15c;
+  --color-arca-tinta: #17324d;
+}
+
+.arca {
+  --font-display: var(--font-baloo), "Baloo 2", system-ui, sans-serif;
+  --font-body: var(--font-quicksand), "Quicksand", system-ui, sans-serif;
+  font-family: var(--font-body);
+  color: var(--color-arca-tinta);
+  background: #ffffff;
+}
+.arca ::selection { background: var(--color-arca-sol); color: var(--color-arca-tinta); }
+.arca :focus-visible { outline: 3px solid var(--color-arca-mar); outline-offset: 3px; border-radius: 999px; }
+.arca { scrollbar-color: var(--color-arca-mar) var(--color-arca-ceu-claro); }
+.arca a { text-underline-offset: 0.18em; }
+
+.arca-arcoiris {
+  background: linear-gradient(90deg, #ea4d3d 0%, #ff9a3c 20%, #ffc531 40%, #4db15c 60%, #1c86d6 80%, #7d6bb5 100%);
+}
+
+/* sinal do dia: o mar sobe e desce */
+@keyframes arca-boia {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 1.2deg)); }
+}
+.arca-boia {
+  animation: arca-boia var(--dur, 6s) cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+@keyframes arca-onda {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.arca-onda { animation: arca-onda 14s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .arca-boia, .arca-onda { animation: none; }
+}
+
+/* Cabecalho e rodape compartilhados, vestidos com o mundo da Arca (regras fora de layer vencem as utilities) */
+.arca header { background: rgba(255, 255, 255, 0.92); border-color: #bfe4ff; }
+.arca header a[href="#oferta"] {
+  background: #ffc531; color: #17324d; font-family: var(--font-display); font-weight: 800; font-size: 15px;
+  box-shadow: 0 8px 20px -10px rgba(233, 164, 0, 0.8);
+}
+.arca header a[href="#oferta"]:hover { background: #ffd15a; }
+.arca footer { background: #ffffff; border-color: #bfe4ff; }
+.arca footer p, .arca footer a, .arca footer div { color: #17324d; }
+.arca footer .text-cacau\/50, .arca footer .text-cacau\/70 { color: rgba(23, 50, 77, 0.6); }
+.arca footer a:hover { color: #1c86d6; }
+.arca footer > div:last-child { border-color: #bfe4ff; }
+
+/* fundo do documento na landing da Arca (evita creme no overscroll) */
+body:has(> .arca) { background: #ffffff; }
+
+/* FAQ compartilhado vestido com o mundo da Arca */
+.arca .border-sand\/50 { border-color: #bfe4ff; }
+.arca button span.font-display { color: #17324d; }
+.arca button svg.text-coral-deep { color: #ea4d3d; }
+.arca .text-cacau\/75 { color: rgba(23, 50, 77, 0.78); }
