@@ -1,406 +1,184 @@
-import Link from "next/link";
+/*
+  CONTRATO DE DIREÇÃO — Plano Anual Biblinho (perene)
+  THESIS: a professora entra numa sexta à noite sem aula e sai com o ano inteiro resolvido; a página
+  é uma história (cena → diagnóstico → virada → roda das histórias → material real → prova → oferta)
+  e recusa hero com preço, selo de desconto e contador.
+  OWN-WORLD: "letra da capa" — Lilita One nos títulos, Nunito no texto; céu claro e branco em campos
+  inteiros, verde campo nos destaques, sol nos botões, laranja no ponto de atenção. Páginas reais dos
+  PDFs em leque; sinal autoral = a roda 3D das capas (sem número, sem ordem).
+  FORM: mundo PINADO pela cliente em 2026-09-09 (direção A no companion visual; roda circular aprovada).
+  FINISH: unreviewed is unfinished — build, revisão impeccable, capturas 1440/390, roda no toque, pixel.
+*/
 import Image from "next/image";
+import { Lilita_One } from "next/font/google";
+import { ArrowDown } from "@phosphor-icons/react/dist/ssr";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import Reveal from "@/components/Reveal";
-import PlaceholderImage from "@/components/PlaceholderImage";
-import TestimonialCard from "@/components/TestimonialCard";
-import FaqItem from "@/components/FaqItem";
-import {
-  BookOpen,
-  PaintBrush,
-  Scissors,
-  BookmarkSimple,
-  Target,
-  CheckCircle,
-  XCircle,
-  ShieldCheck,
-  PlayCircle,
-} from "@phosphor-icons/react/dist/ssr";
+import Roda from "@/components/plano-anual/Roda";
+import Tracking from "@/components/plano-anual/Tracking";
+import { KIWIFY_URL, OFERTA, HISTORIAS, FAQ } from "@/components/plano-anual/dados";
+
+const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
+
+const HOST = "https://materiais.criatividadesbiblicas.com.br";
+const PAGE_URL = `${HOST}/plano-anual`;
+const TITLE = "Plano Anual Biblinho: um ano de aula bíblica pronta | Criatividades Bíblicas";
+const DESCRIPTION =
+  "Uma história bíblica por mês, com a aula pronta pra Kids (4 a 6) e Júnior (7 a 10) e o material Baby de bônus: apostila com a fala da professora, quadro de história, atividades, versículo e lembrancinha. R$ 597 à vista ou 12x de R$ 61,74.";
 
 export const metadata = {
-  title: "Plano Anual Biblinho | Criatividades Bíblicas",
-  description:
-    "O ano inteiro de aula bíblica pronto, imprimível e coladinho no evangelho. Baby, Kids e Júnior. R$ 497 ou 12x de R$ 51,40.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PAGE_URL },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: PAGE_URL,
+    siteName: "Criatividades Bíblicas",
+    locale: "pt_BR",
+    type: "website",
+    images: [{ url: `${HOST}/plano-anual/og.png`, width: 1200, height: 630, alt: "Plano Anual Biblinho" }],
+  },
+  robots: { index: true, follow: true },
 };
 
-const KIWIFY_URL = "https://pay.kiwify.com.br/i2dvHIf";
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      name: "Plano Anual Biblinho",
+      description: DESCRIPTION,
+      image: `${HOST}/plano-anual/og.png`,
+      brand: { "@type": "Brand", name: "Criatividades Bíblicas" },
+      offers: { "@type": "Offer", price: String(OFERTA.precoNumero), priceCurrency: "BRL", availability: "https://schema.org/InStock", url: PAGE_URL },
+    },
+    { "@type": "FAQPage", mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
+  ],
+};
 
-const PARA_VOCE = [
-  "Você dá aula na EBD, ministério infantil ou berçário, sozinha ou em equipe",
-  "Você abre o Pinterest procurando aula bíblica e sai frustrada",
-  "Você quer conteúdo bíblico de verdade, não só atividade colorida",
-  "Você tem 3 faixas etárias na mesma manhã e precisa de material que converse entre si",
-  "Você imprime seu próprio material, sem depender de produto físico pelo Correio",
-];
+/* ---------- peças locais ---------- */
 
-const NAO_PARA_VOCE = [
-  "Você quer material impresso entregue pronto na porta",
-  "Você quer conteúdo neutro, sem Jesus no centro",
-  "Você prefere improvisar semana a semana",
-];
+function Botao({ href = KIWIFY_URL, children, className = "", externo = true }) {
+  return (
+    <a
+      href={href}
+      {...(externo ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={`inline-flex items-center justify-center gap-2 rounded-full bg-pa-sol px-8 py-4 font-display text-lg leading-none text-pa-tinta shadow-[0_12px_28px_-10px_rgba(233,164,0,0.75)] transition-[transform,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#ffd15a] active:scale-[0.98] ${className}`}
+    >
+      {children}
+    </a>
+  );
+}
 
-const INCLUI = [
-  { icon: BookOpen, text: "Apostila do professor com roteiro completo por faixa etária" },
-  { icon: PaintBrush, text: "Recurso visual da história, pronto para imprimir e mostrar em sala" },
-  { icon: Scissors, text: "Lembrança recortável para Baby, Kids e Júnior" },
-  { icon: BookmarkSimple, text: "Versículo de memorização em cartão imprimível" },
-  { icon: Target, text: "Dinâmicas e aplicação divididas por idade" },
-];
+function H2({ children, className = "" }) {
+  return <h2 className={`text-balance font-display text-[2rem] leading-[1.08] text-pa-tinta md:text-[2.75rem] ${className}`}>{children}</h2>;
+}
 
-const PASSOS = [
-  { numero: "1", titulo: "Você assina.", texto: "Pagamento à vista ou em 12x. Acesso liberado na hora." },
-  {
-    numero: "2",
-    titulo: "Todo mês, um novo material aparece no seu portal.",
-    texto: "Você recebe um aviso por e-mail e baixa o PDF pra imprimir.",
-  },
-  {
-    numero: "3",
-    titulo: "Você abre a apostila e dá a aula.",
-    texto: "Roteiro, dinâmica, recurso visual e lembrança prontos.",
-  },
-];
-
-const DEPOIMENTOS = [
-  {
-    name: "Lorena Xavier",
-    role: "Professora Kids Ministry",
-    quote: "Trabalho excelente, material super apresentável e acessível.",
-    photo: "/depoimentos/lorena-xavier.jpg",
-  },
-  {
-    name: "Claudia Alves",
-    role: "Professora Kids Ministry",
-    quote: "Conteúdo de fácil compreensão, muito criativo.",
-    photo: "/depoimentos/claudia-alves.jpg",
-  },
-  {
-    name: "Kessia Alves",
-    role: "Professora EBD",
-    quote: "Aborda de forma lúdica e didática, as crianças amam.",
-    photo: "/depoimentos/kessia-alves.jpg",
-  },
-  {
-    name: "Maria Alcantara",
-    role: "Professora Berçário",
-    quote: "Sou apaixonada por ele. Tem uma linguagem fácil de entender.",
-    photo: "/depoimentos/maria-alcantara.jpg",
-  },
-];
-
-const FAQ = [
-  {
-    q: "Recebo o material impresso?",
-    a: "Não. Todo material é 100% digital em PDF. Você imprime em casa, na igreja ou numa papelaria. Assim mantemos o preço acessível e você imprime só o que vai usar.",
-  },
-  {
-    q: "Preciso ter impressora colorida?",
-    a: "Não é obrigatório. O material foi pensado para funcionar bem também impresso em preto e branco.",
-  },
-  {
-    q: "Se eu assinar hoje, tenho acesso aos meses anteriores?",
-    a: "Sim. Ao assinar, você recebe imediatamente todos os meses já publicados no ano.",
-  },
-  {
-    q: "Posso usar em mais de uma igreja ou sala?",
-    a: "Sim, dentro do seu ministério. O que não pode é revender ou repassar o PDF em grupos.",
-  },
-  {
-    q: "Meu login vale por quanto tempo?",
-    a: "Enquanto sua assinatura estiver ativa, já que o plano é anual. Você pode renovar no fim do ano.",
-  },
-  {
-    q: "Tem suporte se eu tiver dúvida?",
-    a: "Sim, você tem suporte por e-mail e um portal com toda a orientação de uso do material.",
-  },
-  {
-    q: "E se eu comprar e não gostar?",
-    a: "Você tem 7 dias de garantia total. É só me mandar um e-mail e devolvo 100% do valor.",
-  },
-  {
-    q: "Serve para crianças com necessidades especiais?",
-    a: "As atividades foram pensadas para inclusão, e muitas professoras adaptam facilmente para seus contextos.",
-  },
-  {
-    q: "Como funciona para igrejas com equipe grande de professoras?",
-    a: "Um login serve para toda a equipe do mesmo ministério. Se sua igreja tem várias equipes independentes, me chame por e-mail para uma condição especial.",
-  },
-  {
-    q: "Onde faço login depois de comprar?",
-    a: "Você recebe o acesso por e-mail assim que a compra é aprovada, com login direto na plataforma Kiwify.",
-  },
-];
+function Texto({ children, className = "" }) {
+  return <p className={`text-[17px] font-medium leading-relaxed text-pa-tinta/80 md:text-xl ${className}`}>{children}</p>;
+}
 
 export default function PlanoAnualPage() {
   return (
-    <>
-      <Nav />
+    <div className={`pa ${lilita.variable}`}>
+      <Nav cta={{ label: "Quero o Plano Anual", href: "#oferta" }} links={[]} logoHref="/plano-anual" />
+      <Tracking />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
+
       <main>
-        {/* 1. Hero */}
-        <section className="pt-16 md:pt-20">
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 md:grid-cols-[1.15fr_1fr] md:px-8 md:pb-24">
-            <Reveal>
-              <span className="inline-block rounded-full bg-mustard/25 px-3 py-1 text-xs font-bold uppercase tracking-wide text-cacau/70">
-                Plano Anual Biblinho
-              </span>
-              <h1 className="mt-5 font-display text-3xl font-semibold leading-[1.15] text-cacau md:text-4xl">
-                O ano inteiro de aula bíblica, coladinho no evangelho.
+        {/* 1. Hero: a promessa, sem preço */}
+        <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#eaf6ff_100%)]">
+          <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 pb-14 pt-10 md:grid-cols-[1.1fr_1fr] md:px-8 md:pb-20 md:pt-16">
+            <div className="relative z-10">
+              <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-campo">Plano Anual Biblinho · Kids + Júnior · bônus Baby</p>
+              <h1 className="mt-4 text-balance font-display text-[2.7rem] leading-[1.02] text-pa-tinta md:text-[4.1rem]">
+                Cinquenta e dois domingos.
+                <br />
+                <span className="text-pa-campo">Uma história por mês.</span>
+                <br />
+                A aula já vem pronta.
               </h1>
-              <p className="mt-5 max-w-md text-base leading-relaxed text-cacau/75 md:text-lg">
-                Todo mês, uma história bíblica com estudos, dinâmicas e lembranças para Baby, Kids e Júnior. Baixa, imprime, aplica.
-              </p>
-              <a
-                href={KIWIFY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-block rounded-full bg-coral-deep px-7 py-3.5 text-base font-bold text-white shadow-[0_8px_24px_-8px_rgba(214,67,46,0.6)] transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
-              >
-                Quero meu ano pronto
-              </a>
-              <p className="mt-3 text-xs font-semibold text-cacau/50">
-                R$ 497 à vista ou 12x de R$ 51,40 · garantia de 7 dias · acesso imediato
-              </p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="flex aspect-[4/3] w-full items-center justify-center rounded-[2rem] bg-sand-light p-8 shadow-[0_24px_60px_-20px_rgba(46,31,23,0.25)]">
-                <Image
-                  src="/produtos/plano-anual-hero.png"
-                  alt="Plano Anual Biblinho: Baby até 3 anos, Kids 4-6 anos, Júnior 7-9 anos"
-                  width={800}
-                  height={280}
-                  priority
-                  className="w-full object-contain"
-                />
+              <Texto className="mt-6 max-w-[44ch]">
+                Apostila com a fala da professora escrita, quadro de história, atividades, versículo e lembrancinha. Do berçário ao Júnior, na mesma história.
+              </Texto>
+              <div className="mt-8">
+                <Botao href="#cena" externo={false}>
+                  Quero ver como funciona <ArrowDown size={20} weight="bold" />
+                </Botao>
               </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* 2. Faixa de credibilidade */}
-        <section className="border-y border-sand/40 bg-sand-light">
-          <Reveal>
-            <p className="mx-auto max-w-3xl px-4 py-8 text-center text-xs font-bold uppercase tracking-wide text-cacau/70 sm:text-sm md:px-8">
-              +1.000 professoras já compraram os materiais &middot; 2 anos ensinando a geração que vem aí
-            </p>
-          </Reveal>
-        </section>
-
-        {/* 3. É pra você se */}
-        <section className="bg-sand-light px-4 py-20 md:px-8 md:py-28">
-          <div className="mx-auto max-w-4xl">
-            <Reveal>
-              <h2 className="text-center font-display text-2xl font-semibold text-cacau md:text-3xl">
-                Este plano é pra você se...
-              </h2>
-            </Reveal>
-            <div className="mt-10 grid gap-10 md:grid-cols-2">
-              <Reveal delay={0.05}>
-                <ul className="flex flex-col gap-4">
-                  {PARA_VOCE.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <CheckCircle size={22} weight="light" className="mt-0.5 shrink-0 text-olive" />
-                      <span className="text-sm leading-relaxed text-cacau/80">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <ul className="flex flex-col gap-4">
-                  {NAO_PARA_VOCE.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <XCircle size={22} weight="light" className="mt-0.5 shrink-0 text-cacau/40" />
-                      <span className="text-sm leading-relaxed text-cacau/60">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
+            </div>
+            <div className="relative mx-auto aspect-[5/4] w-full max-w-lg md:max-w-none">
+              <Image src={HISTORIAS[0].src} alt="" width={900} height={1273} priority className="pa-flutua absolute left-[2%] top-[10%] hidden h-[72%] w-auto rounded-[12px] border-4 border-white shadow-[0_28px_44px_-18px_rgba(11,60,100,0.45)] sm:block" style={{ "--r": "-8deg", "--dur": "7.5s", "--delay": "0.4s" }} />
+              <Image src={HISTORIAS[1].src} alt={`Capa do material: ${HISTORIAS[1].nome}`} width={900} height={1273} priority className="pa-flutua absolute left-[30%] top-[2%] z-10 h-[86%] w-auto rounded-[12px] border-4 border-white shadow-[0_34px_54px_-18px_rgba(11,60,100,0.5)]" style={{ "--r": "2deg", "--dur": "6.4s" }} />
+              <Image src={HISTORIAS[2].src} alt="" width={900} height={1273} priority className="pa-flutua absolute left-[60%] top-[12%] h-[70%] w-auto rounded-[12px] border-4 border-white shadow-[0_28px_44px_-18px_rgba(11,60,100,0.45)]" style={{ "--r": "8deg", "--dur": "8.2s", "--delay": "1s" }} />
             </div>
           </div>
         </section>
 
-        {/* 4. O que você leva */}
-        <section id="o-que-voce-leva" className="px-4 py-20 md:px-8 md:py-28">
-          <div className="mx-auto max-w-6xl">
-            <Reveal className="max-w-2xl">
-              <h2 className="font-display text-3xl font-semibold text-cacau md:text-4xl">
-                Um ano inteiro de aula bíblica dentro do seu portal.
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <ul className="mt-10 grid gap-4 sm:grid-cols-2">
-                {INCLUI.map(({ icon: Icon, text }) => (
-                  <li key={text} className="flex items-start gap-3">
-                    <Icon size={22} weight="light" className="mt-0.5 shrink-0 text-coral-deep" />
-                    <span className="text-sm leading-relaxed text-cacau/80">{text}</span>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* 5. Como funciona */}
-        <section className="bg-sand-light px-4 py-20 md:px-8 md:py-28">
-          <div className="mx-auto max-w-5xl">
-            <Reveal className="max-w-xl">
-              <h2 className="font-display text-3xl font-semibold text-cacau md:text-4xl">
-                Como funciona, em 3 passos.
-              </h2>
-            </Reveal>
-            <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
-              {PASSOS.map((passo, i) => (
-                <Reveal key={passo.numero} delay={i * 0.08}>
-                  <span className="font-display text-4xl font-semibold text-mustard">{passo.numero}</span>
-                  <h3 className="mt-3 font-display text-lg font-semibold text-cacau">{passo.titulo}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-cacau/70">{passo.texto}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 6. Tour do portal */}
-        <section className="px-4 py-20 md:px-8 md:py-28">
-          <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
-            <Reveal>
-              <h2 className="font-display text-3xl font-semibold text-cacau md:text-4xl">
-                Veja por dentro do seu portal.
-              </h2>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-cacau/70">
-                Um tour rápido pra você ver onde entra, onde baixa, e como o material chega até você.
+        {/* 2. A cena: sexta à noite */}
+        <section id="cena" className="bg-white">
+          <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
+            <H2>Sexta-feira, 22h40.</H2>
+            <div className="mt-6 space-y-5 text-[17px] font-medium leading-relaxed text-pa-tinta/85 md:text-xl">
+              <p>Eu ainda não sei o que vou ensinar domingo.</p>
+              <p>
+                O Pinterest está aberto em doze abas. A impressora está sem tinta. Amanhã tem três turmas na mesma manhã, e o berçário não recebe nada novo desde março. Eu vou improvisar de novo. Eu sempre dou um jeito.
               </p>
-              <div className="mt-5 flex items-center gap-2 text-sm font-bold text-cacau/60">
-                <PlayCircle size={20} weight="light" />
-                Vídeo de 60 segundos
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <PlaceholderImage
-                label="Print de tela: portal com o menu dos 12 meses"
-                aspect="aspect-video"
-                className="w-full"
-              />
-            </Reveal>
-          </div>
-        </section>
-
-        {/* 8. Prova social */}
-        <section className="bg-sand-light px-4 py-20 md:px-8 md:py-28">
-          <div className="mx-auto max-w-5xl">
-            <Reveal>
-              <span className="inline-block rounded-full bg-mustard/25 px-3 py-1 text-xs font-bold uppercase tracking-wide text-cacau/70">
-                Quem já usa
-              </span>
-              <h2 className="mt-4 font-display text-3xl font-semibold text-cacau md:text-4xl">
-                Professoras que já usam o Biblinho.
-              </h2>
-            </Reveal>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2">
-              {DEPOIMENTOS.map((d, i) => (
-                <Reveal key={d.name} delay={i * 0.06}>
-                  <TestimonialCard {...d} index={i} />
-                </Reveal>
-              ))}
+              <p>
+                Domingo, na roda, eu pergunto quem lembra da história da semana passada. A menina que decorou o versículo não lembra quem era Zaqueu. O menino que participou de tudo não lembra nem que teve história.
+              </p>
+              <p className="font-display text-[1.6rem] leading-[1.15] text-pa-laranja md:text-[2.1rem]">Quanto do que eu ensino fica?</p>
             </div>
           </div>
         </section>
 
-        {/* 9. Oferta + garantia */}
-        <section id="oferta" className="px-4 py-20 md:px-8 md:py-28">
-          <Reveal className="mx-auto max-w-2xl rounded-3xl border-2 border-coral/30 bg-sand-light p-8 text-center md:p-12">
-            <h2 className="font-display text-2xl font-semibold text-cacau md:text-3xl">
-              Plano Anual Biblinho
+        {/* 3. O diagnóstico */}
+        <section className="bg-pa-campo text-white">
+          <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
+            <h2 className="text-balance font-display text-[2.2rem] leading-[1.06] md:text-[3.2rem]">
+              Não é falta de esforço. <span className="text-pa-sol">É falta de sequência.</span>
             </h2>
-
-            <ul className="mx-auto mt-6 flex max-w-sm flex-col gap-2.5 text-left">
-              {[
-                "12 novas histórias bíblicas ao longo do ano",
-                "Material para 3 faixas etárias: Baby, Kids e Júnior",
-                "Acesso imediato ao portal",
-                "Suporte por e-mail",
-                "Novo material todo mês, direto no seu login",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-2.5">
-                  <CheckCircle size={18} weight="light" className="mt-0.5 shrink-0 text-olive" />
-                  <span className="text-sm text-cacau/80">{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <p className="mt-8 text-lg text-cacau/50 line-through">De R$ 1.149,80</p>
-            <p className="font-display text-4xl font-semibold text-coral-deep md:text-5xl">
-              R$ 497 à vista
-            </p>
-            <p className="mt-1 text-sm text-cacau/70">ou 12x de R$ 51,40 no cartão</p>
-
-            <a
-              href={KIWIFY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-block w-full rounded-full bg-coral-deep px-8 py-4 text-base font-bold text-white shadow-[0_8px_24px_-8px_rgba(214,67,46,0.6)] transition-transform hover:-translate-y-0.5 active:scale-[0.98] sm:w-auto"
-            >
-              Quero meu ano pronto
-            </a>
-
-            <div className="mx-auto mt-8 flex max-w-sm items-start gap-3 rounded-2xl bg-white p-4 text-left">
-              <ShieldCheck size={26} weight="light" className="mt-0.5 shrink-0 text-olive" />
-              <p className="text-sm leading-relaxed text-cacau/75">
-                <strong className="text-cacau">Garantia de 7 dias.</strong> Se em 7 dias você não sentir que vale cada centavo, devolvemos 100% do valor. Sem burocracia.
-              </p>
+            <div className="mt-6 space-y-5 text-[17px] font-medium leading-relaxed text-white/90 md:text-xl">
+              <p>Criança aprende com história. E história precisa de continuação.</p>
+              <p>Uma aula solta por semana é semente sem terra: cai, brilha no domingo e seca na segunda. Quatro domingos dentro da mesma história é onde ela cria raiz. A criança volta sabendo onde parou, a família escuta a mesma história a semana inteira, e o versículo entra sem decoreba.</p>
             </div>
-          </Reveal>
-        </section>
-
-        {/* 10. FAQ */}
-        <section className="bg-sand-light px-4 py-20 md:px-8 md:py-28">
-          <div className="mx-auto max-w-2xl">
-            <Reveal>
-              <h2 className="font-display text-3xl font-semibold text-cacau md:text-4xl">
-                Perguntas frequentes
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1} className="mt-8">
-              <div>
-                {FAQ.map((item) => (
-                  <FaqItem key={item.q} question={item.q} answer={item.a} />
-                ))}
-              </div>
-            </Reveal>
           </div>
         </section>
 
-        {/* 11. CTA final */}
-        <section className="px-4 py-20 text-center md:px-8 md:py-28">
-          <Reveal className="mx-auto max-w-2xl">
-            <Image
-              src="/marca/biblinho-mascote-grande.png"
-              alt=""
-              width={261}
-              height={261}
-              className="mx-auto h-16 w-16"
-            />
-            <h2 className="mt-4 font-display text-3xl font-semibold text-cacau md:text-4xl">
-              Sua próxima aula pode ser hoje.
+        {/* 4. A virada */}
+        <section className="bg-white">
+          <div className="mx-auto max-w-6xl px-5 pb-6 pt-16 md:px-8 md:pt-24">
+            <h2 className="text-balance font-display text-[2.4rem] leading-[1.02] text-pa-tinta md:text-[3.5rem]">
+              Foi pra esse ano que existe o <span className="text-pa-campo">Plano Anual Biblinho.</span>
             </h2>
-            <p className="mt-3 text-base text-cacau/70">
-              Assine agora e em minutos você já baixou o material do mês.
-            </p>
-            <a
-              href={KIWIFY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-block rounded-full bg-coral-deep px-8 py-4 text-base font-bold text-white shadow-[0_8px_24px_-8px_rgba(214,67,46,0.6)] transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
-            >
-              Quero meu ano pronto
-            </a>
-            <p className="mt-3 text-xs font-semibold text-cacau/50">
-              Pagamento seguro pela Kiwify · 7 dias de garantia
-            </p>
-          </Reveal>
+            <Texto className="mt-6 max-w-[60ch]">
+              Uma história por mês, com quatro ou cinco domingos dentro dela. Kids e Júnior na mesma história, e o material Baby junto, de bônus. Sua igreja inteira aprendendo a mesma coisa no mesmo mês, do berçário ao Júnior.
+            </Texto>
+          </div>
+        </section>
+
+        {/* 5. A roda das histórias */}
+        <section className="overflow-hidden bg-[radial-gradient(120%_90%_at_50%_0%,#ffffff_0%,#eaf6ff_55%,#dcefff_100%)]">
+          <div className="mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-8 md:pb-24">
+            <H2 className="text-center">
+              Uma história nova <span className="text-pa-campo">todo mês.</span>
+            </H2>
+            <Texto className="mx-auto mt-4 max-w-[56ch] text-center">
+              Cada uma com quatro ou cinco domingos dentro, pra Kids e Júnior, com o Baby junto. A criança acompanha a mesma história o mês inteiro.
+            </Texto>
+            <div className="mt-8">
+              <Roda historias={HISTORIAS} />
+            </div>
+          </div>
+        </section>
+
+        {/* Blocos 6 a 13 entram nas Tasks 7 e 8 */}
+        <section id="oferta" className="bg-white py-16 text-center">
+          <Botao>Quero o Plano Anual</Botao>
         </section>
       </main>
-      <Footer />
-    </>
+      <Footer showNav={false} />
+    </div>
   );
 }
