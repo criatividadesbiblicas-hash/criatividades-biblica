@@ -173,7 +173,7 @@ export default function PlanoAnualPage() {
         <section className="bg-white">
           <div className="mx-auto max-w-6xl px-5 pb-6 pt-16 md:px-8 md:pt-24">
             <h2 className="text-balance font-display text-[2.4rem] leading-[1.02] text-pa-tinta md:text-[3.5rem]">
-              Foi pra esse ano que existe o <span className="text-pa-campo">Plano Anual Biblinho.</span>
+              É exatamente para isso que o <span className="text-pa-campo">Plano Anual Biblinho</span> existe.
             </h2>
             <Texto className="mt-6 max-w-[60ch]">
               Uma história por mês, com quatro ou cinco domingos dentro dela. Kids e Júnior na mesma história, e o material Baby junto, de bônus. Sua igreja inteira aprendendo a mesma coisa no mesmo mês, do berçário ao Júnior.
