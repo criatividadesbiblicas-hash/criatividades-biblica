@@ -126,16 +126,30 @@ export default function PlanoAnualPage() {
         {/* 2. A cena: sexta à noite */}
         <section id="cena" className="bg-white">
           <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
-            <H2>Sexta-feira, 22h40.</H2>
+            <H2>Você já passou por algo parecido?</H2>
             <div className="mt-6 space-y-5 text-[17px] font-medium leading-relaxed text-pa-tinta/85 md:text-xl">
-              <p>Eu ainda não sei o que vou ensinar domingo.</p>
               <p>
-                O Pinterest está aberto em doze abas. A impressora está sem tinta. Amanhã tem três turmas na mesma manhã, e o berçário não recebe nada novo desde março. Eu vou improvisar de novo. Eu sempre dou um jeito.
+                Chega sexta-feira, 22h40, e bate aquela angústia: “Eu ainda não sei o que vou ensinar no domingo.”
               </p>
+              <p>O cenário é sempre o mesmo:</p>
+              <ul className="space-y-3">
+                {[
+                  "O Pinterest aberto em doze abas diferentes.",
+                  "Vídeos no YouTube rodando para tentar montar recursos visuais do zero.",
+                  "A agenda de sábado lotada e o relógio correndo contra você.",
+                  "O berçário vivendo de improvisos desde março.",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span aria-hidden="true" className="mt-[0.65em] h-2 w-2 shrink-0 rounded-full bg-pa-laranja" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
               <p>
-                Domingo, na roda, eu pergunto quem lembra da história da semana passada. A menina que decorou o versículo não lembra quem era Zaqueu. O menino que participou de tudo não lembra nem que teve história.
+                Aí chega o domingo. Na roda de conversa, você pergunta quem lembra do que foi ensinado na semana passada. A menina que decorou o versículo não sabe quem era Zaqueu. O menino que participou de toda a aula nem lembra que teve história.
               </p>
-              <p className="font-display text-[1.6rem] leading-[1.15] text-pa-laranja md:text-[2.1rem]">Quanto do que eu ensino fica?</p>
+              <p>E a pergunta que fica na mente do professor é uma só:</p>
+              <p className="font-display text-[1.6rem] leading-[1.15] text-pa-laranja md:text-[2.1rem]">Quanto do que eu ensino realmente fica?</p>
             </div>
           </div>
         </section>
