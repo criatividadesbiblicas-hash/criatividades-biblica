@@ -1,6 +1,6 @@
 /*
   CONTRATO DE DIREÇÃO — Plano Anual Biblinho (perene)
-  THESIS: a professora entra numa sexta à noite sem aula e sai com o ano inteiro resolvido; a página
+  THESIS: o professor entra numa sexta à noite sem aula e sai com o ano inteiro resolvido; a página
   é uma história (cena → diagnóstico → virada → roda das histórias → material real → prova → oferta)
   e recusa hero com preço, selo de desconto e contador.
   OWN-WORLD: "letra da capa" — Lilita One nos títulos, Nunito no texto; céu claro e branco em campos
@@ -26,7 +26,7 @@ const HOST = "https://materiais.criatividadesbiblicas.com.br";
 const PAGE_URL = `${HOST}/plano-anual`;
 const TITLE = "Plano Anual Biblinho: um ano de aula bíblica pronta | Criatividades Bíblicas";
 const DESCRIPTION =
-  `Uma história bíblica por mês, com a aula pronta pra Kids (4 a 6) e Júnior (7 a 10) e o material Baby de bônus: apostila com a fala da professora, quadro de história, atividades, versículo e lembrancinha. ${OFERTA.por} à vista ou ${OFERTA.parcela}.`;
+  `Uma história bíblica por mês, com a aula pronta pra Kids (4 a 6) e Júnior (7 a 10) e o material Baby de bônus: apostila com a fala do professor, quadro de história, atividades, versículo e lembrancinha. ${OFERTA.por} à vista ou ${OFERTA.parcela}.`;
 
 export const metadata = {
   title: TITLE,
@@ -104,7 +104,7 @@ export default function PlanoAnualPage() {
                 Uma história por mês.
               </h1>
               <Texto className="mt-6 max-w-[50ch]">
-                Entregamos a apostila completa na sua mão: fala da professora roteirizada, quadro de história, atividades, versículo e lembrancinha.
+                Entregamos a apostila completa na sua mão: fala do professor roteirizada, quadro de história, atividades, versículo e lembrancinha.
               </Texto>
               <Texto className="mt-3 max-w-[50ch]">
                 Do berçário ao Júnior, todas as crianças mergulhando na mesma história. É só focar no que mais importa: o coração dos pequenos.
@@ -246,7 +246,7 @@ export default function PlanoAnualPage() {
         {/* 8. A fala já vem escrita */}
         <section className="bg-white">
           <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
-            <H2>A fala da professora já vem escrita.</H2>
+            <H2>A fala do professor já vem escrita.</H2>
             <Texto className="mt-4 max-w-[56ch]">Esta é uma página real da apostila Kids, sem retoque. Você lê, adapta o que quiser e conduz.</Texto>
             <div className="mt-12 grid items-start gap-8 md:grid-cols-[1fr_1.15fr_1fr]">
               <ul className="hidden flex-col gap-6 md:flex md:pt-10">
