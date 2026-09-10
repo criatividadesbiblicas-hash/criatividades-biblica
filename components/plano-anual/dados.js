@@ -6,7 +6,7 @@ export const KIWIFY_URL = "https://pay.kiwify.com.br/kuUKSBr";
 export const OFERTA = {
   de: "R$ 1.164,00",
   por: "R$ 597,00",
-  parcela: "12x de R$ 61,74",
+  parcela: "parcele em até 12x",
   precoNumero: 597,
 };
 

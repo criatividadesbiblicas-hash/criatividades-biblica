@@ -93,18 +93,21 @@ export default function PlanoAnualPage() {
         <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#eaf6ff_100%)]">
           {/* A coluna do titulo so divide o hero em duas a partir de xl: em 768-1279px a coluna
               de 1.1fr dava 344-570px, e o titulo de 65.6px quebrava em 6 a 8 linhas. */}
-          <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 pb-14 pt-10 md:px-8 md:pb-20 md:pt-16 xl:grid-cols-[1.1fr_1fr]">
+          <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 pb-14 pt-10 md:px-8 md:pb-20 md:pt-16 xl:grid-cols-[1.32fr_1fr]">
             <div className="relative z-10">
               <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-campo-escuro">Plano Anual Biblinho · Baby, Kids e Júnior</p>
-              <h1 className="mt-4 text-balance font-display text-[2.35rem] leading-[1.02] text-pa-tinta min-[360px]:text-[2.7rem] md:text-[4.1rem]">
-                <span className="whitespace-nowrap">Cinquenta e dois</span> domingos.
+              <h1 className="mt-4 text-balance font-display text-[2.1rem] leading-[1.04] text-pa-tinta min-[360px]:text-[2.4rem] md:text-[3.05rem]">
+                O fim das madrugadas planejando aulas.
                 <br />
-                <span className="text-pa-campo">Uma história por mês.</span>
+                <span className="text-pa-campo">O ano inteiro já está pronto.</span>
                 <br />
-                A aula já vem pronta.
+                Uma história por mês.
               </h1>
-              <Texto className="mt-6 max-w-[44ch]">
-                Apostila com a fala da professora escrita, quadro de história, atividades, versículo e lembrancinha. Do berçário ao Júnior, na mesma história.
+              <Texto className="mt-6 max-w-[50ch]">
+                Entregamos a apostila completa na sua mão: fala da professora roteirizada, quadro de história, atividades, versículo e lembrancinha.
+              </Texto>
+              <Texto className="mt-3 max-w-[50ch]">
+                Do berçário ao Júnior, todas as crianças mergulhando na mesma história. É só focar no que mais importa: o coração dos pequenos.
               </Texto>
               <div className="mt-8">
                 <Botao href="#cena" externo={false}>
@@ -189,8 +192,8 @@ export default function PlanoAnualPage() {
             <ol className="mt-12 grid gap-x-6 gap-y-10 min-[420px]:grid-cols-2 lg:grid-cols-4">
               {AULAS_ARCA.map((a) => (
                 <li key={a.n} className="flex flex-col">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] border-4 border-white shadow-[0_18px_34px_-14px_rgba(11,60,100,0.35)]">
-                    <Image src={a.img} alt={`Lâmina do quadro de história: ${a.titulo}`} fill sizes="(min-width: 1024px) 22vw, 45vw" className="object-cover object-[center_40%]" />
+                  <div className="relative aspect-[900/1273] overflow-hidden rounded-[1.25rem] border-4 border-white bg-pa-ceu-claro shadow-[0_18px_34px_-14px_rgba(11,60,100,0.35)]">
+                    <Image src={a.img} alt={`Lâmina do quadro de história: ${a.titulo}`} fill sizes="(min-width: 1024px) 22vw, 45vw" className="object-contain" />
                     <span className="absolute left-3 top-3 rounded-full bg-pa-sol px-3 py-1 font-display text-sm text-pa-tinta">Domingo {a.n}</span>
                   </div>
                   <h3 className="mt-5 font-display text-[1.35rem] leading-tight text-pa-tinta">{a.titulo}</h3>

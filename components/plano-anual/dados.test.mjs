@@ -11,7 +11,7 @@ const DADOS_JS = readFileSync(join(process.cwd(), "components", "plano-anual", "
 test("oferta e checkout exatos", () => {
   assert.equal(OFERTA.de, "R$ 1.164,00");
   assert.equal(OFERTA.por, "R$ 597,00");
-  assert.equal(OFERTA.parcela, "12x de R$ 61,74");
+  assert.equal(OFERTA.parcela, "parcele em até 12x");
   assert.equal(OFERTA.precoNumero, 597);
   assert.equal(KIWIFY_URL, "https://pay.kiwify.com.br/kuUKSBr");
 });
