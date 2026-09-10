@@ -12,7 +12,10 @@ test("oferta e checkout exatos", () => {
   assert.equal(OFERTA.de, "R$ 1.164,00");
   assert.equal(OFERTA.por, "R$ 597,00");
   assert.equal(OFERTA.parcela, "parcele em até 12x");
+  assert.equal(OFERTA.porMes, "menos de R$ 50 por mês");
   assert.equal(OFERTA.precoNumero, 597);
+  // o divisor mensal tem que continuar batendo com o preco
+  assert.ok(OFERTA.precoNumero / 12 < 50);
   assert.equal(KIWIFY_URL, "https://pay.kiwify.com.br/kuUKSBr");
 });
 

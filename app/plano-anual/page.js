@@ -369,6 +369,7 @@ export default function PlanoAnualPage() {
                     <span className="pb-2 text-[15px] font-semibold text-pa-tinta/75">à vista</span>
                   </p>
                   <p className="mt-1 text-[17px] font-bold text-pa-tinta">ou {OFERTA.parcela}</p>
+                  <p className="mt-2 text-[14px] font-semibold text-pa-tinta/70">{OFERTA.porMes[0].toUpperCase() + OFERTA.porMes.slice(1)} de material novo.</p>
                   <Botao className="mt-7 w-full sm:w-auto">Quero o Plano Anual</Botao>
                   <p className="mt-3 text-[13px] font-semibold text-pa-tinta/70">Pix, boleto ou cartão · pagamento seguro pela Kiwify</p>
                   <div className="mt-7 flex items-center gap-4 rounded-[1.25rem] bg-pa-ceu-claro p-4">

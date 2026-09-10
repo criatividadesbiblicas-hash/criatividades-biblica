@@ -7,6 +7,8 @@ export const OFERTA = {
   de: "R$ 1.164,00",
   por: "R$ 597,00",
   parcela: "parcele em até 12x",
+  // 597 / 12 = 49,75. Descreve o material que chega por mes, nao uma cobranca mensal.
+  porMes: "menos de R$ 50 por mês",
   precoNumero: 597,
 };
 
@@ -72,5 +74,6 @@ export const FAQ = [
   { q: "Posso usar com toda a equipe da minha igreja?", a: "Sim, dentro do seu ministério. O que não pode é revender ou repassar os PDFs em grupos." },
   { q: "Já comprei um Pack avulso. E agora?", a: "Os Packs avulsos são histórias do Plano Anual vendidas separadas. Se você já tem alguma, ela vai aparecer de novo na sua trilha quando chegar o mês dela. O Plano compensa a partir da segunda história." },
   { q: "E depois dos 12 meses?", a: "Você continua com acesso a tudo que recebeu. Pra seguir recebendo histórias novas, é só renovar." },
+  { q: "R$ 597 não é caro?", a: "São doze histórias, uma por mês, com o material completo de Kids e Júnior e o Baby de bônus junto. Dá menos de R$ 50 por mês. Comprando as mesmas doze histórias como Pack avulso, sairia R$ 1.164,00. E o material não vence: você usa com a turma deste ano e com a do ano que vem." },
   { q: "Tem garantia?", a: "Tem. 7 dias depois da compra pra pedir reembolso total, sem burocracia. É só mandar um e-mail." },
 ];
