@@ -172,3 +172,65 @@ body:has(> .arca) { background: #ffffff; }
 .arca button span.font-display { color: #17324d; }
 .arca button svg.text-coral-deep { color: #ea4d3d; }
 .arca .text-cacau\/75 { color: rgba(23, 50, 77, 0.78); }
+
+/* Landing /plano-anual: mundo "Letra da capa" (Lilita One + Nunito; ceu claro, campo, sol) */
+@theme {
+  --color-pa-branco: #ffffff;
+  --color-pa-ceu-claro: #eaf6ff;
+  --color-pa-ceu: #59b6f0;
+  --color-pa-campo: #2a8a3e;
+  --color-pa-campo-escuro: #1f6b2f;
+  --color-pa-sol: #ffc531;
+  --color-pa-laranja: #e8562a;
+  --color-pa-terra: #8a5a3c;
+  --color-pa-tinta: #22303f;
+}
+
+.pa {
+  --font-display: var(--font-lilita), "Lilita One", system-ui, sans-serif;
+  --font-body: var(--font-nunito), "Nunito", system-ui, sans-serif;
+  font-family: var(--font-body);
+  color: var(--color-pa-tinta);
+  background: #ffffff;
+  scrollbar-color: var(--color-pa-campo) var(--color-pa-ceu-claro);
+}
+.pa ::selection { background: var(--color-pa-sol); color: var(--color-pa-tinta); }
+/* O anel de foco segue o raio do proprio elemento: forcar pilula aqui deformava o
+   foco da roda (regiao de 1024x460, o anel virava uma lozango) e o do item de FAQ. */
+.pa :focus-visible { outline: 3px solid var(--color-pa-campo); outline-offset: 3px; }
+.pa a { text-underline-offset: 0.18em; }
+body:has(> .pa) { background: #ffffff; }
+
+/* sinal do dia: capas flutuando devagar */
+@keyframes pa-flutua {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-9px) rotate(calc(var(--r, 0deg) + 1deg)); }
+}
+.pa-flutua {
+  animation: pa-flutua var(--dur, 7s) cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pa-flutua { animation: none; }
+}
+
+/* Cabecalho e rodape compartilhados, vestidos com o mundo do Plano Anual */
+.pa header { background: rgba(255, 255, 255, 0.92); border-color: #cfe7f7; }
+.pa header a[href="#oferta"] {
+  background: #ffc531; color: #22303f; font-family: var(--font-display); font-weight: 400; font-size: 16px;
+  letter-spacing: 0.01em; box-shadow: 0 8px 20px -10px rgba(233, 164, 0, 0.8);
+}
+.pa header a[href="#oferta"]:hover { background: #ffd15a; }
+.pa footer { background: #ffffff; border-color: #cfe7f7; }
+.pa footer p, .pa footer a, .pa footer div { color: #22303f; }
+/* 0.72 e o piso pra 12-14px sobre branco ficar em 5.4:1; com 0.6 media 3.85:1 e reprovava AA. */
+.pa footer .text-cacau\/50, .pa footer .text-cacau\/70 { color: rgba(34, 48, 63, 0.72); }
+.pa footer a:hover { color: #1f6b2f; }
+.pa footer > div:last-child { border-color: #cfe7f7; }
+
+/* FAQ compartilhado vestido */
+.pa .border-sand\/50 { border-color: #cfe7f7; }
+.pa button span.font-display { color: #22303f; font-weight: 400; }
+.pa button svg.text-coral-deep { color: #2a8a3e; }
+.pa .text-cacau\/75 { color: rgba(34, 48, 63, 0.78); }

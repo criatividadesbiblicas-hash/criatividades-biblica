@@ -29,3 +29,6 @@ yarn-error.log*
 
 # impeccable: capturas de revisão (pesadas)
 /.impeccable/review/
+
+# superpowers: workspace do SDD (scratch)
+/.superpowers/
