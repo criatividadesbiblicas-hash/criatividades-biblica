@@ -386,7 +386,7 @@ Rejeições confirmadas no build: fundo creme, numeração ou ordem na roda (nad
 - **Anotação** (400, `text-lg`/18px, leading tight): título das notas laterais em "a fala já vem escrita".
 - **Body** (Nunito, leading relaxed, 17px → 20px no `md`): parágrafos de abertura de seção e blocos narrativos, via o componente local `Texto` (largura máxima 44–60ch).
 - **Body card** (Nunito, leading relaxed, 15px): texto dentro de cards de peça, notas de anotação, blockquotes das três faixas e da oferta.
-- **Small** (Nunito, 12–14px): rótulo do hero (12px, uppercase, tracking 0.12em), citação em itálico dos versículos do quadro da Arca (14px), legendas de rodapé de bloco (13–14px: "arrasta pro lado ou usa as setas", "Pix, boleto ou cartão…").
+- **Small** (Nunito, 12–14px): rótulo do hero (12px, uppercase, tracking 0.12em), citação em itálico dos versículos do quadro da Arca (14px), legendas de rodapé de bloco (13–14px: "arrasta pro lado ou usa as setas", "Pix, boleto ou cartão…"), e o número de estudos (13px) sob o nome de cada capa na fila estática que substitui a roda quando `prefers-reduced-motion` está ativo — mesmo tamanho da dica de arrasto, mesma legenda, só que sem o giro 3D.
 - **Label / badge** (400, `text-sm`/14px a `text-base`/16px, sempre dentro de pílula `pa-sol`): "Domingo N", a faixa etária ("Baby · 1 a 3 anos"), "X estudos" na legenda da roda.
 - **Números** (400, `leading-none`): preço grande da oferta (3,4rem, `pa-campo`); dígitos dos três passos de "como funciona" (text-xl dentro do círculo sol).
 
