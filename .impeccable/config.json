@@ -1,0 +1,44 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font-size",
+        "value": "10px",
+        "files": [
+          "app/painel/page.js"
+        ],
+        "createdAt": "2026-09-11T10:53:59.721Z",
+        "reason": "painel interno de dados densos, fora do design system do site publico"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "9px",
+        "files": [
+          "app/painel/page.js"
+        ],
+        "createdAt": "2026-09-11T10:53:59.828Z",
+        "reason": "rotulo de eixo do grafico, painel interno"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "13px",
+        "files": [
+          "app/painel/page.js"
+        ],
+        "createdAt": "2026-09-11T10:54:00.162Z",
+        "reason": "painel interno de dados densos"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "11px",
+        "files": [
+          "app/painel/page.js"
+        ],
+        "createdAt": "2026-09-11T10:54:00.343Z",
+        "reason": "painel interno de dados densos"
+      }
+    ]
+  }
+}
