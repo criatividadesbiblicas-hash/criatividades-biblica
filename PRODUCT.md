@@ -30,7 +30,7 @@ Compra pela Kiwify (Pix, boleto, cartão); acesso por e-mail à área da Kiwify;
 - **Bônus só na semana de lançamento: Pack Baby completo + acesso vitalício.** Fora da promoção, nem o Baby nem o acesso vitalício estão prometidos (prazo padrão de acesso: não decidido, não afirmar).
 - Garantia de 7 dias (padrão Kiwify), sempre.
 - Material é fechado (sem edição de texto/cores). Uso permitido dentro do ministério da compradora; proibido revender/repassar.
-- Link do checkout ainda não existe (placeholder `pay.kiwify.com.br/ARCA-DE-NOE`).
+- Link do checkout: `pay.kiwify.com.br/KFht7BV`.
 - Página não deve ir ao ar antes da abertura (robots noindex; sem push no `main`, que publica na Vercel).
 - Português do Brasil obrigatório (nunca PT-PT).
 

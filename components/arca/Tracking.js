@@ -12,7 +12,7 @@ const PIXEL_ID = "493199083223154";
 const CLARITY_ID = "ydn96d2tri";
 const PRODUTO = {
   content_name: "Pack Arca de Noe - Aprendendo a Obedecer",
-  content_ids: ["arca-de-noe"], // TODO: trocar pelo id do produto na Kiwify quando criar
+  content_ids: ["KFht7BV"],
   content_type: "product",
   value: 67,
   currency: "BRL",

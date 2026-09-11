@@ -55,8 +55,7 @@ export const metadata = {
   robots: { index: false, follow: false }, // TODO: liberar (index: true) no dia da abertura
 };
 
-// TODO: trocar pelo link real do checkout do Pack na Kiwify (preço promocional R$ 67)
-const KIWIFY_URL = "https://pay.kiwify.com.br/ARCA-DE-NOE";
+const KIWIFY_URL = "https://pay.kiwify.com.br/KFht7BV";
 
 // A página é re-renderizada no servidor a cada 10 min: depois de FIM_PROMO o preço, os bônus
 // e os botões trocam sozinhos pra versão sem promoção (o contador faz o mesmo no cliente).
