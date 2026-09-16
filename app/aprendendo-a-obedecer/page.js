@@ -254,7 +254,7 @@ export default function ArcaDeNoePage() {
   const JSON_LD = montarJsonLd(FAQ);
   return (
     <div className={`arca ${baloo.variable} ${quicksand.variable}`}>
-      <Nav cta={{ label: "Quero o Pack", href: "#pack" }} links={[]} logoHref="/aprendendo-a-obedecer" />
+      <Nav cta={{ label: "Quero o Pack", href: "#oferta" }} links={[]} logoHref="/aprendendo-a-obedecer" />
       <Tracking />
       <BarraContador href="#oferta" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
@@ -275,8 +275,16 @@ export default function ArcaDeNoePage() {
                 <Botao href="#historia" externo={false}>
                   Quero ver a história <ArrowDown size={20} weight="bold" />
                 </Botao>
-                <p className="text-[15px] font-semibold text-arca-tinta/75">Kids (4 a 6) e Júnior (7 a 10), no mesmo Pack.</p>
+                {/* Atalho pra quem já decidiu: leva ao card de preço, não ao checkout —
+                    a história continua sendo o caminho padrão. */}
+                <a
+                  href="#oferta"
+                  className="font-display text-[15px] font-extrabold text-arca-mar underline decoration-arca-mar/30 decoration-2 underline-offset-4 transition-colors hover:text-arca-coral hover:decoration-arca-coral/40"
+                >
+                  Já conheço, quero o Pack
+                </a>
               </div>
+              <p className="mt-4 text-[15px] font-semibold text-arca-tinta/75">Kids (4 a 6) e Júnior (7 a 10), no mesmo Pack.</p>
             </div>
 
             <div className="relative mx-auto aspect-[5/4] w-full max-w-lg md:max-w-none">
@@ -378,6 +386,15 @@ export default function ArcaDeNoePage() {
                 </li>
               ))}
             </ol>
+
+            {/* Quem chegou até aqui já viu as quatro aulas: dá o caminho pro preço em vez
+                de obrigar a rolar mais dez telas. */}
+            <div className="mt-16 flex flex-col items-center gap-3 text-center">
+              <Botao href="#oferta" externo={false} tom="coral">
+                Quero o Pack <ArrowDown size={20} weight="bold" />
+              </Botao>
+              <p className="text-[15px] font-semibold text-arca-tinta/70">Kids e Júnior juntos, com o bônus Baby até quarta.</p>
+            </div>
           </div>
         </section>
 

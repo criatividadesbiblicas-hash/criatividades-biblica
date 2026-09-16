@@ -59,12 +59,15 @@ export function BarraContador({ href, label = "Quero o Pack" }) {
   const [liberada, setLiberada] = useState(false);
   const [sobreOferta, setSobreOferta] = useState(false);
   useEffect(() => {
-    const bonus = document.getElementById("bonus");
+    // Libera a barra já na seção do Pack (logo depois da história), não só no bônus:
+    // no lançamento de setembro ela só aparecia perto do fim da página e quase ninguém
+    // chegava lá. O preço continua fora da barra — ela leva ao card da oferta.
+    const gatilho = document.getElementById("pack") || document.getElementById("bonus");
     const oferta = document.getElementById("oferta");
-    if (!bonus || !oferta) return undefined;
+    if (!gatilho || !oferta) return undefined;
     const io1 = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && setLiberada(true)), { threshold: 0.3 });
     const io2 = new IntersectionObserver((es) => es.forEach((e) => setSobreOferta(e.isIntersecting)), { threshold: 0.15 });
-    io1.observe(bonus);
+    io1.observe(gatilho);
     io2.observe(oferta);
     return () => { io1.disconnect(); io2.disconnect(); };
   }, []);
