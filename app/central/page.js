@@ -12,7 +12,7 @@ export default async function PaginaCapa() {
   const [{ itens, erro }, rodada] = await Promise.all([listarItens(), ultimaRodada()]);
   return (
     <Moldura ativa="capa" contadores={contadores(itens)} rodada={rodada}>
-      <Capa resumo={resumoCapa(itens)} erro={erro} />
+      <Capa resumo={resumoCapa(itens)} erro={erro} rodada={rodada} />
     </Moldura>
   );
 }

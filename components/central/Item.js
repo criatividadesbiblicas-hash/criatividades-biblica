@@ -1,7 +1,7 @@
 // components/central/Item.js
 import { Flag, Sparkle, CalendarBlank, Check } from "@phosphor-icons/react/dist/ssr";
 import { feito } from "@/app/central/acoes";
-import { horaCurta, diaCurto } from "./formato";
+import { horaCurta, diaCurto, progressoLimpo } from "./formato";
 
 const SELO_POST = {
   agendado: <span className="c-selo c-azul">agendado</span>,
@@ -34,7 +34,7 @@ export default function Item({ item }) {
       <article className="c-folha">
         <div className="c-meta"><Sparkle size={13} weight="bold" />Tarefa do Claude{item.etapa ? ` · ${item.etapa}` : ""}</div>
         <h3 className="c-titulo-item">{item.titulo}</h3>
-        {item.situacao === "com_claude" && <div className="c-barra"><i style={{ width: `${item.progresso ?? 10}%` }} /></div>}
+        {item.situacao === "com_claude" && progressoLimpo(item.progresso) !== null && <div className="c-barra"><i style={{ width: `${progressoLimpo(item.progresso)}%` }} /></div>}
         {item.texto_original && <p className="c-texto">{item.texto_original}</p>}
         {item.situacao === "esperando_voce" && (
           <div className="c-acoes">

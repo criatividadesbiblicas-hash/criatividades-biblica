@@ -23,7 +23,19 @@ export function diaCurto(iso) {
   return new Intl.DateTimeFormat("pt-BR", { weekday: "short", day: "2-digit", month: "2-digit", timeZone: FUSO }).format(new Date(iso)).replace(".", "");
 }
 
+export function progressoLimpo(p) {
+  if (p === null || p === undefined || p === "" || Number.isNaN(Number(p))) return null;
+  return Math.min(100, Math.max(0, Number(p)));
+}
+
+export function rodadaComProblema(rodada, agora = new Date()) {
+  if (!rodada) return false;
+  if (rodada.erro || !rodada.ok) return true;
+  return agora.getTime() - new Date(rodada.quando).getTime() > 60 * 60000;
+}
+
 export function rotuloRodada(rodada, agora = new Date()) {
+  if (rodada?.erro) return "Não consegui ver a última rodada do PC.";
   if (!rodada) return "O PC ainda não fez nenhuma rodada.";
   const min = Math.round((agora.getTime() - new Date(rodada.quando).getTime()) / 60000);
   const quando = min < 2 ? "agora há pouco" : min < 60 ? `há ${min} min` : `${diaCurto(rodada.quando)} às ${horaCurta(rodada.quando)}`;

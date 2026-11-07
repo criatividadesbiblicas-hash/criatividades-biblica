@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 export default async function PaginaInterna({ params }) {
   const { pagina } = await params;
   await exigirSessao();
-  if (!PAGINAS[pagina]) notFound();
+  if (!Object.hasOwn(PAGINAS, pagina)) notFound();
   const [{ itens, erro }, rodada] = await Promise.all([listarItens(), ultimaRodada()]);
   return (
     <Moldura ativa={pagina} contadores={contadores(itens)} rodada={rodada}>
