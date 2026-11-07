@@ -23,7 +23,7 @@ export default function Item({ item }) {
   if (item.tipo === "post") {
     return (
       <article className="c-folha">
-        <div className="c-meta"><CalendarBlank size={13} weight="bold" />{diaCurto(item.prazo)} · {horaCurta(item.prazo)} · {item.contexto}{SELO_POST[item.situacao]}</div>
+        <div className="c-meta"><CalendarBlank size={13} weight="bold" />{[item.prazo ? diaCurto(item.prazo) : null, item.prazo ? horaCurta(item.prazo) : null, item.contexto].filter(Boolean).join(" · ")}{SELO_POST[item.situacao]}</div>
         <h3 className="c-titulo-item">{item.titulo}</h3>
         {item.situacao === "esperando_voce" && <div className="c-acoes"><BotaoFeito id={item.id} rotulo="Postei" /></div>}
       </article>
