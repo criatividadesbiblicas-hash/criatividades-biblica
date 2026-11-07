@@ -298,6 +298,7 @@ body:has(> .central) { background: #eef7ff; }
 .c-dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .c-dupla h2 { font-size: 17px; }
 .c-capa { display: grid; gap: 12px; }
+.c-lado { display: grid; gap: 12px; }
 @media (min-width: 1024px) { .c-capa { grid-template-columns: 1.25fr 1fr; gap: 16px; align-items: start; } .c-capa > .c-saud { grid-column: 1 / -1; } .c-lado { display: grid; gap: 16px; } }
 .c-barra { height: 6px; border-radius: 9px; background: var(--c-ceu-claro); margin-top: 5px; overflow: hidden; }
 .c-barra i { display: block; height: 100%; border-radius: 9px; background: var(--c-mar); }
