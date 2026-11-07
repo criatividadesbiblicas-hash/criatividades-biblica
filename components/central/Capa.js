@@ -31,7 +31,7 @@ export default function Capa({ resumo, erro }) {
         <div className="c-dupla">
           <Link href="/central/com-o-claude" className="c-porta c-branca">
             <div className="c-cab"><span><Sparkle size={13} weight="bold" />Com o Claude</span></div>
-            <h2>{comClaude.fazendo.length === 0 ? "Nada em andamento" : `${comClaude.fazendo.length} fazendo agora`}</h2>
+            <h2>{comClaude.totalFazendo === 0 ? "Nada em andamento" : `${comClaude.totalFazendo} fazendo agora`}</h2>
             {comClaude.fazendo.map((i) => (
               <div className="c-tarefa" key={i.id}>{i.titulo}<div className="c-barra"><i style={{ width: `${i.progresso ?? 10}%` }} /></div></div>
             ))}
@@ -39,7 +39,7 @@ export default function Capa({ resumo, erro }) {
           </Link>
           <Link href="/central/agendado" className="c-porta c-ceu">
             <div className="c-cab"><span><CalendarBlank size={13} weight="bold" />Agendado</span></div>
-            <h2>{agendadoHoje.length === 0 ? "Nada hoje" : `${agendadoHoje.length} hoje`}</h2>
+            <h2>{resumo.totalHoje === 0 ? "Nada hoje" : `${resumo.totalHoje} hoje`}</h2>
             <div className="c-prox">{agendadoHoje.map((i) => <div key={i.id}><b>{horaCurta(i.prazo)}</b>{i.titulo}</div>)}</div>
           </Link>
         </div>
