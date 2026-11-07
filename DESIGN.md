@@ -428,3 +428,40 @@ Um único formato, sem variante secundária — o mundo Arca reserva um botão c
 - **Don't** forçar negrito ou itálico em Lilita One — a fonte só existe em 400; use `pa-campo` ou `pa-laranja` pra dar peso a um título.
 - **Don't** pintar `pa-ceu` ou `pa-terra` só "porque estão na paleta": são tokens reservados; se um dia forem usados de fato, esta seção precisa ser atualizada junto.
 - **Don't** usar mockup, ilustração genérica ou imagem gerada no lugar das páginas reais do material — mesma regra do mundo Arca.
+
+---
+
+# Design System: Criatividades Bíblicas · Central de Comando (ferramenta)
+
+> **Escopo.** Rota `/central` (privada, com senha, `noindex`), toda dentro do escopo `.central` no fim de `app/globals.css`, com fontes carregadas em `app/central/layout.js`. Herda a paleta e as fontes do mundo Arca / Packs (céu claro, mar, fundo, abismo, sol, coral, verde, tinta; Baloo 2 + Quicksand), mas é uma superfície de **uso diário** (modo ferramenta), não uma página de venda: escala de texto menor e fixa, densidade maior, sem ondas nem campos encharcados. Construída em 07/11/2026 a partir da versão 2 aprovada pela Thali (`projetos/central-de-comando/ENTREGA/v2-capa-e-menu/`).
+
+## Overview
+
+A capa é um painel de portas: o bloco **fundo** (`#0b57a0`) é sempre "o que espera você" e vem primeiro e maior; os blocos menores (branco, céu, abismo) descem em ordem de urgência. Sol continua sendo só botão e "precisa de você" (contador amarelo no menu). No celular é uma coluna com barra de topo e gaveta; a partir de 1024px vira lateral fixa (260px) + conteúdo.
+
+## Typography (escala de ferramenta, fixa em px)
+
+- **Saudação** (`c-ola`): Baloo 800, 28px (34px no computador).
+- **Título de bloco** (`c-porta h2`): Baloo 800, 21px; 17px nos blocos em dupla.
+- **Título de item** (`c-titulo-item`): Baloo 800, 16,5px.
+- **Texto** (`c-texto`, `c-voce li`, `c-faixa`, `c-erro`): Quicksand 500–600, 13,5px.
+- **Linha de apoio** (`c-sub`): 14px; **última rodada** (`c-rodada`): 13px.
+- **Rótulos e metadados** (`c-meta`, `c-cab`, `c-tarefa`, `c-prox`): 12–12,5px, peso 700.
+- **Selos e contadores**: 11px (selo) e 13px Baloo 800 (contador).
+- **Botões** (`c-btn-sol`, `c-btn-linha`): Baloo 800, 14px; **campo de senha**: 16px (evita zoom no iPhone).
+
+## Shapes
+
+Cantos menores que nas landings: 12px (ícone do menu, item da lista no bloco escuro), 14px (campo), **16px** (item do menu, aviso de erro), 20px (folha de item, aviso), 22px (portas e faixa), 24–28px (esqueleto e cartão de senha), pílula nos botões, selos e contadores.
+
+## Colors (acréscimos ao mundo Arca)
+
+- **Erro** (`c-erro`): fundo `#fde8e6`, texto **`#8f1f15`** (coral escurecido para contraste AA sobre o rosa claro). Usado só em aviso de erro e última rodada com problema.
+- Selo verde `#e6f5e8` / `#2b7a38`, selo coral `#fde8e6` / `#b4291c`, selo sol `#fff3cf` / `#7a5600`.
+
+## Do's and Don'ts
+
+- **Do** mostrar sempre a última rodada do PC na capa; em erro ou mais de 60 minutos, dentro de `c-erro`.
+- **Do** escrever "Não consegui ver agora" quando o caderno não responde; **don't** mostrar zero inventado.
+- **Do** manter estados de carregando (`c-esqueleto`, com `prefers-reduced-motion`) e de erro (`app/central/error.js`) em português, sem texto técnico.
+- **Don't** usar ondas, campos de cor inteiros ou tamanhos fluidos (`clamp`) dentro da Central: isso é das páginas de venda.
