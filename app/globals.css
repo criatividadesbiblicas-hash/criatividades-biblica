@@ -342,3 +342,15 @@ body:has(> .central) { background: #eef7ff; }
 .c-esqueleto i:nth-child(4) { animation-delay: 0.4s; }
 @keyframes c-pulso { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .c-esqueleto i { animation: none; opacity: 0.8; } }
+
+/* Central: atualizar agora e recados (08/11) */
+.c-atualizar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 10px; }
+.c-gira { animation: c-gira 1s linear infinite; }
+@keyframes c-gira { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .c-gira { animation: none; } }
+.c-recado-form { display: grid; gap: 10px; }
+.c-rotulo { font-family: var(--font-display); font-weight: 800; font-size: 16px; }
+.c-recado-form textarea { border: 2px solid var(--c-ceu); border-radius: 14px; padding: 12px 14px; font: inherit; font-size: 16px; color: var(--c-tinta); resize: vertical; min-height: 110px; background: var(--c-branco); }
+.c-recado-form textarea:focus { border-color: var(--c-mar); outline: none; }
+.c-recado-dela { font-weight: 700; white-space: pre-wrap; }
+.c-recado-resposta { white-space: pre-wrap; background: var(--c-ceu-claro); border-radius: 14px; padding: 10px 12px; margin-top: 8px; }

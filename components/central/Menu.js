@@ -2,13 +2,13 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { House, User, Sparkle, CalendarBlank, ChatCircle, ChartLineUp, List, X } from "@phosphor-icons/react";
+import { House, User, Sparkle, CalendarBlank, ChatCircle, ChartLineUp, PaperPlaneTilt, List, X } from "@phosphor-icons/react";
 import { PAGINAS } from "@/lib/central/itens";
 
-const ICONES = { capa: House, "com-voce": User, "com-o-claude": Sparkle, agendado: CalendarBlank, comentarios: ChatCircle, campanhas: ChartLineUp };
+const ICONES = { capa: House, "com-voce": User, "com-o-claude": Sparkle, agendado: CalendarBlank, comentarios: ChatCircle, campanhas: ChartLineUp, recados: PaperPlaneTilt };
 
 function Itens({ ativa, contadores, aoTocar }) {
-  const linhas = [["capa", { titulo: "Capa", subtitulo: "o resumo do dia" }], ...Object.entries(PAGINAS)];
+  const linhas = [["capa", { titulo: "Capa", subtitulo: "o resumo do dia" }], ...Object.entries(PAGINAS), ["recados", { titulo: "Recado pro Claude", subtitulo: "peça e acompanhe" }]];
   return linhas.map(([chave, p]) => {
     const Icone = ICONES[chave];
     const n = contadores?.[chave];

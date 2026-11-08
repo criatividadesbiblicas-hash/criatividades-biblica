@@ -1,13 +1,18 @@
 // components/central/Capa.js
 import Link from "next/link";
-import { User, Sparkle, CalendarBlank, ChatCircle, CaretRight, InstagramLogo, FacebookLogo, TiktokLogo } from "@phosphor-icons/react/dist/ssr";
+import { User, Sparkle, CalendarBlank, ChatCircle, CaretRight, PaperPlaneTilt, InstagramLogo, FacebookLogo, TiktokLogo } from "@phosphor-icons/react/dist/ssr";
+import { BotaoAtualizar, Acompanhar } from "./Pedidos";
 import { saudacao, dataLonga, horaCurta, progressoLimpo, rodadaComProblema, rotuloRodada } from "./formato";
 
 const SEM_LER = "Não consegui ver agora";
 const ORIGEM_ROTULO = { cofre: "do cofre", claude: "do Claude" };
 
-export default function Capa({ resumo, erro, rodada }) {
+const RECADO_ROTULO = { novo: "na fila", fazendo: "o Claude está fazendo", feito: "respondido", erro: "não deu certo" };
+
+export default function Capa({ resumo, erro, rodada, pedidos }) {
   const { comVoce, comClaude, agendadoHoje } = resumo;
+  const ultimo = pedidos?.recados?.[0];
+  const andando = pedidos?.recados?.some((r) => r.situacao === "novo" || r.situacao === "fazendo");
   return (
     <div className="c-capa">
       <div className="c-saud">
@@ -16,6 +21,8 @@ export default function Capa({ resumo, erro, rodada }) {
         {rodadaComProblema(rodada)
           ? <p className="c-erro c-rodada" role="status">{rotuloRodada(rodada)}</p>
           : <p className="c-sub c-rodada">{rotuloRodada(rodada)}</p>}
+        <BotaoAtualizar atualizando={!!pedidos?.atualizando} pcLigado={pedidos?.pcLigado ?? null} />
+        <Acompanhar ativo={!!pedidos?.atualizando || !!andando} />
       </div>
       {erro && <p className="c-erro" role="alert">{erro}</p>}
 
@@ -53,6 +60,11 @@ export default function Capa({ resumo, erro, rodada }) {
           <p className="c-texto" style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <InstagramLogo size={16} /><FacebookLogo size={16} /><TiktokLogo size={16} /> Chega na etapa 2, com o botão aprovar e enviar.
           </p>
+        </Link>
+
+        <Link href="/central/recados" className="c-porta c-branca">
+          <div className="c-cab"><span><PaperPlaneTilt size={13} weight="bold" />Recado pro Claude</span><span>abrir<CaretRight size={14} weight="bold" /></span></div>
+          <p className="c-texto">{ultimo ? <>Último: <b>{RECADO_ROTULO[ultimo.situacao]}</b>. {ultimo.texto.length > 80 ? `${ultimo.texto.slice(0, 80)}...` : ultimo.texto}</> : "Peça algo pelo celular e o Claude do seu PC faz e responde aqui."}</p>
         </Link>
 
         <div className="c-faixa">

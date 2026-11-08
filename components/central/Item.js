@@ -7,6 +7,7 @@ const SELO_POST = {
   agendado: <span className="c-selo c-azul">agendado</span>,
   no_ar: <span className="c-selo c-verde"><Check size={10} weight="bold" />publicado</span>,
   esperando_voce: <span className="c-selo c-coral">falta postar</span>,
+  segurado: <span className="c-selo c-coral">segurado</span>,
 };
 
 function BotaoFeito({ id, rotulo }) {
