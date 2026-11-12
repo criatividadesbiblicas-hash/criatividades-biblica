@@ -7,7 +7,7 @@
   OWN-WORLD: o mesmo mundo .pa da landing do Plano Anual (Lilita One + Nunito, céu claro, campo, sol),
   vestido de noite nas pontas (hero, números e fechamento em azul-noite), porque é Black Friday e
   porque a página é pra adulto. Sem preto puro, sem véu escuro no meio.
-  FASES: pre (sem preço, botão leva pro grupo VIP) → venda (preço, contador, Kiwify) → fechada.
+  FASES: pre (preço e data, botão leva pro Instagram) → venda (preço, contador, Kiwify) → fechada.
   A fase vem da data (fuso de Brasília); ?fase= serve só pra conferir antes do dia.
   HONESTIDADE: contagem do inventário real (14 histórias, 6 em duas versões), âncora só com o preço
   público do Plano Anual (R$ 597), "em até 12x" sem valor da parcela, nada simulado, nenhum depoimento.
@@ -15,7 +15,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Lilita_One } from "next/font/google";
-import { ArrowDown, CheckCircle, Clock, LockSimpleOpen, ShieldCheck, WhatsappLogo, Sparkle } from "@phosphor-icons/react/dist/ssr";
+import { ArrowDown, CheckCircle, Clock, LockSimpleOpen, ShieldCheck, InstagramLogo, Sparkle } from "@phosphor-icons/react/dist/ssr";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FaqItem from "@/components/FaqItem";
@@ -24,7 +24,7 @@ import Leque from "@/components/arca/Leque";
 import Tracking from "@/components/black-biblinho/Tracking";
 import { ContadorBlocos, BarraContador } from "@/components/black-biblinho/Contador";
 import { faseDaUrl } from "@/components/black-biblinho/fase";
-import { KIWIFY_URL, GRUPO_URL, PLANO_ANUAL_URL, OFERTA, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
+import { KIWIFY_URL, INSTAGRAM_URL, PLANO_ANUAL_URL, OFERTA, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
 import { PECAS, FAIXAS } from "@/components/plano-anual/dados";
 
 const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
@@ -79,7 +79,7 @@ function Selo({ children, className = "" }) {
   );
 }
 
-// Chamada principal, muda com a fase. Na pré-abertura leva pro grupo VIP; na venda, pra Kiwify.
+// Chamada principal, muda com a fase. Na pré-abertura leva pro Instagram (aviso); na venda, pra Kiwify.
 function Chamada({ fase, className = "" }) {
   if (fase === "venda") {
     return (
@@ -92,8 +92,8 @@ function Chamada({ fase, className = "" }) {
   if (fase === "pre") {
     return (
       <div className={className}>
-        <Botao href={GRUPO_URL} tom="zap"><WhatsappLogo size={22} weight="fill" /> Entrar no grupo VIP</Botao>
-        <p className="mt-3 text-[14px] font-semibold text-current/70">Abre pro público {OFERTA.abertura}. No grupo, você vê 72 horas antes e paga {OFERTA.vip}.</p>
+        <Botao href={INSTAGRAM_URL}><InstagramLogo size={22} weight="fill" /> Quero o aviso de abertura</Botao>
+        <p className="mt-3 text-[14px] font-semibold text-current/70">Abre {OFERTA.abertura}, por {OFERTA.por} ou {OFERTA.parcela}. O aviso sai primeiro no Instagram.</p>
       </div>
     );
   }
@@ -108,7 +108,7 @@ function Chamada({ fase, className = "" }) {
 // Faixa fina no topo, antes do cabeçalho.
 function FaixaTopo({ fase }) {
   const txt = {
-    pre: <>Black Biblinho abre <strong className="text-pa-sol">{OFERTA.abertura}</strong>. Quem está no grupo VIP vê antes e paga menos.</>,
+    pre: <>Black Biblinho abre <strong className="text-pa-sol">{OFERTA.abertura}</strong> e fica só uma semana no ar.</>,
     venda: <>Black Biblinho no ar até <strong className="text-pa-sol">{OFERTA.fim}</strong>, horário de Brasília. Depois não volta.</>,
     fechada: <>A Black Friday fechou. O Plano Anual continua no formato de sempre.</>,
   }[fase];
@@ -384,11 +384,16 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                     </>
                   ) : fase === "pre" ? (
                     <>
-                      <p className="mt-8 text-[15px] font-semibold text-pa-tinta/75">Abre pro público {OFERTA.abertura}. Quem está no grupo VIP compra {OFERTA.vipJanela}, com {OFERTA.vip} em vez do preço cheio.</p>
+                      <p className="mt-8 text-[15px] font-semibold text-pa-tinta/75">Só o {OFERTA.ancora.produto}: {OFERTA.ancora.preco}. Na Black Friday, tudo isso por</p>
+                      <p className="mt-1 flex flex-wrap items-end gap-x-3">
+                        <span className="font-display text-[3.4rem] leading-none text-pa-campo">{OFERTA.por}</span>
+                        <span className="pb-2 text-[15px] font-semibold text-pa-tinta/75">à vista</span>
+                      </p>
+                      <p className="mt-1 text-[17px] font-bold text-pa-tinta">ou {OFERTA.parcela}</p>
                       <p className="mt-6 text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-tinta/60">Abre em</p>
                       <ContadorBlocos fase={fase} className="mt-2" />
-                      <Botao href={GRUPO_URL} tom="zap" className="mt-7 w-full sm:w-auto"><WhatsappLogo size={22} weight="fill" /> Entrar no grupo VIP</Botao>
-                      <p className="mt-3 text-[13px] font-semibold text-pa-tinta/70">Grupo no WhatsApp, só com avisos da oferta. Você sai quando quiser.</p>
+                      <Botao href={INSTAGRAM_URL} className="mt-7 w-full sm:w-auto"><InstagramLogo size={22} weight="fill" /> Quero o aviso de abertura</Botao>
+                      <p className="mt-3 text-[13px] font-semibold text-pa-tinta/70">Abre {OFERTA.abertura}, de uma vez, pra todo mundo. O aviso sai primeiro no @criatividadesbiblicas.</p>
                     </>
                   ) : (
                     <>

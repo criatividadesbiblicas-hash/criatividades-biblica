@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import Script from "next/script";
 
 // Rastreamento da página /black-biblinho (mesmo pixel e Clarity das outras páginas da casa).
-// - Meta Pixel: PageView, ViewContent, InitiateCheckout (clique na Kiwify) e Lead (clique no grupo VIP)
-// - Repasse de UTM/src/sck da URL pros links do checkout e do grupo
+// - Meta Pixel: PageView, ViewContent, InitiateCheckout (clique na Kiwify) e Lead (clique no aviso pelo Instagram, na pré-abertura)
+// - Repasse de UTM/src/sck da URL pros links do checkout
 // O Purchase vem pelo servidor (webhook Kiwify → Supabase → API de Conversões).
 
 const PIXEL_ID = "493199083223154";
@@ -42,8 +42,8 @@ export default function Tracking({ fase }) {
       }
       a.addEventListener("click", () => fire("InitiateCheckout"));
     });
-    document.querySelectorAll('a[href*="chat.whatsapp.com"]').forEach((a) => {
-      a.addEventListener("click", () => fire("Lead", { content_name: "Grupo VIP Black Biblinho", content_category: fase }));
+    document.querySelectorAll('a[href*="instagram.com"]').forEach((a) => {
+      a.addEventListener("click", () => fire("Lead", { content_name: "Aviso de abertura pelo Instagram", content_category: fase }));
     });
 
     let tentativas = 0;

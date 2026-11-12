@@ -1,7 +1,7 @@
 // Fases da página /black-biblinho (Black Friday 2026). Módulo SEM "use client": lido pelo
 // servidor (page.js), pelo contador (cliente) e pelos testes.
 //
-//   pre     → até dom 22/11 23h59: pré-abertura. Sem preço. Botão leva pro grupo VIP.
+//   pre     → até dom 22/11 23h59: pré-abertura. Preço e data já aparecem. Botão leva pro Instagram (aviso de abertura).
 //   venda   → seg 23/11 00h até seg 30/11 23h59: preço, contador e botão da Kiwify.
 //   fechada → depois: a oferta fechou e não volta; a página aponta pro Plano Anual de sempre.
 //

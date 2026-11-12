@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { ABERTURA, FIM, faseEm, faseDaUrl, restanteAte } from "./fase.js";
-import { OFERTA, KIWIFY_URL, GRUPO_URL, PLANO_2026, BIBLIOTECA_2025, FAQ, BLOCOS, NUMEROS, DOMINGOS, DOMINGOS_2026, DOMINGOS_2025, SERIES } from "./dados.js";
+import { OFERTA, KIWIFY_URL, INSTAGRAM_URL, PLANO_2026, BIBLIOTECA_2025, FAQ, BLOCOS, NUMEROS, DOMINGOS, DOMINGOS_2026, DOMINGOS_2025, SERIES } from "./dados.js";
 
 const pub = (src) => join(process.cwd(), "public", src);
 const t = (iso) => Date.parse(iso);
@@ -43,13 +43,15 @@ test("oferta exata da Camada 1 (02/11)", () => {
   assert.equal(OFERTA.nome, "Black Biblinho · Acesso Total");
   assert.equal(OFERTA.por, "R$ 297");
   assert.equal(OFERTA.precoNumero, 297);
-  assert.equal(OFERTA.vip, "R$ 247");
+  // 12/11: sem grupo VIP antecipado e sem segundo preço
+  assert.equal(OFERTA.vip, undefined);
+  assert.equal(OFERTA.vipJanela, undefined);
   assert.equal(OFERTA.parcela, "em até 12x");
   assert.equal(OFERTA.garantiaDias, 7);
   // "em até 12x" sem valor da parcela (decisão de 09/09 mantida em 02/11)
   assert.ok(!/12x de R\$/.test(OFERTA.parcela));
   assert.ok(KIWIFY_URL.startsWith("https://pay.kiwify.com.br/"));
-  assert.ok(GRUPO_URL.startsWith("https://chat.whatsapp.com/"));
+  assert.ok(INSTAGRAM_URL.startsWith("https://www.instagram.com/"));
 });
 
 test("promessa honesta: contagem bate com o inventário de 02/11", () => {

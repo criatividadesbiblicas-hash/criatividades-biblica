@@ -1,27 +1,26 @@
 // Dados da página /black-biblinho (Black Friday 2026). Módulo SEM "use client".
-// Fonte da oferta: NOV26-BLACK — Brief, Camada 1 (fechada em 02/11/2026).
+// Fonte da oferta: NOV26-BLACK — Brief, Camada 1 (fechada em 02/11/2026; VIP retirado em 12/11/2026).
 // Fonte do inventário: pastas reais em F:/.../2 PLANO ANUAL/2025 e /2026 (lidas em 02/11 e 08/11).
 // Toda capa é página 1 do PDF real (ver public/**/*.webp.json). Nada aqui é simulado.
 
 // Checkout da Kiwify do produto "Black Biblinho · Acesso Total": a Thali cria o produto e manda
 // o link. Enquanto não vier, fica este marcador (a página não publica com ele).
 export const KIWIFY_URL = "https://pay.kiwify.com.br/SUBSTITUIR-black-biblinho";
-// Link de convite do grupo VIP de WhatsApp (a Thali cria o grupo).
-export const GRUPO_URL = "https://chat.whatsapp.com/SUBSTITUIR-grupo-vip";
+// Na pré-abertura o botão leva pro Instagram da CB: o aviso de abertura sai lá primeiro.
+// (Decisão da Thali em 12/11/2026: sem grupo VIP antecipado e sem preço diferente.)
+export const INSTAGRAM_URL = "https://www.instagram.com/criatividadesbiblicas/";
 export const PLANO_ANUAL_URL = "/plano-anual";
 
 export const OFERTA = {
   nome: "Black Biblinho · Acesso Total",
   por: "R$ 297",
   precoNumero: 297,
-  vip: "R$ 247",
   parcela: "em até 12x",
   garantiaDias: 7,
   // Âncora honesta: o único preço público comparável. Não é "de X por Y" do mesmo produto.
   ancora: { produto: "Plano Anual 2026, no formato de sempre", preco: "R$ 597" },
   abertura: "segunda, 23 de novembro",
   fim: "segunda, 30 de novembro, às 23h59",
-  vipJanela: "de sexta 20 a domingo 22 de novembro",
 };
 
 // Bloco 1 · Plano Anual 2026: 11 temas (10 histórias diferentes; Zaqueu volta em novembro).
