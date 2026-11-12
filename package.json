@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --test components/plano-anual/*.test.mjs lib/central/*.test.mjs"
+    "test": "node --test components/plano-anual/*.test.mjs components/black-biblinho/*.test.mjs lib/central/*.test.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.7",

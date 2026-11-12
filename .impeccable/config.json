@@ -38,6 +38,162 @@
         ],
         "createdAt": "2026-09-11T10:54:00.343Z",
         "reason": "painel interno de dados densos"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.75rem",
+        "createdAt": "2026-11-08T16:06:03.378Z",
+        "reason": "mesmo degrau do contador da Arca (components/arca/Contador.js), em producao desde set/2026"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "11px",
+        "createdAt": "2026-11-08T16:07:17.023Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "12px",
+        "createdAt": "2026-11-08T16:07:17.164Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "13px",
+        "createdAt": "2026-11-08T16:07:17.298Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "14px",
+        "createdAt": "2026-11-08T16:07:17.424Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "15px",
+        "createdAt": "2026-11-08T16:07:17.519Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "16px",
+        "createdAt": "2026-11-08T16:07:17.627Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "17px",
+        "createdAt": "2026-11-08T16:07:17.732Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.3rem",
+        "createdAt": "2026-11-08T16:07:17.834Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.35rem",
+        "createdAt": "2026-11-08T16:07:17.938Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.45rem",
+        "createdAt": "2026-11-08T16:07:18.048Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.6rem",
+        "createdAt": "2026-11-08T16:07:18.254Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2rem",
+        "createdAt": "2026-11-08T16:07:18.437Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2.1rem",
+        "createdAt": "2026-11-08T16:07:18.538Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2.2rem",
+        "createdAt": "2026-11-08T16:07:18.633Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2.4rem",
+        "createdAt": "2026-11-08T16:07:18.820Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2.75rem",
+        "createdAt": "2026-11-08T16:07:18.918Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "3.2rem",
+        "createdAt": "2026-11-08T16:07:19.017Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "3.4rem",
+        "createdAt": "2026-11-08T16:07:19.117Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "3.5rem",
+        "createdAt": "2026-11-08T16:07:19.217Z",
+        "reason": "mesma rampa de app/plano-anual/page.js (mundo .pa pinado pela Thali em 09/09/2026)"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#141a2b",
+        "createdAt": "2026-11-08T16:07:19.325Z",
+        "reason": "azul-noite da Black Friday 2026, token --color-bb-noite adicionado em globals.css em 08/11"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#1d2540",
+        "createdAt": "2026-11-08T16:07:19.434Z",
+        "reason": "azul-noite da Black Friday 2026, token --color-bb-noite adicionado em globals.css em 08/11"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#22303f",
+        "createdAt": "2026-11-08T16:07:19.535Z",
+        "reason": "e o --color-pa-tinta do mundo .pa, ja em globals.css"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "arial",
+        "createdAt": "2026-11-08T16:07:19.641Z",
+        "reason": "fallback do next/og na imagem de compartilhamento; sem fonte customizada carregada no edge"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "5.5rem",
+        "createdAt": "2026-11-09T23:21:08.499Z",
+        "reason": "nome do produto como titulo do hero da Black Friday, pedido da Thali em 09/11/2026"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "3.8rem",
+        "createdAt": "2026-11-09T23:21:08.609Z",
+        "reason": "nome do produto como titulo do hero da Black Friday, pedido da Thali em 09/11/2026"
       }
     ]
   }
