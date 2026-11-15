@@ -1,21 +1,22 @@
 /*
-  CONTRATO DE DIREÇÃO — Black Biblinho · Acesso Total (Black Friday 2026, 23 a 30/11)
+  CONTRATO DE DIREÇÃO — Black Biblinho · Acesso Total (Black Friday 2026, até 30/11)
   THESIS: a professora que passou o ano garimpando atividade solta descobre que tudo que a
-  Criatividades Bíblicas criou em 2025 e 2026 cabe numa compra só, liberada na hora, só nesta semana.
+  Criatividades Bíblicas criou em 2025 e 2026 cabe numa compra só, liberada na hora, só até 30/11.
   A página conta o que entra (4 blocos, com capas e páginas reais), diz com clareza o que NÃO entra
   (Júnior em parte, novembro e dezembro depois) e só então mostra preço, prazo e botão.
   OWN-WORLD: o mesmo mundo .pa da landing do Plano Anual (Lilita One + Nunito, céu claro, campo, sol),
   vestido de noite nas pontas (hero, números e fechamento em azul-noite), porque é Black Friday e
   porque a página é pra adulto. Sem preto puro, sem véu escuro no meio.
-  FASES: pre (preço e data, botão leva pro Instagram) → venda (preço, contador, Kiwify) → fechada.
-  A fase vem da data (fuso de Brasília); ?fase= serve só pra conferir antes do dia.
+  FASES: venda (preço, contador até 30/11, Kiwify) → fechada. Sem pré-abertura: pelo método ADP a
+  página que recebe a D é a de venda, com botão, desde o primeiro dia (decisão da Thali em 15/11).
+  A fase vem da data (fuso de Brasília); ?fase=fechada serve só pra conferir antes do dia.
   HONESTIDADE: contagem do inventário real (14 histórias, 6 em duas versões), âncora só com o preço
   público do Plano Anual (R$ 597), "em até 12x" sem valor da parcela, nada simulado, nenhum depoimento.
 */
 import Image from "next/image";
 import Link from "next/link";
 import { Lilita_One } from "next/font/google";
-import { ArrowDown, CheckCircle, Clock, LockSimpleOpen, ShieldCheck, InstagramLogo, Sparkle } from "@phosphor-icons/react/dist/ssr";
+import { ArrowDown, CheckCircle, Clock, LockSimpleOpen, ShieldCheck, Sparkle } from "@phosphor-icons/react/dist/ssr";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FaqItem from "@/components/FaqItem";
@@ -24,7 +25,7 @@ import Leque from "@/components/arca/Leque";
 import Tracking from "@/components/black-biblinho/Tracking";
 import { ContadorBlocos, BarraContador } from "@/components/black-biblinho/Contador";
 import { faseDaUrl } from "@/components/black-biblinho/fase";
-import { KIWIFY_URL, INSTAGRAM_URL, PLANO_ANUAL_URL, OFERTA, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
+import { KIWIFY_URL, PLANO_ANUAL_URL, OFERTA, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
 import { PECAS, FAIXAS } from "@/components/plano-anual/dados";
 
 const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
@@ -36,7 +37,7 @@ const HOST = "https://materiais.criatividadesbiblicas.com.br";
 const PAGE_URL = `${HOST}/black-biblinho`;
 const TITLE = "Black Biblinho · Acesso Total | Criatividades Bíblicas";
 const DESCRIPTION =
-  `Black Biblinho · Acesso Total: tudo que a Criatividades Bíblicas já criou, numa compra só. ${SERIES} séries de estudo, ${DOMINGOS} domingos de aula pronta, Baby, Kids e Júnior, mais o Emoções, o Planner e o plano de leitura. Só de 23 a 30 de novembro.`;
+  `Black Biblinho · Acesso Total: tudo que a Criatividades Bíblicas já criou, numa compra só. ${SERIES} séries de estudo, ${DOMINGOS} domingos de aula pronta, Baby, Kids e Júnior, mais o Emoções, o Planner e o plano de leitura. Só até 30 de novembro.`;
 
 export const metadata = {
   title: TITLE,
@@ -79,21 +80,13 @@ function Selo({ children, className = "" }) {
   );
 }
 
-// Chamada principal, muda com a fase. Na pré-abertura leva pro Instagram (aviso); na venda, pra Kiwify.
+// Chamada principal, muda com a fase. Na venda leva pra Kiwify; fechada, pro Plano Anual de sempre.
 function Chamada({ fase, className = "" }) {
   if (fase === "venda") {
     return (
       <div className={className}>
         <Botao href={KIWIFY_URL}>Quero o Acesso Total · {OFERTA.por}</Botao>
         <p className="mt-3 text-[14px] font-semibold text-current/70">À vista ou {OFERTA.parcela} · Pix ou cartão · {OFERTA.garantiaDias} dias de garantia</p>
-      </div>
-    );
-  }
-  if (fase === "pre") {
-    return (
-      <div className={className}>
-        <Botao href={INSTAGRAM_URL}><InstagramLogo size={22} weight="fill" /> Quero o aviso de abertura</Botao>
-        <p className="mt-3 text-[14px] font-semibold text-current/70">Abre {OFERTA.abertura}, por {OFERTA.por} ou {OFERTA.parcela}. O aviso sai primeiro no Instagram.</p>
       </div>
     );
   }
@@ -108,7 +101,6 @@ function Chamada({ fase, className = "" }) {
 // Faixa fina no topo, antes do cabeçalho.
 function FaixaTopo({ fase }) {
   const txt = {
-    pre: <>Black Biblinho abre <strong className="text-pa-sol">{OFERTA.abertura}</strong> e fica só uma semana no ar.</>,
     venda: <>Black Biblinho no ar até <strong className="text-pa-sol">{OFERTA.fim}</strong>, horário de Brasília. Depois não volta.</>,
     fechada: <>A Black Friday fechou. O Plano Anual continua no formato de sempre.</>,
   }[fase];
@@ -129,7 +121,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
   return (
     <div className={`pa bb ${lilita.variable}`}>
       <FaixaTopo fase={fase} />
-      <Nav cta={{ href: "#oferta", label: fase === "venda" ? "Quero o Acesso Total" : fase === "pre" ? "Ver a oferta" : "Plano Anual" }} links={[]} logoHref="/black-biblinho" />
+      <Nav cta={{ href: "#oferta", label: fase === "venda" ? "Quero o Acesso Total" : "Plano Anual" }} links={[]} logoHref="/black-biblinho" />
       <Tracking fase={fase} />
 
       <main>
@@ -138,7 +130,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_80%_10%,rgba(255,197,49,0.18)_0%,rgba(255,197,49,0)_60%),radial-gradient(60%_50%_at_10%_90%,rgba(89,182,240,0.14)_0%,rgba(89,182,240,0)_60%)]" />
           <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-5 pb-16 pt-10 md:px-8 md:pb-24 md:pt-16 xl:grid-cols-[1.25fr_1fr]">
             <div>
-              <Selo>Black Friday · 23 a 30 de novembro</Selo>
+              <Selo>Black Friday · só até {OFERTA.fimCurto}</Selo>
               <h1 className="mt-5 font-display leading-[0.95]">
                 <span className="block text-[3.4rem] text-white min-[360px]:text-[3.8rem] md:text-[5.5rem]">Black Biblinho</span>
                 <span className="mt-1 block text-[2.2rem] text-pa-sol md:text-[3.2rem]">Acesso Total</span>
@@ -152,11 +144,11 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                 ))}
               </ul>
               <p className="mt-5 max-w-[48ch] text-[17px] font-medium leading-relaxed text-white/85 md:text-xl">
-                Chega de montar aula no sábado à noite. Abre, imprime, dá aula. Só nesta semana, e não volta.
+                Chega de montar aula no sábado à noite. Abre, imprime, dá aula. Só até {OFERTA.fimCurto}, e não volta.
               </p>
               <div className="mt-8">
-                <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-white/60">{fase === "pre" ? "Abre em" : fase === "venda" ? "Fecha em" : "Fechou em 30 de novembro"}</p>
-                {fase !== "fechada" ? <ContadorBlocos fase={fase} escuro className="mt-3" /> : null}
+                <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-white/60">{fase === "venda" ? "Fecha em" : `Fechou em ${OFERTA.fimCurto}`}</p>
+                {fase === "venda" ? <ContadorBlocos escuro className="mt-3" /> : null}
               </div>
               <Chamada fase={fase} className="mt-8 text-white" />
               <a href="#entra" className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-white/80 underline-offset-4 hover:text-pa-sol hover:underline">
@@ -349,7 +341,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
         {/* 8. Oferta */}
         <section id="oferta" className="bg-pa-ceu-claro">
           <div className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
-            <H2 className="text-center">{fase === "fechada" ? "A Black Friday fechou." : fase === "pre" ? "Abre segunda, 23 de novembro." : "Quanto custa o Acesso Total."}</H2>
+            <H2 className="text-center">{fase === "fechada" ? "A Black Friday fechou." : "Quanto custa o Acesso Total."}</H2>
             <div className="mt-10 overflow-hidden rounded-[2.25rem] bg-white shadow-[0_24px_60px_-30px_rgba(11,60,100,0.45)]">
               <div className="grid md:grid-cols-[0.85fr_1.15fr]">
                 <div className="relative flex items-center justify-center bg-bb-noite p-8 md:p-10">
@@ -378,22 +370,9 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                       </p>
                       <p className="mt-1 text-[17px] font-bold text-pa-tinta">ou {OFERTA.parcela}</p>
                       <p className="mt-6 text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-tinta/60">Fecha em</p>
-                      <ContadorBlocos fase={fase} className="mt-2" />
+                      <ContadorBlocos className="mt-2" />
                       <Botao href={KIWIFY_URL} className="mt-7 w-full sm:w-auto">Quero o Acesso Total</Botao>
                       <p className="mt-3 text-[13px] font-semibold text-pa-tinta/70">Pix ou cartão · pagamento seguro pela Kiwify · acesso no e-mail da compra</p>
-                    </>
-                  ) : fase === "pre" ? (
-                    <>
-                      <p className="mt-8 text-[15px] font-semibold text-pa-tinta/75">Só o {OFERTA.ancora.produto}: {OFERTA.ancora.preco}. Na Black Friday, tudo isso por</p>
-                      <p className="mt-1 flex flex-wrap items-end gap-x-3">
-                        <span className="font-display text-[3.4rem] leading-none text-pa-campo">{OFERTA.por}</span>
-                        <span className="pb-2 text-[15px] font-semibold text-pa-tinta/75">à vista</span>
-                      </p>
-                      <p className="mt-1 text-[17px] font-bold text-pa-tinta">ou {OFERTA.parcela}</p>
-                      <p className="mt-6 text-[12px] font-extrabold uppercase tracking-[0.12em] text-pa-tinta/60">Abre em</p>
-                      <ContadorBlocos fase={fase} className="mt-2" />
-                      <Botao href={INSTAGRAM_URL} className="mt-7 w-full sm:w-auto"><InstagramLogo size={22} weight="fill" /> Quero o aviso de abertura</Botao>
-                      <p className="mt-3 text-[13px] font-semibold text-pa-tinta/70">Abre {OFERTA.abertura}, de uma vez, pra todo mundo. O aviso sai primeiro no @criatividadesbiblicas.</p>
                     </>
                   ) : (
                     <>
@@ -447,10 +426,10 @@ export default async function BlackBiblinhoPage({ searchParams }) {
           <div className="mx-auto max-w-2xl px-5 py-20 md:py-28">
             <Image src={RODA_2026[7].src} alt="" width={900} height={1273} className="pa-flutua mx-auto h-52 w-auto rounded-[12px] border-4 border-white shadow-[0_18px_40px_-16px_rgba(0,0,0,0.6)]" style={{ "--dur": "6s", "--r": "-3deg" }} />
             <h2 className="mt-8 text-balance font-display text-[2rem] leading-[1.08] md:text-[2.75rem]">
-              {fase === "fechada" ? "Até a próxima." : fase === "pre" ? "Segunda, 23 de novembro, abre." : "Segunda, 30 de novembro, 23h59. Depois, não volta."}
+              {fase === "fechada" ? "Até a próxima." : "Segunda, 30 de novembro, 23h59. Depois, não volta."}
             </h2>
             <p className="mt-3 text-[17px] font-medium leading-relaxed text-white/80 md:text-xl">
-              {fase === "fechada" ? "O Plano Anual segue no formato de sempre, uma história por mês." : `${DOMINGOS} domingos de aula pronta, na sua mão, nesta semana.`}
+              {fase === "fechada" ? "O Plano Anual segue no formato de sempre, uma história por mês." : `${DOMINGOS} domingos de aula pronta, na sua mão, hoje.`}
             </p>
             <Chamada fase={fase} className="mt-8 text-white" />
           </div>

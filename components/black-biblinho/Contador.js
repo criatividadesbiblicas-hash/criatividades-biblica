@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ABERTURA, FIM, restanteAte } from "./fase";
+import { FIM, restanteAte } from "./fase";
 
-// Contagem regressiva da Black Friday. Na pré-abertura conta até a abertura (seg 23/11 00h);
-// na venda conta até o fim (seg 30/11 23h59). Horário de Brasília.
+// Contagem regressiva da Black Friday até o fim da oferta (seg 30/11 23h59, horário de Brasília).
 
 function useRestante(marco) {
   const [r, setR] = useState(null);
@@ -21,9 +20,8 @@ function useRestante(marco) {
 const dois = (n) => String(n).padStart(2, "0");
 
 // Blocos dias / horas / min / seg, usados no card da oferta e no hero.
-export function ContadorBlocos({ fase, escuro = false, className = "" }) {
-  const marco = fase === "pre" ? ABERTURA : FIM;
-  const { r, pronto } = useRestante(marco);
+export function ContadorBlocos({ escuro = false, className = "" }) {
+  const { r, pronto } = useRestante(FIM);
   if (!pronto) return <div className={`h-[4.6rem] ${className}`} aria-hidden="true" />;
   if (!r) return null;
   const partes = [["dias", r.d], ["horas", r.h], ["min", r.m], ["seg", r.s]];
@@ -32,7 +30,7 @@ export function ContadorBlocos({ fase, escuro = false, className = "" }) {
   const rot = escuro ? "text-white/70" : "text-pa-tinta/70";
   const sep = escuro ? "text-white/40" : "text-pa-tinta/30";
   return (
-    <div className={`flex items-center gap-2 ${className}`} role="timer" aria-live="off" aria-label={fase === "pre" ? "Tempo até a abertura" : "Tempo até o fim da oferta"}>
+    <div className={`flex items-center gap-2 ${className}`} role="timer" aria-live="off" aria-label="Tempo até o fim da oferta">
       {partes.map(([rotulo, v], i) => (
         <div key={rotulo} className="flex items-center gap-2">
           <div className={`flex min-w-[3.9rem] flex-col items-center rounded-[1.1rem] px-2 py-2 ring-1 ${caixa}`}>

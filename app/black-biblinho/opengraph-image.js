@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 // Gerada no servidor: fundo noite, selo sol, nome da oferta e a janela da venda.
 
 export const runtime = "edge";
-export const alt = "Black Biblinho · Acesso Total: tudo de 2025 e 2026 numa compra só, de 23 a 30 de novembro";
+export const alt = "Black Biblinho · Acesso Total: tudo de 2025 e 2026 numa compra só, até 30 de novembro";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -26,7 +26,7 @@ export default function Image() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <div style={{ display: "flex", padding: "10px 22px", borderRadius: 999, background: "#ffc531", color: "#22303f", fontSize: 24, fontWeight: 800, letterSpacing: 2 }}>
-            BLACK FRIDAY · 23 A 30 DE NOVEMBRO
+            BLACK FRIDAY · SÓ ATÉ 30 DE NOVEMBRO
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>

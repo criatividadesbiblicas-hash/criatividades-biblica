@@ -1,20 +1,19 @@
 // Fases da página /black-biblinho (Black Friday 2026). Módulo SEM "use client": lido pelo
 // servidor (page.js), pelo contador (cliente) e pelos testes.
 //
-//   pre     → até dom 22/11 23h59: pré-abertura. Preço e data já aparecem. Botão leva pro Instagram (aviso de abertura).
-//   venda   → seg 23/11 00h até seg 30/11 23h59: preço, contador e botão da Kiwify.
+//   venda   → da publicação até seg 30/11 23h59: preço, contador e botão da Kiwify.
 //   fechada → depois: a oferta fechou e não volta; a página aponta pro Plano Anual de sempre.
 //
-// Horários no fuso de Brasília (-03:00). Datas decididas pela Thali em 02/11/2026.
-// Pra conferir cada fase antes do dia, a URL aceita ?fase=pre|venda|fechada.
+// Não existe mais pré-abertura (decisão da Thali em 15/11/2026, seguindo o método ADP: a página
+// da D é a página de venda, com botão de comprar, desde o primeiro dia). O gatilho é o prazo.
+// Horários no fuso de Brasília (-03:00). Fim decidido em 02/11/2026.
+// Pra conferir a fase fechada antes do dia, a URL aceita ?fase=fechada.
 
-export const ABERTURA = "2026-11-23T00:00:00-03:00";
 export const FIM = "2026-11-30T23:59:59-03:00";
 
-export const FASES = ["pre", "venda", "fechada"];
+export const FASES = ["venda", "fechada"];
 
 export function faseEm(agoraMs = Date.now()) {
-  if (agoraMs < Date.parse(ABERTURA)) return "pre";
   if (agoraMs <= Date.parse(FIM)) return "venda";
   return "fechada";
 }

@@ -2,35 +2,37 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { ABERTURA, FIM, faseEm, faseDaUrl, restanteAte } from "./fase.js";
-import { OFERTA, KIWIFY_URL, INSTAGRAM_URL, PLANO_2026, BIBLIOTECA_2025, FAQ, BLOCOS, NUMEROS, DOMINGOS, DOMINGOS_2026, DOMINGOS_2025, SERIES } from "./dados.js";
+import { FIM, FASES, faseEm, faseDaUrl, restanteAte } from "./fase.js";
+import { OFERTA, KIWIFY_URL, PLANO_2026, BIBLIOTECA_2025, FAQ, BLOCOS, NUMEROS, DOMINGOS, DOMINGOS_2026, DOMINGOS_2025, SERIES } from "./dados.js";
 
 const pub = (src) => join(process.cwd(), "public", src);
 const t = (iso) => Date.parse(iso);
 
-test("marcos da Black Friday: abre seg 23/11 00h e fecha seg 30/11 23h59, Brasília", () => {
-  assert.equal(ABERTURA, "2026-11-23T00:00:00-03:00");
+test("marco da Black Friday: fecha seg 30/11 23h59, Brasília; sem pré-abertura", () => {
   assert.equal(FIM, "2026-11-30T23:59:59-03:00");
-  assert.equal(new Date(ABERTURA).getUTCDay(), 1, "abertura cai numa segunda");
   assert.equal(new Date(FIM).getUTCDay(), 2, "30/11 23h59 em Brasília já é terça em UTC");
+  // 15/11: a página vende desde a publicação (método ADP: a página da D é a de venda)
+  assert.deepEqual(FASES, ["venda", "fechada"]);
+  assert.equal(OFERTA.abertura, undefined, "não existe mais data de abertura");
 });
 
 test("fase por data", () => {
-  assert.equal(faseEm(t("2026-11-08T12:00:00-03:00")), "pre");
-  assert.equal(faseEm(t("2026-11-22T23:59:59-03:00")), "pre");
-  assert.equal(faseEm(t("2026-11-23T00:00:00-03:00")), "venda");
+  assert.equal(faseEm(t("2026-11-08T12:00:00-03:00")), "venda");
+  assert.equal(faseEm(t("2026-11-16T10:00:00-03:00")), "venda");
+  assert.equal(faseEm(t("2026-11-22T23:59:59-03:00")), "venda");
   assert.equal(faseEm(t("2026-11-27T15:00:00-03:00")), "venda");
   assert.equal(faseEm(t("2026-11-30T23:59:59-03:00")), "venda");
   assert.equal(faseEm(t("2026-12-01T00:00:00-03:00")), "fechada");
 });
 
 test("?fase= força a fase só com valor válido", () => {
-  const agora = t("2026-11-08T12:00:00-03:00");
-  assert.equal(faseDaUrl({ fase: "venda" }, agora), "venda");
+  const agora = t("2026-11-16T12:00:00-03:00");
   assert.equal(faseDaUrl({ fase: "fechada" }, agora), "fechada");
-  assert.equal(faseDaUrl({ fase: "qualquer" }, agora), "pre");
-  assert.equal(faseDaUrl({}, agora), "pre");
-  assert.equal(faseDaUrl(undefined, agora), "pre");
+  assert.equal(faseDaUrl({ fase: "venda" }, agora), "venda");
+  assert.equal(faseDaUrl({ fase: "pre" }, agora), "venda", "pré-abertura não existe mais");
+  assert.equal(faseDaUrl({ fase: "qualquer" }, agora), "venda");
+  assert.equal(faseDaUrl({}, agora), "venda");
+  assert.equal(faseDaUrl(undefined, agora), "venda");
 });
 
 test("restante conta certo e zera depois do marco", () => {
@@ -48,10 +50,10 @@ test("oferta exata da Camada 1 (02/11)", () => {
   assert.equal(OFERTA.vipJanela, undefined);
   assert.equal(OFERTA.parcela, "em até 12x");
   assert.equal(OFERTA.garantiaDias, 7);
+  assert.equal(OFERTA.fimCurto, "30 de novembro");
   // "em até 12x" sem valor da parcela (decisão de 09/09 mantida em 02/11)
   assert.ok(!/12x de R\$/.test(OFERTA.parcela));
   assert.ok(KIWIFY_URL.startsWith("https://pay.kiwify.com.br/"));
-  assert.ok(INSTAGRAM_URL.startsWith("https://www.instagram.com/"));
 });
 
 test("promessa honesta: contagem bate com o inventário de 02/11", () => {
@@ -90,10 +92,11 @@ test("faq cobre as objeções da Black Friday", () => {
   }
 });
 
-test("sem travessão, sem PT de Portugal e sem 'grátis' nos textos", () => {
+test("sem travessão, sem PT de Portugal, sem 'grátis' e sem resto de pré-abertura nos textos", () => {
   const tudo = JSON.stringify({ OFERTA, PLANO_2026, BIBLIOTECA_2025, FAQ, BLOCOS });
   assert.ok(!tudo.includes("—"), "travessão encontrado");
   assert.ok(!/gr[aá]tis/i.test(tudo), "'grátis' encontrado");
+  assert.ok(!/23 a 30|aviso de abertura|abre segunda/i.test(tudo), "resto da pré-abertura encontrado");
   for (const pt of ["está a ", "de seguida", "ecrã", "miúdos", "ficheiro", "estás a "]) {
     assert.ok(!tudo.includes(pt), `PT-PT encontrado: ${pt}`);
   }

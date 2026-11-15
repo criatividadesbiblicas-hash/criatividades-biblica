@@ -6,9 +6,8 @@
 // Checkout da Kiwify do produto "Black Biblinho · Acesso Total": a Thali cria o produto e manda
 // o link. Enquanto não vier, fica este marcador (a página não publica com ele).
 export const KIWIFY_URL = "https://pay.kiwify.com.br/SUBSTITUIR-black-biblinho";
-// Na pré-abertura o botão leva pro Instagram da CB: o aviso de abertura sai lá primeiro.
-// (Decisão da Thali em 12/11/2026: sem grupo VIP antecipado e sem preço diferente.)
-export const INSTAGRAM_URL = "https://www.instagram.com/criatividadesbiblicas/";
+// Sem pré-abertura e sem grupo VIP (decisões da Thali em 12/11 e 15/11/2026): a página vende
+// desde a publicação, com um único preço, até o fim do prazo.
 export const PLANO_ANUAL_URL = "/plano-anual";
 
 export const OFERTA = {
@@ -19,8 +18,8 @@ export const OFERTA = {
   garantiaDias: 7,
   // Âncora honesta: o único preço público comparável. Não é "de X por Y" do mesmo produto.
   ancora: { produto: "Plano Anual 2026, no formato de sempre", preco: "R$ 597" },
-  abertura: "segunda, 23 de novembro",
   fim: "segunda, 30 de novembro, às 23h59",
+  fimCurto: "30 de novembro",
 };
 
 // Bloco 1 · Plano Anual 2026: 11 temas (10 histórias diferentes; Zaqueu volta em novembro).
@@ -106,7 +105,7 @@ export const FAQ = [
   { q: "Já tenho o Jesus Cuida das Minhas Emoções. Compensa?", a: "O Emoções é 1 dos 4 blocos. Os outros 3 (Plano Anual 2026, Biblioteca 2025, Planner e plano de leitura) são novos pra você, e sozinho o Plano Anual 2026 custa R$ 597 no formato de sempre." },
   { q: "Sou assinante do Plano Anual. E agora?", a: "Fala com a gente no Direct do @criatividadesbiblicas antes de comprar. A gente olha o que você já recebeu e te diz, com sinceridade, se vale a pena." },
   { q: "E novembro e dezembro de 2026?", a: "Novembro (As Cores da Salvação, com Zaqueu) está em produção. Dezembro (Natal) ainda vai ser feito. Os dois entram na sua área de membros assim que saírem, sem pagar nada a mais." },
-  { q: "Vai voltar depois do dia 30?", a: "Não. O Black Biblinho existe só nesta Black Friday, de 23 a 30 de novembro. Depois disso o Plano Anual volta ao formato de sempre, uma história por mês, e em 2027 o material é novo, com histórias que não estão aqui." },
+  { q: "Vai voltar depois do dia 30?", a: "Não. O Black Biblinho existe só nesta Black Friday, até 30 de novembro. Depois disso o Plano Anual volta ao formato de sempre, uma história por mês, e em 2027 o material é novo, com histórias que não estão aqui." },
   { q: "Vou receber impresso?", a: "Não. É 100% digital, em PDF. Você imprime em casa, na igreja ou numa gráfica, só o que for usar. Quadro de história, versículo e lembrancinha ficam melhores em papel 180g; apostila e atividades vão bem em sulfite comum." },
   { q: "Posso usar com a equipe da minha igreja?", a: "Sim, dentro do seu ministério. O que não pode é revender ou repassar os PDFs em grupos." },
   { q: "Tem garantia?", a: "Tem. 7 dias depois da compra pra pedir o reembolso total direto na Kiwify, a mesma plataforma do pagamento. Sem precisar explicar o motivo." },
