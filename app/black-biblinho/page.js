@@ -3,7 +3,7 @@
   THESIS: a professora que passou o ano garimpando atividade solta descobre que tudo que a
   Criatividades Bíblicas criou em 2025 e 2026 cabe numa compra só, liberada na hora, só até 30/11.
   A página conta o que entra (4 blocos, com capas e páginas reais), diz com clareza o que NÃO entra
-  (Júnior em parte, novembro e dezembro depois) e só então mostra preço, prazo e botão.
+  (Júnior em parte, dezembro depois) e só então mostra preço, prazo e botão.
   OWN-WORLD: o mesmo mundo .pa da landing do Plano Anual (Lilita One + Nunito, céu claro, campo, sol),
   vestido de noite nas pontas (hero, números e fechamento em azul-noite), porque é Black Friday e
   porque a página é pra adulto. Sem preto puro, sem véu escuro no meio.
@@ -187,7 +187,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
             <Selo>O que entra</Selo>
             <H2 className="mt-4">Quatro blocos, liberados na hora.</H2>
             <Texto className="mt-4 max-w-[60ch]">
-              Tudo é página real dos nossos PDFs. O que está em produção ou ainda não existe está escrito aqui, não escondido.
+              Tudo é página real dos nossos PDFs. O que ainda não existe está escrito aqui, não escondido.
             </Texto>
 
             {/* Bloco 1: Plano Anual 2026 */}
@@ -399,7 +399,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
               {[
                 { n: 1, t: "Você compra pela Kiwify.", d: "Pix ou cartão, à vista ou em até 12x. O acesso chega no seu e-mail assim que o pagamento é aprovado." },
                 { n: 2, t: "Os 4 blocos abrem na hora.", d: "Plano Anual 2026, Biblioteca 2025, Emoções, Planner e plano de leitura, tudo na mesma área de membros. Baixa e imprime o que for usar." },
-                { n: 3, t: "Novembro e dezembro chegam depois.", d: "As Cores da Salvação e o Natal entram na sua área de membros quando ficarem prontos, sem pagar nada a mais." },
+                { n: 3, t: "Dezembro chega depois.", d: "O Natal entra na sua área de membros quando ficar pronto, sem pagar nada a mais. De janeiro a novembro já está tudo lá." },
               ].map((p) => (
                 <li key={p.n} className="rounded-[1.75rem] bg-pa-ceu-claro p-6">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pa-sol font-display text-xl text-pa-tinta">{p.n}</span>

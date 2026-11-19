@@ -60,7 +60,8 @@ test("promessa honesta: contagem bate com o inventário de 02/11", () => {
   // 11 temas de 2026 (10 histórias diferentes, Zaqueu repete em novembro)
   assert.equal(PLANO_2026.length, 11);
   assert.equal(PLANO_2026.filter((h) => h.junior).length, 6, "Júnior existe em 6 temas de 2026");
-  assert.equal(PLANO_2026.filter((h) => h.emProducao).length, 1, "só novembro está em produção");
+  assert.equal(PLANO_2026.filter((h) => h.emProducao).length, 0, "19/11: novembro ficou pronto; nada em produção");
+  assert.ok(PLANO_2026.every((h) => h.src), "todos os 11 temas têm capa");
   // 9 histórias completas de 2025 (Josias só tem o estudo 1 e fica fora da lista)
   assert.equal(BIBLIOTECA_2025.length, 9);
   assert.ok(!BIBLIOTECA_2025.some((h) => /josias/i.test(h.nome)));
@@ -71,12 +72,12 @@ test("promessa honesta: contagem bate com o inventário de 02/11", () => {
   const em2026 = new Set(PLANO_2026.map((h) => h.historia));
   assert.equal(BIBLIOTECA_2025.filter((h) => em2026.has(h.historia)).length, 6);
   assert.equal(BLOCOS.length, 4, "a entrega tem 4 blocos");
-  // domingos de aula pronta: 2026 (10 meses prontos) + 2025 (9 histórias), conferidos nas notas do cofre
-  assert.equal(DOMINGOS_2026, 43);
+  // domingos de aula pronta: 2026 (11 meses prontos desde 19/11) + 2025 (9 histórias), conferidos nas notas do cofre
+  assert.equal(DOMINGOS_2026, 48);
   assert.equal(DOMINGOS_2025, 41);
-  assert.equal(DOMINGOS, 84);
+  assert.equal(DOMINGOS, 89);
   assert.equal(SERIES, 20);
-  assert.equal(NUMEROS[0].n, "84");
+  assert.equal(NUMEROS[0].n, "89");
 });
 
 test("todas as capas referenciadas existem", () => {
@@ -87,7 +88,7 @@ test("todas as capas referenciadas existem", () => {
 
 test("faq cobre as objeções da Black Friday", () => {
   const perguntas = FAQ.map((f) => f.q.toLowerCase()).join(" | ");
-  for (const chave of ["na hora", "júnior", "2025", "emoções", "assinante", "novembro", "depois do dia 30", "impresso", "equipe", "garantia", "fuso"]) {
+  for (const chave of ["na hora", "júnior", "2025", "emoções", "assinante", "dezembro", "depois do dia 30", "impresso", "equipe", "garantia", "fuso"]) {
     assert.ok(perguntas.includes(chave), `FAQ sem pergunta sobre: ${chave}`);
   }
 });

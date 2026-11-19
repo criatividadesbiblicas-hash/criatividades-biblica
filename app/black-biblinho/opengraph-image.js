@@ -33,7 +33,7 @@ export default function Image() {
           <div style={{ display: "flex", fontSize: 92, fontWeight: 800, lineHeight: 1 }}>Black Biblinho</div>
           <div style={{ display: "flex", fontSize: 56, fontWeight: 800, lineHeight: 1, color: "#ffc531" }}>Acesso Total</div>
           <div style={{ display: "flex", marginTop: 14, fontSize: 30, lineHeight: 1.3, color: "rgba(255,255,255,0.85)", maxWidth: 980 }}>
-            Tudo que a Criatividades Bíblicas já criou, numa compra só: 20 séries de estudo, 84 domingos de aula pronta.
+            Tudo que a Criatividades Bíblicas já criou, numa compra só: 20 séries de estudo, 89 domingos de aula pronta.
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 26, color: "rgba(255,255,255,0.7)" }}>

@@ -35,10 +35,10 @@ export const PLANO_2026 = [
   { mes: "ago", tema: "O amor de Jesus por mim", historia: "Ovelha Perdida", nome: "Ovelha Perdida", estudos: 5, junior: false, src: "/plano-anual/capa-ovelha-perdida.webp" },
   { mes: "set", tema: "Lidando com as minhas emoções", historia: "Elias no Monte Carmelo", nome: "Elias no Monte Carmelo", estudos: 4, junior: false, src: "/plano-anual/capa-elias.webp" },
   { mes: "out", tema: "Crianças aprovadas por Deus", historia: "Daniel na cova dos leões", nome: "Daniel na cova dos leões", estudos: 4, junior: false, src: "/plano-anual/capa-daniel.webp" },
-  { mes: "nov", tema: "As Cores da Salvação", historia: "Jesus e Zaqueu", nome: "As Cores da Salvação", estudos: 5, junior: false, emProducao: true, src: "/plano-anual/capa-cores.webp" },
+  { mes: "nov", tema: "As Cores da Salvação", historia: "Jesus e Zaqueu", nome: "As Cores da Salvação", estudos: 5, junior: false, src: "/plano-anual/capa-cores.webp" },
 ];
 
-// Capas que giram na roda: todas as que têm capa (novembro entrou em 19/11, ainda em produção).
+// Capas que giram na roda: os 11 temas de 2026 (novembro, As Cores da Salvação, ficou pronto em 19/11/2026).
 export const RODA_2026 = PLANO_2026.filter((h) => h.src).map((h, i) => ({ slug: `h${i}-${h.mes}`, nome: h.nome, estudos: h.estudos, src: h.src }));
 
 // Bloco 2 · Biblioteca 2025: 9 histórias completas na versão anterior do Plano.
@@ -62,7 +62,7 @@ export const BLOCOS = [
     n: 1,
     titulo: "Plano Anual 2026",
     resumo: "11 temas, uma história bíblica por mês, com a aula pronta pra Baby e Kids em todos e Júnior em 6.",
-    detalhe: "Apostila do professor com a fala escrita, quadro de história, atividades, versículo, lembrancinha e carta pra família. Novembro (As Cores da Salvação) está em produção e dezembro (Natal) ainda vai ser feito: os dois entram na sua área de membros assim que ficarem prontos.",
+    detalhe: "Apostila do professor com a fala escrita, quadro de história, atividades, versículo, lembrancinha e carta pra família. De janeiro a novembro, tudo pronto. Dezembro (Natal) ainda vai ser feito e entra na sua área de membros assim que ficar pronto.",
   },
   {
     n: 2,
@@ -85,7 +85,7 @@ export const BLOCOS = [
 ];
 
 // Números que puxam pra compra, todos reais (pedido dela em 09/11: nome curto e números que atraem).
-// Domingos = soma dos estudos prontos: 2026 sem novembro (em produção) + Biblioteca 2025.
+// Domingos = soma dos estudos prontos: 2026 (11 temas, novembro pronto em 19/11) + Biblioteca 2025.
 // Josias (2025, só o estudo 1) não conta nem como história nem como domingo.
 export const DOMINGOS_2026 = PLANO_2026.filter((h) => !h.emProducao).reduce((t, h) => t + h.estudos, 0);
 export const DOMINGOS_2025 = BIBLIOTECA_2025.reduce((t, h) => t + h.estudos, 0);
@@ -99,12 +99,12 @@ export const NUMEROS = [
 ];
 
 export const FAQ = [
-  { q: "Recebo tudo na hora ou vai liberando aos poucos?", a: "Tudo na hora. Assim que o pagamento é aprovado, a Kiwify manda o acesso pro seu e-mail e os 4 blocos já estão liberados na área de membros. Só novembro e dezembro de 2026 entram depois, quando ficarem prontos." },
+  { q: "Recebo tudo na hora ou vai liberando aos poucos?", a: "Tudo na hora. Assim que o pagamento é aprovado, a Kiwify manda o acesso pro seu e-mail e os 4 blocos já estão liberados na área de membros. Só dezembro de 2026 (Natal) entra depois, quando ficar pronto." },
   { q: "O material Júnior vem em todas as histórias?", a: "Não, e a gente prefere dizer antes. Em 2026 o Júnior (7 a 10 anos) existe em 6 dos 11 temas: Semeador, Fornalha, Zaqueu, Arca de Noé, Adão e Eva e Filho Pródigo. Em 2025, existe da Arca em diante (7 das 9 histórias). Baby e Kids estão em todas." },
   { q: "A Biblioteca 2025 é a mesma coisa repetida?", a: "Não. É a versão anterior do Plano, com linguagem e diagramação de 2025, entregue em bloco separado. Seis histórias existem nos dois anos (Semeador, Arca, Adão e Eva, Filho Pródigo, Ovelha Perdida e Daniel), em versões diferentes. As outras quatro só existem em 2025: Criação, Jesus anda sobre as águas, O Plano Perfeito e o estudo 1 de Josias." },
   { q: "Já tenho o Jesus Cuida das Minhas Emoções. Compensa?", a: "O Emoções é 1 dos 4 blocos. Os outros 3 (Plano Anual 2026, Biblioteca 2025, Planner e plano de leitura) são novos pra você, e sozinho o Plano Anual 2026 custa R$ 597 no formato de sempre." },
   { q: "Sou assinante do Plano Anual. E agora?", a: "Fala com a gente no Direct do @criatividadesbiblicas antes de comprar. A gente olha o que você já recebeu e te diz, com sinceridade, se vale a pena." },
-  { q: "E novembro e dezembro de 2026?", a: "Novembro (As Cores da Salvação, com Zaqueu) está em produção. Dezembro (Natal) ainda vai ser feito. Os dois entram na sua área de membros assim que saírem, sem pagar nada a mais." },
+  { q: "E dezembro de 2026?", a: "Dezembro (Natal) ainda vai ser feito e entra na sua área de membros assim que sair, sem pagar nada a mais. Novembro (As Cores da Salvação, com Zaqueu) já está pronto e liberado na hora." },
   { q: "Vai voltar depois do dia 30?", a: "Não. O Black Biblinho existe só nesta Black Friday, até 30 de novembro. Depois disso o Plano Anual volta ao formato de sempre, uma história por mês, e em 2027 o material é novo, com histórias que não estão aqui." },
   { q: "Vou receber impresso?", a: "Não. É 100% digital, em PDF. Você imprime em casa, na igreja ou numa gráfica, só o que for usar. Quadro de história, versículo e lembrancinha ficam melhores em papel 180g; apostila e atividades vão bem em sulfite comum." },
   { q: "Posso usar com a equipe da minha igreja?", a: "Sim, dentro do seu ministério. O que não pode é revender ou repassar os PDFs em grupos." },
