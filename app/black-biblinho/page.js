@@ -305,12 +305,12 @@ export default async function BlackBiblinhoPage({ searchParams }) {
         <section className="bg-pa-ceu-claro">
           <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
             <H2>Três faixas, uma história.</H2>
-            <Texto className="mt-4 max-w-[58ch]">A mesma Hora da História da Arca, escrita três vezes: pro colo, pra roda e pra turma que já lê. A linguagem muda. A história, não.</Texto>
+            <Texto className="mt-4 max-w-[58ch]">O mesmo estudo do Filho Pródigo, escrito três vezes: pro colo, pra roda e pra turma que já lê. A linguagem muda. A história, não.</Texto>
             <div className="mt-12 grid gap-6 md:grid-cols-3">
               {FAIXAS.map((f) => (
                 <article key={f.faixa} className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)]">
                   <div className="relative aspect-[3/4] overflow-hidden">
-                    <Image src={f.src} alt={`Página real da apostila ${f.faixa}: Hora da História da Arca de Noé`} fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover object-top" />
+                    <Image src={f.src} alt={`Página real da apostila ${f.faixa}: Hora da História do Filho Pródigo`} fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover object-top" />
                     <span className="absolute bottom-4 left-4 rounded-full bg-pa-sol px-3 py-1 font-display text-sm text-pa-tinta">{f.faixa} · {f.idade}</span>
                   </div>
                   <blockquote className="p-6 text-[15px] font-medium italic leading-relaxed text-pa-tinta/85">“{f.trecho}”</blockquote>

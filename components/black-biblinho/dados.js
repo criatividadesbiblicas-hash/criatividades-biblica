@@ -35,11 +35,11 @@ export const PLANO_2026 = [
   { mes: "ago", tema: "O amor de Jesus por mim", historia: "Ovelha Perdida", nome: "Ovelha Perdida", estudos: 5, junior: false, src: "/plano-anual/capa-ovelha-perdida.webp" },
   { mes: "set", tema: "Lidando com as minhas emoções", historia: "Elias no Monte Carmelo", nome: "Elias no Monte Carmelo", estudos: 4, junior: false, src: "/plano-anual/capa-elias.webp" },
   { mes: "out", tema: "Crianças aprovadas por Deus", historia: "Daniel na cova dos leões", nome: "Daniel na cova dos leões", estudos: 4, junior: false, src: "/plano-anual/capa-daniel.webp" },
-  { mes: "nov", tema: "As Cores da Salvação", historia: "Jesus e Zaqueu", nome: "As Cores da Salvação", estudos: 5, junior: false, emProducao: true, src: null },
+  { mes: "nov", tema: "As Cores da Salvação", historia: "Jesus e Zaqueu", nome: "As Cores da Salvação", estudos: 5, junior: false, emProducao: true, src: "/plano-anual/capa-cores.webp" },
 ];
 
-// Capas que giram na roda: só as que existem (novembro ainda não tem capa Kids final).
-export const RODA_2026 = PLANO_2026.filter((h) => h.src).map((h, i) => ({ slug: `h${i}-${h.mes}`, nome: h.nome, estudos: 4, src: h.src }));
+// Capas que giram na roda: todas as que têm capa (novembro entrou em 19/11, ainda em produção).
+export const RODA_2026 = PLANO_2026.filter((h) => h.src).map((h, i) => ({ slug: `h${i}-${h.mes}`, nome: h.nome, estudos: h.estudos, src: h.src }));
 
 // Bloco 2 · Biblioteca 2025: 9 histórias completas na versão anterior do Plano.
 // Josias (2025) tem só o estudo 1, sem apostila: entra como nota, não como história.

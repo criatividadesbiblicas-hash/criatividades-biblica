@@ -34,12 +34,14 @@ export const AULAS_ARCA = [
 
 // "O que chega todo mes": leques misturando historias pra mostrar variedade.
 export const PECAS = [
-  { titulo: "Apostila do professor", texto: "Todos os estudos do mês com a fala escrita em linguagem de criança: roda de conversa, curiosidade bíblica, hora da história, aplicação, brincadeira e oração. Você lê, adapta e conduz.", imagens: ["/arca-de-noe/apostila-1.webp", "/plano-anual/semeador-apostila.webp", "/arca-de-noe/apostila-3.webp", "/arca-de-noe/apostila-4.webp", "/arca-de-noe/apostila-5.webp"], grande: true },
-  { titulo: "Quadro de história", texto: "Lâminas grandes pra contar mostrando. A criança vê a cena enquanto ouve, e a história gruda.", imagens: ["/plano-anual/semeador-quadro.webp", "/arca-de-noe/quadro-noe.webp", "/plano-anual/prodigo-quadro.webp", "/arca-de-noe/quadro-animais.webp", "/arca-de-noe/quadro-arcoiris.webp"] },
-  { titulo: "Atividades das crianças", texto: "Uma folha por estudo, em cada faixa. Pintar, recortar, colar, montar. A mão trabalha e a lição fica.", imagens: ["/arca-de-noe/ativ-kids-1.webp", "/plano-anual/zaqueu-atividade.webp", "/arca-de-noe/ativ-junior-2.webp", "/arca-de-noe/ativ-kids-3.webp", "/arca-de-noe/ativ-junior-4.webp"] },
-  { titulo: "Versículo pra parede", texto: "O versículo do mês em cartaz. No Júnior, um por estudo. Decorar vira parte da sala.", imagens: ["/arca-de-noe/versiculo-junior-1.webp", "/arca-de-noe/versiculo-kids.webp", "/plano-anual/prodigo-versiculo.webp"], paisagem: true },
-  { titulo: "Lembrancinha", texto: "Imprime em papel 180g. A criança sai da aula com a história na mão e conta em casa.", imagens: ["/arca-de-noe/lembranca.webp", "/plano-anual/prodigo-lembranca.webp"], paisagem: true },
-  { titulo: "Carta pra família", texto: "Uma página explicando o que a criança aprendeu no mês e como continuar em casa. A aula não termina no domingo.", imagens: ["/arca-de-noe/querida-familia.webp", "/plano-anual/zaqueu-familia.webp"], largo: true },
+  // 19/11/2026 (pedido da Thali): exemplos vêm dos estudos mais recentes, agosto a novembro de 2026
+  // (Ovelha Perdida, Elias, Daniel, Cores da Salvação), renderizados por scripts/black-biblinho-assets-2.py.
+  { titulo: "Apostila do professor", texto: "Todos os estudos do mês com a fala escrita em linguagem de criança: roda de conversa, curiosidade bíblica, hora da história, aplicação, brincadeira e oração. Você lê, adapta e conduz.", imagens: ["/plano-anual/elias-apostila.webp", "/plano-anual/daniel-apostila.webp", "/plano-anual/cores-apostila.webp", "/plano-anual/ovelha-apostila.webp", "/plano-anual/ovelha-area.webp"], grande: true },
+  { titulo: "Quadro de história", texto: "Lâminas grandes pra contar mostrando. A criança vê a cena enquanto ouve, e a história gruda.", imagens: ["/plano-anual/elias-quadro.webp", "/plano-anual/ovelha-quadro.webp", "/plano-anual/cores-quadro.webp", "/plano-anual/daniel-quadro.webp", "/plano-anual/cores-quadro-2.webp"] },
+  { titulo: "Atividades das crianças", texto: "Uma folha por estudo, em cada faixa. Pintar, recortar, colar, montar. A mão trabalha e a lição fica.", imagens: ["/plano-anual/elias-atividade.webp", "/plano-anual/ovelha-atividade.webp", "/plano-anual/daniel-atividade.webp", "/plano-anual/cores-atividade.webp", "/plano-anual/ovelha-atividade-2.webp"] },
+  { titulo: "Versículo pra parede", texto: "O versículo do mês em cartaz. No Júnior, um por estudo. Decorar vira parte da sala.", imagens: ["/plano-anual/daniel-versiculo.webp", "/plano-anual/ovelha-versiculo.webp", "/plano-anual/cores-versiculo.webp"], paisagem: true },
+  { titulo: "Lembrancinha", texto: "Imprime em papel 180g. A criança sai da aula com a história na mão e conta em casa.", imagens: ["/plano-anual/daniel-lembranca.webp", "/plano-anual/ovelha-lembranca.webp", "/plano-anual/cores-lembranca.webp"] },
+  { titulo: "Carta pra família", texto: "Uma página explicando o que a criança aprendeu no mês e como continuar em casa. A aula não termina no domingo.", imagens: ["/plano-anual/ovelha-familia.webp", "/plano-anual/cores-familia.webp"], largo: true },
 ];
 
 export const ANOTACOES = [
@@ -56,9 +58,11 @@ export const ANOTACOES = [
 // renderizadas — nao inventar. Baby: "Roda de Conversa"; Kids: bloco de abertura;
 // Junior: "Explorando a Biblia".
 export const FAIXAS = [
-  { faixa: "Baby", idade: "1 a 3 anos", src: "/plano-anual/arca-baby-hora.webp", trecho: "Vocês já ouviram a mamãe ou o papai dizendo: “Vamos escovar os dentinhos?” ou “Guarde os brinquedos”?" },
-  { faixa: "Kids", idade: "4 a 6 anos", src: "/plano-anual/arca-kids-hora.webp", trecho: "Obediência é quando a gente faz o que alguém nos pede com carinho e atenção. Pode ser o papai, a mamãe, a professora... e principalmente Deus!" },
-  { faixa: "Júnior", idade: "7 a 10 anos", src: "/plano-anual/arca-junior-hora.webp", trecho: "Significa que a gente não obedece só porque alguém está olhando, mas porque a gente ama a Deus e sabe que os Seus ensinamentos são o melhor para nós." },
+  // 19/11/2026: Filho Pródigo (O Grande Amor de Deus), o estudo mais recente com as três faixas; apostilas refeitas em 17 e 18/11.
+  // Trechos copiados das páginas reais (Estudo 1: O amor de Deus nos amou primeiro).
+  { faixa: "Baby", idade: "1 a 3 anos", src: "/plano-anual/prodigo-baby-hora.webp", trecho: "Vocês sabiam que existe um amor que chegou antes de todos? Um amor que já existia antes mesmo de você nascer? É o amor do nosso Pai do Céu!" },
+  { faixa: "Kids", idade: "4 a 6 anos", src: "/plano-anual/prodigo-kids-hora.webp", trecho: "O pai já amava o filho antes de ele ir embora e não deixou de amar quando ele estava longe. O amor de Deus por nós também é assim: Ele nos amou primeiro." },
+  { faixa: "Júnior", idade: "7 a 10 anos", src: "/plano-anual/prodigo-junior-hora.webp", trecho: "O amor daquele pai não dependia do que o filho fazia ou deixava de fazer. Era um amor que já existia antes, um amor que veio primeiro, antes de qualquer acerto ou erro." },
 ];
 
 // Depoimentos REAIS enviados pela Thali. Enquanto vazio, a secao nao renderiza.
