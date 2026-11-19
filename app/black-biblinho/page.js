@@ -216,10 +216,10 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                 <li className="flex items-center gap-3 rounded-[1rem] bg-pa-ceu-claro px-4 py-3">
                   <span className="w-8 shrink-0 font-display text-sm uppercase text-pa-campo-escuro">dez</span>
                   <span className="flex-1 text-[15px] font-semibold leading-snug text-pa-tinta">
-                    Natal
-                    <span className="block text-[12px] font-semibold text-pa-tinta/60">entra na sua área de membros quando ficar pronto</span>
+                    Josias e o Livro Perdido
+                    <span className="block text-[12px] font-semibold text-pa-tinta/60">Eu vivo o que a Bíblia diz · entra na sua área de membros quando ficar pronto</span>
                   </span>
-                  <span className="shrink-0 rounded-full bg-pa-laranja/15 px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wide text-pa-laranja">a fazer</span>
+                  <span className="shrink-0 rounded-full bg-pa-laranja/15 px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wide text-pa-laranja">em produção</span>
                 </li>
               </ul>
             </article>
@@ -399,7 +399,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
               {[
                 { n: 1, t: "Você compra pela Kiwify.", d: "Pix ou cartão, à vista ou em até 12x. O acesso chega no seu e-mail assim que o pagamento é aprovado." },
                 { n: 2, t: "Os 4 blocos abrem na hora.", d: "Plano Anual 2026, Biblioteca 2025, Emoções, Planner e plano de leitura, tudo na mesma área de membros. Baixa e imprime o que for usar." },
-                { n: 3, t: "Dezembro chega depois.", d: "O Natal entra na sua área de membros quando ficar pronto, sem pagar nada a mais. De janeiro a novembro já está tudo lá." },
+                { n: 3, t: "Dezembro chega depois.", d: "O tema de dezembro, Eu Vivo o que a Bíblia Diz, entra na sua área de membros quando ficar pronto, sem pagar nada a mais. De janeiro a novembro já está tudo lá." },
               ].map((p) => (
                 <li key={p.n} className="rounded-[1.75rem] bg-pa-ceu-claro p-6">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pa-sol font-display text-xl text-pa-tinta">{p.n}</span>

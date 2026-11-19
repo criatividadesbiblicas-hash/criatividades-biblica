@@ -62,7 +62,7 @@ export const BLOCOS = [
     n: 1,
     titulo: "Plano Anual 2026",
     resumo: "11 temas, uma história bíblica por mês, com a aula pronta pra Baby e Kids em todos e Júnior em 6.",
-    detalhe: "Apostila do professor com a fala escrita, quadro de história, atividades, versículo, lembrancinha e carta pra família. De janeiro a novembro, tudo pronto. Dezembro (Natal) ainda vai ser feito e entra na sua área de membros assim que ficar pronto.",
+    detalhe: "Apostila do professor com a fala escrita, quadro de história, atividades, versículo, lembrancinha e carta pra família. De janeiro a novembro, tudo pronto. Dezembro (Eu Vivo o que a Bíblia Diz, com a história do rei Josias) está em produção e entra na sua área de membros assim que ficar pronto.",
   },
   {
     n: 2,
@@ -99,12 +99,12 @@ export const NUMEROS = [
 ];
 
 export const FAQ = [
-  { q: "Recebo tudo na hora ou vai liberando aos poucos?", a: "Tudo na hora. Assim que o pagamento é aprovado, a Kiwify manda o acesso pro seu e-mail e os 4 blocos já estão liberados na área de membros. Só dezembro de 2026 (Natal) entra depois, quando ficar pronto." },
+  { q: "Recebo tudo na hora ou vai liberando aos poucos?", a: "Tudo na hora. Assim que o pagamento é aprovado, a Kiwify manda o acesso pro seu e-mail e os 4 blocos já estão liberados na área de membros. Só dezembro de 2026 (Eu Vivo o que a Bíblia Diz) entra depois, quando ficar pronto." },
   { q: "O material Júnior vem em todas as histórias?", a: "Não, e a gente prefere dizer antes. Em 2026 o Júnior (7 a 10 anos) existe em 6 dos 11 temas: Semeador, Fornalha, Zaqueu, Arca de Noé, Adão e Eva e Filho Pródigo. Em 2025, existe da Arca em diante (7 das 9 histórias). Baby e Kids estão em todas." },
   { q: "A Biblioteca 2025 é a mesma coisa repetida?", a: "Não. É a versão anterior do Plano, com linguagem e diagramação de 2025, entregue em bloco separado. Seis histórias existem nos dois anos (Semeador, Arca, Adão e Eva, Filho Pródigo, Ovelha Perdida e Daniel), em versões diferentes. As outras quatro só existem em 2025: Criação, Jesus anda sobre as águas, O Plano Perfeito e o estudo 1 de Josias." },
   { q: "Já tenho o Jesus Cuida das Minhas Emoções. Compensa?", a: "O Emoções é 1 dos 4 blocos. Os outros 3 (Plano Anual 2026, Biblioteca 2025, Planner e plano de leitura) são novos pra você, e sozinho o Plano Anual 2026 custa R$ 597 no formato de sempre." },
   { q: "Sou assinante do Plano Anual. E agora?", a: "Fala com a gente no Direct do @criatividadesbiblicas antes de comprar. A gente olha o que você já recebeu e te diz, com sinceridade, se vale a pena." },
-  { q: "E dezembro de 2026?", a: "Dezembro (Natal) ainda vai ser feito e entra na sua área de membros assim que sair, sem pagar nada a mais. Novembro (As Cores da Salvação, com Zaqueu) já está pronto e liberado na hora." },
+  { q: "E dezembro de 2026?", a: "O tema de dezembro é Eu Vivo o que a Bíblia Diz, com a história do rei Josias e o livro perdido. Está em produção e entra na sua área de membros assim que sair, sem pagar nada a mais. Novembro (As Cores da Salvação, com Zaqueu) já está pronto e liberado na hora." },
   { q: "Vai voltar depois do dia 30?", a: "Não. O Black Biblinho existe só nesta Black Friday, até 30 de novembro. Depois disso o Plano Anual volta ao formato de sempre, uma história por mês, e em 2027 o material é novo, com histórias que não estão aqui." },
   { q: "Vou receber impresso?", a: "Não. É 100% digital, em PDF. Você imprime em casa, na igreja ou numa gráfica, só o que for usar. Quadro de história, versículo e lembrancinha ficam melhores em papel 180g; apostila e atividades vão bem em sulfite comum." },
   { q: "Posso usar com a equipe da minha igreja?", a: "Sim, dentro do seu ministério. O que não pode é revender ou repassar os PDFs em grupos." },
