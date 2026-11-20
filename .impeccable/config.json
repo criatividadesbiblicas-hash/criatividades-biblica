@@ -194,6 +194,16 @@
         "value": "3.8rem",
         "createdAt": "2026-11-09T23:21:08.609Z",
         "reason": "nome do produto como titulo do hero da Black Friday, pedido da Thali em 09/11/2026"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "18px",
+        "createdAt": "2026-11-19T11:15:05.800Z"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "22px",
+        "createdAt": "2026-11-19T11:15:05.962Z"
       }
     ]
   }
