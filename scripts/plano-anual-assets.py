@@ -30,9 +30,10 @@ CAPAS = [
     ("capa-zaqueu",         "3 JESUS E ZAQUEU/2 KIDS/2 APOSTILA E ATIVIDADES/KIDS CAPA DAS ATIVIDADES*.pdf", 1, 900),
     ("capa-arca",           "4 ARCA DE NOE/2 KIDS/2 APOSTILA/KIDS CAPA DE ATIVIDADES*.pdf", 1, 900),
     ("capa-adao-e-eva",     "5 AD*O E EVA/2 KIDS/2 APOSTILA E ATIVIDADES/KIDS CAPA DAS ATIVIDADES*.pdf", 1, 900),
-    ("capa-filho-prodigo",  "6 FILHO PRODIGO/2 KIDS/2 APOSTILA/KIDS CAPA DAS ATIVIDADES*.pdf", 1, 900),
-    ("capa-dez-leprosos",   "7 DEZ LEPROSOS/2 KIDS/2 APOSTILA/KIDS CAPA DAS ATIVIDADES*.pdf", 1, 900),
-    ("capa-ovelha-perdida", "8 OVELHA PERDIDA/KIDS/2 apostila/KIDS CAPA DAS ATIVIDADES*.pdf", 1, 900),
+    # 19/11/2026: capas refeitas pela Thali em 16 a 18/11 (nome novo do PDF; o antigo continua na pasta)
+    ("capa-filho-prodigo",  "6 FILHO PRODIGO/2 KIDS/2 APOSTILA/KIDS CAPA DAS ATIVIDADES  - O GRANDE AMOR DE DEUS.pdf", 1, 900),
+    ("capa-dez-leprosos",   "7 DEZ LEPROSOS/2 KIDS/2 APOSTILA/KIDS CAPA DAS ATIVIDADES - APRENDENDO A SER GRATO.pdf", 1, 900),
+    ("capa-ovelha-perdida", "8 OVELHA PERDIDA/KIDS/2 apostila/KIDS CAPA DAS ATIVIDADES - O AMOR DE JESUS POR MIM.pdf", 1, 900),
 ]
 EXTRAS = [
     ("semeador-apostila", "1 PARABOLA DO SEMEADOR/2 KIDS/2 APOSTILA E ATIVIDADES/KIDS APOSTILA PROFESSOR*.pdf", 9, 828),

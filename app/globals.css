@@ -235,6 +235,15 @@ body:has(> .pa) { background: #ffffff; }
 .pa button svg.text-coral-deep { color: #2a8a3e; }
 .pa .text-cacau\/75 { color: rgba(34, 48, 63, 0.78); }
 
+/* Landing /black-biblinho (Black Friday 2026): mundo .pa vestido de noite nas pontas */
+@theme {
+  --color-bb-noite: #141a2b;
+  --color-bb-noite-clara: #1d2540;
+}
+.bb header { background: rgba(255, 255, 255, 0.94); border-color: #cfe7f7; }
+body:has(> .bb) { background: #141a2b; }
+.bb footer { background: #ffffff; }
+
 /* ——— Central de Comando (escopo .central) · mundo Arca/Packs em modo ferramenta ——— */
 body:has(> .central) { background: #eef7ff; }
 .central {
