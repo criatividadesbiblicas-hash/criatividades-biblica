@@ -3,9 +3,8 @@
 // Fonte do inventário: pastas reais em F:/.../2 PLANO ANUAL/2025 e /2026 (lidas em 02/11 e 08/11).
 // Toda capa é página 1 do PDF real (ver public/**/*.webp.json). Nada aqui é simulado.
 
-// Checkout da Kiwify do produto "Black Biblinho · Acesso Total": a Thali cria o produto e manda
-// o link. Enquanto não vier, fica este marcador (a página não publica com ele).
-export const KIWIFY_URL = "https://pay.kiwify.com.br/SUBSTITUIR-black-biblinho";
+// Checkout da Kiwify do produto "Black Biblinho · Acesso Total" (link mandado pela Thali em 20/11/2026).
+export const KIWIFY_URL = "https://pay.kiwify.com.br/1SY5Uom";
 // Sem pré-abertura e sem grupo VIP (decisões da Thali em 12/11 e 15/11/2026): a página vende
 // desde a publicação, com um único preço, até o fim do prazo.
 export const PLANO_ANUAL_URL = "/plano-anual";

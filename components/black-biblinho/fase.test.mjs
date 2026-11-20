@@ -54,6 +54,7 @@ test("oferta exata da Camada 1 (02/11)", () => {
   // "em até 12x" sem valor da parcela (decisão de 09/09 mantida em 02/11)
   assert.ok(!/12x de R\$/.test(OFERTA.parcela));
   assert.ok(KIWIFY_URL.startsWith("https://pay.kiwify.com.br/"));
+  assert.ok(!/SUBSTITUIR/.test(KIWIFY_URL), "o marcador do link da Kiwify ainda está na página");
 });
 
 test("promessa honesta: contagem bate com o inventário de 02/11", () => {
