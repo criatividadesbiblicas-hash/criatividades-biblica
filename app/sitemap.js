@@ -9,5 +9,7 @@ export default function sitemap() {
   return [
     { url: `${SITE_URL}/emocoes`, lastModified: agora, changeFrequency: "weekly", priority: 1 },
     { url: `${PLANO_ANUAL_HOST}/plano-anual`, lastModified: agora, changeFrequency: "weekly", priority: 1 },
+    // Black Friday 2026: no ar até 30/11; depois a página vira "fechada" sozinha e pode sair daqui.
+    { url: `${PLANO_ANUAL_HOST}/black-biblinho`, lastModified: agora, changeFrequency: "daily", priority: 1 },
   ];
 }
