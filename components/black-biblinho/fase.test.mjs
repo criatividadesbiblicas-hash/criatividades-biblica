@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { FIM, FASES, faseEm, faseDaUrl, restanteAte } from "./fase.js";
-import { OFERTA, KIWIFY_URL, PLANO_2026, BIBLIOTECA_2025, FAQ, BLOCOS, NUMEROS, DOMINGOS, DOMINGOS_2026, DOMINGOS_2025, SERIES } from "./dados.js";
+import { OFERTA, KIWIFY_URL, VALOR, VALOR_TOTAL, moeda, PLANO_2026, BIBLIOTECA_2025, FAQ, BLOCOS, NUMEROS, DOMINGOS, DOMINGOS_2026, DOMINGOS_2025, SERIES } from "./dados.js";
 
 const pub = (src) => join(process.cwd(), "public", src);
 const t = (iso) => Date.parse(iso);
@@ -55,6 +55,16 @@ test("oferta exata da Camada 1 (02/11)", () => {
   assert.ok(!/12x de R\$/.test(OFERTA.parcela));
   assert.ok(KIWIFY_URL.startsWith("https://pay.kiwify.com.br/"));
   assert.ok(!/SUBSTITUIR/.test(KIWIFY_URL), "o marcador do link da Kiwify ainda está na página");
+});
+
+test("a conta do valor usa preços públicos e soma mais de R$ 1.500", () => {
+  assert.equal(VALOR.length, 4, "quatro linhas, uma por bloco");
+  assert.equal(VALOR[0].preco, 597, "Plano Anual no preço público");
+  assert.equal(VALOR[1].preco, 9 * 97, "9 histórias de 2025 a R$ 97 cada");
+  assert.ok(VALOR_TOTAL > 1500 && VALOR_TOTAL < 1700, `total fora do esperado: ${VALOR_TOTAL}`);
+  assert.ok(VALOR_TOTAL / OFERTA.precoNumero > 5, "a oferta é mais de 5x mais barata que separado");
+  assert.equal(moeda(597), "R$ 597");
+  assert.equal(moeda(57.9), "R$ 57,90");
 });
 
 test("promessa honesta: contagem bate com o inventário de 02/11", () => {

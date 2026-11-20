@@ -25,7 +25,7 @@ import Leque from "@/components/arca/Leque";
 import Tracking from "@/components/black-biblinho/Tracking";
 import { ContadorBlocos, BarraContador } from "@/components/black-biblinho/Contador";
 import { faseDaUrl } from "@/components/black-biblinho/fase";
-import { KIWIFY_URL, PLANO_ANUAL_URL, OFERTA, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
+import { KIWIFY_URL, PLANO_ANUAL_URL, OFERTA, VALOR, VALOR_TOTAL, moeda, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
 import { PECAS, FAIXAS } from "@/components/plano-anual/dados";
 
 const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
@@ -81,7 +81,17 @@ function Selo({ children, className = "" }) {
 }
 
 // Chamada principal, muda com a fase. Na venda leva pra Kiwify; fechada, pro Plano Anual de sempre.
-function Chamada({ fase, className = "" }) {
+// No hero (rolar=true) o botão não leva pro checkout: desce pro bloco seguinte, sem preço
+// (decisão da Thali em 20/11: a pessoa precisa ver tudo que recebe antes de chegar no pagamento).
+function Chamada({ fase, className = "", rolar = false }) {
+  if (fase === "venda" && rolar) {
+    return (
+      <div className={className}>
+        <Botao href="#valor" externo={false}>Quero o Acesso Total</Botao>
+        <p className="mt-3 text-[14px] font-semibold text-current/70">Veja tudo que entra e quanto custa. Leva 1 minuto.</p>
+      </div>
+    );
+  }
   if (fase === "venda") {
     return (
       <div className={className}>
@@ -150,7 +160,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                 <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-white/60">{fase === "venda" ? "Fecha em" : `Fechou em ${OFERTA.fimCurto}`}</p>
                 {fase === "venda" ? <ContadorBlocos escuro className="mt-3" /> : null}
               </div>
-              <Chamada fase={fase} className="mt-8 text-white" />
+              <Chamada fase={fase} rolar className="mt-8 text-white" />
               <a href="#entra" className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-white/80 underline-offset-4 hover:text-pa-sol hover:underline">
                 Ver tudo que entra <ArrowDown size={18} weight="bold" />
               </a>
@@ -163,21 +173,39 @@ export default async function BlackBiblinhoPage({ searchParams }) {
           </div>
         </section>
 
-        {/* 2. A cena: o ano que passou */}
-        <section className="bg-white">
+        {/* 2. A conta do valor: o que custa separado e por quanto sai na Black Friday */}
+        <section id="valor" className="scroll-mt-20 bg-white">
           <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
-            <H2>Quantas histórias a sua turma ouviu este ano?</H2>
-            <div className="mt-6 space-y-5 text-[17px] font-medium leading-relaxed text-pa-tinta/85 md:text-xl">
-              <p>
-                Se a resposta demorou, você sabe como foi o ano: uma atividade solta aqui, um vídeo do YouTube ali, a aula montada no sábado à noite. A criança até gosta, mas no domingo seguinte não lembra onde parou.
+            <H2>Faça a conta antes de decidir.</H2>
+            <Texto className="mt-4">Tudo que entra no Black Biblinho já existe e é vendido separado, pelos preços de hoje. Somando, dá isto:</Texto>
+            <ul className="mt-8 divide-y divide-pa-tinta/10 rounded-[1.5rem] bg-pa-ceu-claro px-6 py-2 md:px-8">
+              {VALOR.map((v) => (
+                <li key={v.item} className="flex items-baseline justify-between gap-4 py-4">
+                  <span>
+                    <span className="block text-[16px] font-bold text-pa-tinta md:text-[17px]">{v.item}</span>
+                    <span className="block text-[13px] font-semibold text-pa-tinta/60">{v.detalhe}</span>
+                  </span>
+                  <span className="shrink-0 font-display text-[1.25rem] text-pa-tinta/80 tabular-nums">{moeda(v.preco)}</span>
+                </li>
+              ))}
+              <li className="flex items-baseline justify-between gap-4 py-4">
+                <span className="text-[16px] font-extrabold text-pa-tinta md:text-[17px]">Separado, tudo isso custa</span>
+                <span className="shrink-0 font-display text-[1.6rem] text-pa-tinta tabular-nums line-through decoration-pa-laranja decoration-4">{moeda(Math.round(VALOR_TOTAL))}</span>
+              </li>
+            </ul>
+            <div className="mt-8 rounded-[1.5rem] bg-bb-noite px-6 py-7 text-white md:px-8">
+              <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-white/60">Na Black Friday, até {OFERTA.fimCurto}</p>
+              <p className="mt-2 flex flex-wrap items-end gap-x-3">
+                <span className="font-display text-[3rem] leading-none text-pa-sol md:text-[3.6rem]">{OFERTA.por}</span>
+                <span className="pb-1 text-[16px] font-bold text-white/85">tudo junto, liberado de uma vez</span>
               </p>
-              <p>
-                O Plano Anual Biblinho resolve isso com uma história por mês, quatro ou cinco domingos dentro dela, a fala do professor já escrita. Só que ele é uma assinatura: a história chega mês a mês, e custa {OFERTA.ancora.preco}.
-              </p>
-              <p className="font-display text-[1.6rem] leading-[1.15] text-pa-laranja md:text-[2.1rem]">
-                Nesta Black Friday, tudo isso chega de uma vez: {DOMINGOS} domingos de aula pronta, pra usar no ritmo da sua turma.
+              <p className="mt-3 text-[16px] font-medium leading-relaxed text-white/85 md:text-[17px]">
+                Menos da metade do que custa o Plano Anual sozinho, e você leva {DOMINGOS} domingos de aula pronta, {SERIES} séries, as três faixas, o Emoções e o Planner. Ou {OFERTA.parcela}.
               </p>
             </div>
+            <a href="#entra" className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-pa-campo-escuro underline-offset-4 hover:underline">
+              Ver o que vem em cada bloco <ArrowDown size={18} weight="bold" />
+            </a>
           </div>
         </section>
 

@@ -21,6 +21,18 @@ export const OFERTA = {
   fimCurto: "30 de novembro",
 };
 
+// A conta do valor (pedido da Thali em 20/11): o que cada bloco custa separado, com os preços
+// públicos de hoje. Plano Anual: página /plano-anual. História avulsa de 2025: packs na Kiwify
+// (R$ 97 cada, Kids + Júnior). Emoções: página /emocoes. Planner: Kiwify. Nada inventado.
+export const VALOR = [
+  { item: "Plano Anual 2026, no formato de sempre", detalhe: "assinatura, uma história por mês", preco: 597 },
+  { item: "9 histórias de 2025, uma a uma", detalhe: "R$ 97 cada pack, como vendemos hoje", preco: 873 },
+  { item: "Jesus Cuida das Minhas Emoções", detalhe: "o estudo das 9 emoções", preco: 57.9 },
+  { item: "Planner MI 2026 e plano de leitura", detalhe: "o Planner vendido de novembro a fevereiro", preco: 37.9 },
+];
+export const VALOR_TOTAL = VALOR.reduce((t, v) => t + v.preco, 0);
+export const moeda = (n) => "R$ " + n.toLocaleString("pt-BR", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+
 // Bloco 1 · Plano Anual 2026: 11 temas (10 histórias diferentes; Zaqueu volta em novembro).
 // `historia` é a chave pra contar histórias diferentes entre os dois anos.
 export const PLANO_2026 = [
