@@ -25,7 +25,7 @@ import Leque from "@/components/arca/Leque";
 import Tracking from "@/components/black-biblinho/Tracking";
 import { ContadorBlocos, BarraContador } from "@/components/black-biblinho/Contador";
 import { faseDaUrl } from "@/components/black-biblinho/fase";
-import { KIWIFY_URL, PLANO_ANUAL_URL, OFERTA, VALOR, VALOR_TOTAL, moeda, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
+import { KIWIFY_URL, PLANO_ANUAL_URL, OFERTA, VALOR, VALOR_TOTAL, BONUS, moeda, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
 import { PECAS, FAIXAS } from "@/components/plano-anual/dados";
 
 const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
@@ -37,7 +37,7 @@ const HOST = "https://materiais.criatividadesbiblicas.com.br";
 const PAGE_URL = `${HOST}/black-biblinho`;
 const TITLE = "Black Biblinho · Acesso Total | Criatividades Bíblicas";
 const DESCRIPTION =
-  `Black Biblinho · Acesso Total: tudo que a Criatividades Bíblicas já criou, numa compra só. ${SERIES} séries de estudo, ${DOMINGOS} domingos de aula pronta, Baby, Kids e Júnior, mais o Emoções, o Planner e o plano de leitura. Só até 30 de novembro.`;
+  `Black Biblinho · Acesso Total: tudo que a Criatividades Bíblicas já criou, numa compra só. ${SERIES} séries de estudo, ${DOMINGOS} domingos de aula pronta, Baby, Kids e Júnior, mais o Emoções e o plano de leitura. Só até 30 de novembro.`;
 
 export const metadata = {
   title: TITLE,
@@ -200,29 +200,31 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                 <span className="pb-1 text-[16px] font-bold text-white/85">tudo junto, liberado de uma vez</span>
               </p>
               <p className="mt-3 text-[16px] font-medium leading-relaxed text-white/85 md:text-[17px]">
-                Menos da metade do que custa o Plano Anual sozinho, e você leva {DOMINGOS} domingos de aula pronta, {SERIES} séries, as três faixas, o Emoções e o Planner. Ou {OFERTA.parcela}.
+                Menos da metade do que custa o Plano Anual sozinho, e você leva {DOMINGOS} domingos de aula pronta, {SERIES} séries, as três faixas, o Emoções e o plano de leitura. Ou {OFERTA.parcela}.
+              </p>
+              <p className="mt-3 text-[15px] font-medium leading-relaxed text-white/75">
+                E de bônus: o {BONUS.nome} {BONUS.texto}.
               </p>
             </div>
             <a href="#entra" className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-pa-campo-escuro underline-offset-4 hover:underline">
-              Ver o que vem em cada bloco <ArrowDown size={18} weight="bold" />
+              Ver tudo que entra <ArrowDown size={18} weight="bold" />
             </a>
           </div>
         </section>
 
-        {/* 3. O que entra: 4 blocos */}
+        {/* 3. O que entra (sem falar em "bloco": pedido da Thali em 21/11) */}
         <section id="entra" className="bg-pa-ceu-claro">
           <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
             <Selo>O que entra</Selo>
-            <H2 className="mt-4">Quatro blocos, liberados na hora.</H2>
+            <H2 className="mt-4">Todo o material, liberado na hora.</H2>
             <Texto className="mt-4 max-w-[60ch]">
               Tudo é página real dos nossos PDFs. O que ainda não existe está escrito aqui, não escondido.
             </Texto>
 
-            {/* Bloco 1: Plano Anual 2026 */}
+            {/* Plano Anual 2026 */}
             <article className="mt-12 overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)]">
               <div className="px-6 pt-8 md:px-10">
-                <p className="font-display text-sm uppercase tracking-[0.1em] text-pa-campo-escuro">Bloco 1</p>
-                <h3 className="mt-1 font-display text-[1.6rem] leading-tight text-pa-tinta md:text-[2.1rem]">{BLOCOS[0].titulo}</h3>
+                <h3 className="font-display text-[1.6rem] leading-tight text-pa-tinta md:text-[2.1rem]">{BLOCOS[0].titulo}</h3>
                 <p className="mt-2 max-w-[62ch] text-[16px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[0].resumo} {BLOCOS[0].detalhe}</p>
               </div>
               <div className="mt-2">
@@ -244,10 +246,9 @@ export default async function BlackBiblinhoPage({ searchParams }) {
               </ul>
             </article>
 
-            {/* Bloco 2: Biblioteca 2025 */}
+            {/* Biblioteca 2025 */}
             <article className="mt-6 overflow-hidden rounded-[2rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] md:p-10">
-              <p className="font-display text-sm uppercase tracking-[0.1em] text-pa-campo-escuro">Bloco 2</p>
-              <h3 className="mt-1 font-display text-[1.6rem] leading-tight text-pa-tinta md:text-[2.1rem]">{BLOCOS[1].titulo}</h3>
+              <h3 className="font-display text-[1.6rem] leading-tight text-pa-tinta md:text-[2.1rem]">{BLOCOS[1].titulo}</h3>
               <p className="mt-2 max-w-[62ch] text-[16px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[1].resumo} {BLOCOS[1].detalhe}</p>
               <ul className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5">
                 {BIBLIOTECA_2025.map((h) => (
@@ -261,25 +262,23 @@ export default async function BlackBiblinhoPage({ searchParams }) {
               </ul>
             </article>
 
-            {/* Blocos 3 e 4 */}
+            {/* Emoções e plano de leitura (com o Planner 2027 de bônus) */}
             <div className="mt-6 grid gap-6 lg:grid-cols-2">
               <article className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] sm:flex-row">
                 <div className="flex items-center justify-center bg-[#f3eefb] p-6 sm:w-[42%]">
                   <Image src="/emocoes/livro.png" alt="Capa do estudo Jesus Cuida das Minhas Emoções" width={693} height={1108} className="h-56 w-auto drop-shadow-[0_18px_24px_rgba(74,42,122,0.35)] sm:h-64" />
                 </div>
                 <div className="p-6 sm:flex sm:w-[58%] sm:flex-col sm:justify-center md:p-8">
-                  <p className="font-display text-sm uppercase tracking-[0.1em] text-pa-campo-escuro">Bloco 3</p>
-                  <h3 className="mt-1 font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[2].titulo}</h3>
+                  <h3 className="font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[2].titulo}</h3>
                   <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[2].resumo} {BLOCOS[2].detalhe}</p>
                 </div>
               </article>
               <article className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] sm:flex-row">
                 <div className="flex items-center justify-center bg-[#fff6e3] p-6 sm:w-[42%]">
-                  <Image src="/produtos/planner-ministerio-infantil.png" alt="Planner Ministério Infantil" width={400} height={320} className="w-full max-w-[220px] rounded-[1rem] shadow-[0_18px_24px_-14px_rgba(138,90,60,0.45)]" />
+                  <Image src="/black-biblinho/plano-de-leitura.webp" alt="Página real do plano de leitura anual" width={1200} height={848} className="w-full max-w-[240px] rounded-[0.75rem] shadow-[0_18px_24px_-14px_rgba(138,90,60,0.45)] ring-1 ring-pa-tinta/10" />
                 </div>
                 <div className="p-6 sm:flex sm:w-[58%] sm:flex-col sm:justify-center md:p-8">
-                  <p className="font-display text-sm uppercase tracking-[0.1em] text-pa-campo-escuro">Bloco 4</p>
-                  <h3 className="mt-1 font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[3].titulo}</h3>
+                  <h3 className="font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[3].titulo}</h3>
                   <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[3].resumo} {BLOCOS[3].detalhe}</p>
                 </div>
               </article>
@@ -350,7 +349,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                 No resto do ano, o Plano Anual é uma assinatura: {OFERTA.ancora.preco} por um ano, com uma história liberada por mês, na ordem. É assim que a igreja inteira acompanha a mesma história no mesmo mês.
               </p>
               <p>
-                Na Black Friday a gente abre tudo de uma vez: o ano de 2026, a biblioteca de 2025, o Emoções, o Planner e o plano de leitura, por {OFERTA.por}. Em 2027 o Plano Anual é novo, com histórias que não estão aqui, e esta oferta não se repete.
+                Na Black Friday a gente abre tudo de uma vez: o ano de 2026, a biblioteca de 2025, o Emoções e o plano de leitura, por {OFERTA.por}, com o Planner 2027 de bônus quando ficar pronto. Em 2027 o Plano Anual é novo, com histórias que não estão aqui, e esta oferta não se repete.
               </p>
               <p>
                 Se você prefere receber mês a mês, o <Link href={PLANO_ANUAL_URL} className="font-bold text-pa-campo-escuro underline underline-offset-4">Plano Anual de sempre</Link> continua lá. Se você quer o material todo na mão agora, é aqui.
@@ -419,8 +418,8 @@ export default async function BlackBiblinhoPage({ searchParams }) {
             <ol className="mt-10 grid gap-6 md:grid-cols-3">
               {[
                 { n: 1, t: "Você compra pela Kiwify.", d: "Pix ou cartão, à vista ou em até 12x. O acesso chega no seu e-mail assim que o pagamento é aprovado." },
-                { n: 2, t: "Os 4 blocos abrem na hora.", d: "Plano Anual 2026, Biblioteca 2025, Emoções, Planner e plano de leitura, tudo na mesma área de membros. Baixa e imprime o que for usar." },
-                { n: 3, t: "Dezembro chega depois.", d: "O tema de dezembro, Eu Vivo o que a Bíblia Diz, entra na sua área de membros quando ficar pronto, sem pagar nada a mais. De janeiro a novembro já está tudo lá." },
+                { n: 2, t: "Tudo abre na hora.", d: "Plano Anual 2026, Biblioteca 2025, Emoções e plano de leitura, tudo na mesma área de membros. Baixa e imprime o que for usar." },
+                { n: 3, t: "Dezembro e o Planner 2027 chegam depois.", d: "O tema de dezembro, Eu Vivo o que a Bíblia Diz, e o Planner Ministério Infantil 2027 entram na sua área de membros quando ficarem prontos, sem pagar nada a mais. De janeiro a novembro já está tudo lá." },
               ].map((p) => (
                 <li key={p.n} className="rounded-[1.75rem] bg-pa-ceu-claro p-6">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pa-sol font-display text-xl text-pa-tinta">{p.n}</span>

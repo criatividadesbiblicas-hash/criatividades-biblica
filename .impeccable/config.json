@@ -204,6 +204,24 @@
         "rule": "design-system-font-size",
         "value": "22px",
         "createdAt": "2026-11-19T11:15:05.962Z"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "3rem",
+        "files": [
+          "app/black-biblinho/page.js"
+        ],
+        "createdAt": "2026-11-21T04:25:01.463Z",
+        "reason": "Preco em destaque do bloco do valor, aprovado em 20/11 (hero da pagina de venda)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "3.6rem",
+        "files": [
+          "app/black-biblinho/page.js"
+        ],
+        "createdAt": "2026-11-21T04:25:01.568Z",
+        "reason": "Preco em destaque do bloco do valor no desktop, aprovado em 20/11"
       }
     ]
   }
