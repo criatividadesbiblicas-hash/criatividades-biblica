@@ -93,13 +93,22 @@ export const BLOCOS = [
     n: 3,
     titulo: "Jesus Cuida das Minhas Emoções",
     resumo: "O estudo das 9 emoções, o mais pedido da casa.",
-    detalhe: "9 cards com versículo, a história do Salmo 23 em 15 lâminas, a caixinha Pergunta ou Desafio, atividades em duas faixas e lembrancinhas. Mais de 890 famílias e professoras já usaram.",
+    detalhe: "9 cards com versículo, a história do Salmo 23 em 15 lâminas, a caixinha Pergunta ou Desafio, atividades em duas faixas e lembrancinhas. Mais de 1.000 famílias e professoras já usaram.",
   },
   {
     n: 4,
     titulo: "Plano de leitura anual",
     resumo: "Pra ler a Bíblia inteira em um ano, com a sua turma ou em casa.",
-    detalhe: "Em PDF, pra imprimir ou usar no celular. E de bônus: o Planner Ministério Infantil 2027 está sendo produzido e entra na sua área de membros assim que ficar pronto, sem pagar nada a mais.",
+    detalhe: "Em PDF, pra imprimir ou usar no celular.",
+  },
+  // Bônus em destaque (pedido da Thali em 21/11): o Planner 2027 "Chamadas a Cuidar", já em produção,
+  // entra na plataforma a qualquer momento pra quem comprar o Black Biblinho. Miolos reais da pasta do Planner.
+  {
+    n: 5,
+    bonus: true,
+    titulo: "Planner Ministério Infantil 2027",
+    resumo: "Chamadas a Cuidar. Bônus de quem comprar o Black Biblinho: já está em produção e entra na sua área de membros a qualquer momento.",
+    detalhe: "Pra organizar o ano do ministério: minha turma, lista de presença, escala, planejamento de aula e do mês, culto kids, equipe, reunião, financeiro e anotações. Em PDF, pra imprimir ou usar no tablet.",
   },
 ];
 
