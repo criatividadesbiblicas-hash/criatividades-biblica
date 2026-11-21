@@ -16,7 +16,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Lilita_One } from "next/font/google";
-import { ArrowDown, CheckCircle, Clock, LockSimpleOpen, ShieldCheck, Sparkle } from "@phosphor-icons/react/dist/ssr";
+import { CheckCircle, Clock, LockSimpleOpen, ShieldCheck, Sparkle } from "@phosphor-icons/react/dist/ssr";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FaqItem from "@/components/FaqItem";
@@ -81,14 +81,15 @@ function Selo({ children, className = "" }) {
 }
 
 // Chamada principal, muda com a fase. Na venda leva pra Kiwify; fechada, pro Plano Anual de sempre.
-// No hero (rolar=true) o botão não leva pro checkout: desce pro bloco seguinte, sem preço
-// (decisão da Thali em 20/11: a pessoa precisa ver tudo que recebe antes de chegar no pagamento).
+// No hero (rolar=true) o botão não leva pro checkout: desce pra seção do que entra, sem preço
+// (decisão da Thali em 20/11: a pessoa precisa ver tudo que recebe antes de chegar no pagamento;
+// 21/11: a conta do valor foi pro fim da página, depois de todo o material).
 function Chamada({ fase, className = "", rolar = false }) {
   if (fase === "venda" && rolar) {
     return (
       <div className={className}>
-        <Botao href="#valor" externo={false}>Quero o Acesso Total</Botao>
-        <p className="mt-3 text-[14px] font-semibold text-current/70">Veja tudo que entra e quanto custa. Leva 1 minuto.</p>
+        <Botao href="#entra" externo={false}>Quero o Acesso Total</Botao>
+        <p className="mt-3 text-[14px] font-semibold text-current/70">Veja tudo que entra. Leva 1 minuto.</p>
       </div>
     );
   }
@@ -126,7 +127,8 @@ function FaixaTopo({ fase }) {
 export default async function BlackBiblinhoPage({ searchParams }) {
   const sp = await searchParams;
   const fase = faseDaUrl(sp);
-  const capasHero = [RODA_2026[2], RODA_2026[0], RODA_2026[9]]; // Zaqueu, Semeador, Daniel (2026)
+  // 21/11 (Thali): no topo, as capas mais recentes e mais coloridas: Daniel (out), As Cores da Salvação (nov, no centro) e Elias (set).
+  const capasHero = [RODA_2026[9], RODA_2026[10], RODA_2026[8]];
 
   return (
     <div className={`pa bb ${lilita.variable}`}>
@@ -161,9 +163,6 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                 {fase === "venda" ? <ContadorBlocos escuro className="mt-3" /> : null}
               </div>
               <Chamada fase={fase} rolar className="mt-8 text-white" />
-              <a href="#entra" className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-white/80 underline-offset-4 hover:text-pa-sol hover:underline">
-                Ver tudo que entra <ArrowDown size={18} weight="bold" />
-              </a>
             </div>
             <div className="relative mx-auto aspect-[5/4] w-full max-w-lg xl:max-w-none">
               <Image src={capasHero[0].src} alt="" width={900} height={1273} className="pa-flutua absolute left-[2%] top-[10%] hidden h-[72%] w-auto rounded-[12px] border-4 border-white shadow-[0_28px_44px_-18px_rgba(0,0,0,0.6)] sm:block" style={{ "--r": "-8deg", "--dur": "7.5s", "--delay": "0.4s" }} />
@@ -173,47 +172,9 @@ export default async function BlackBiblinhoPage({ searchParams }) {
           </div>
         </section>
 
-        {/* 2. A conta do valor: o que custa separado e por quanto sai na Black Friday */}
-        <section id="valor" className="scroll-mt-20 bg-white">
-          <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
-            <H2>Faça a conta antes de decidir.</H2>
-            <Texto className="mt-4">Tudo que entra no Black Biblinho já existe e é vendido separado, pelos preços de hoje. Somando, dá isto:</Texto>
-            <ul className="mt-8 divide-y divide-pa-tinta/10 rounded-[1.5rem] bg-pa-ceu-claro px-6 py-2 md:px-8">
-              {VALOR.map((v) => (
-                <li key={v.item} className="flex items-baseline justify-between gap-4 py-4">
-                  <span>
-                    <span className="block text-[16px] font-bold text-pa-tinta md:text-[17px]">{v.item}</span>
-                    <span className="block text-[13px] font-semibold text-pa-tinta/60">{v.detalhe}</span>
-                  </span>
-                  <span className="shrink-0 font-display text-[1.25rem] text-pa-tinta/80 tabular-nums">{moeda(v.preco)}</span>
-                </li>
-              ))}
-              <li className="flex items-baseline justify-between gap-4 py-4">
-                <span className="text-[16px] font-extrabold text-pa-tinta md:text-[17px]">Separado, tudo isso custa</span>
-                <span className="shrink-0 font-display text-[1.6rem] text-pa-tinta tabular-nums line-through decoration-pa-laranja decoration-4">{moeda(Math.round(VALOR_TOTAL))}</span>
-              </li>
-            </ul>
-            <div className="mt-8 rounded-[1.5rem] bg-bb-noite px-6 py-7 text-white md:px-8">
-              <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-white/60">Na Black Friday, até {OFERTA.fimCurto}</p>
-              <p className="mt-2 flex flex-wrap items-end gap-x-3">
-                <span className="font-display text-[3rem] leading-none text-pa-sol md:text-[3.6rem]">{OFERTA.por}</span>
-                <span className="pb-1 text-[16px] font-bold text-white/85">tudo junto, liberado de uma vez</span>
-              </p>
-              <p className="mt-3 text-[16px] font-medium leading-relaxed text-white/85 md:text-[17px]">
-                Menos da metade do que custa o Plano Anual sozinho, e você leva {DOMINGOS} domingos de aula pronta, {SERIES} séries, as três faixas, o Emoções e o plano de leitura. Ou {OFERTA.parcela}.
-              </p>
-              <p className="mt-3 text-[15px] font-medium leading-relaxed text-white/75">
-                E de bônus: o {BONUS.nome} {BONUS.texto}.
-              </p>
-            </div>
-            <a href="#entra" className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-pa-campo-escuro underline-offset-4 hover:underline">
-              Ver tudo que entra <ArrowDown size={18} weight="bold" />
-            </a>
-          </div>
-        </section>
-
-        {/* 3. O que entra (sem falar em "bloco": pedido da Thali em 21/11) */}
-        <section id="entra" className="bg-pa-ceu-claro">
+        {/* 2. O que entra (sem falar em "bloco": pedido da Thali em 21/11). A conta do valor fica no fim,
+            depois de a pessoa ver todo o material (pedido dela em 21/11: primeiro o que recebe, por último o preço). */}
+        <section id="entra" className="scroll-mt-20 bg-pa-ceu-claro">
           <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
             <Selo>O que entra</Selo>
             <H2 className="mt-4">Todo o material, liberado na hora.</H2>
@@ -262,24 +223,34 @@ export default async function BlackBiblinhoPage({ searchParams }) {
               </ul>
             </article>
 
-            {/* Emoções e plano de leitura (com o Planner 2027 de bônus) */}
-            <div className="mt-6 grid gap-6 lg:grid-cols-2">
-              <article className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] sm:flex-row">
-                <div className="flex items-center justify-center bg-[#f3eefb] p-6 sm:w-[42%]">
-                  <Image src="/emocoes/livro.png" alt="Capa do estudo Jesus Cuida das Minhas Emoções" width={693} height={1108} className="h-56 w-auto drop-shadow-[0_18px_24px_rgba(74,42,122,0.35)] sm:h-64" />
+            {/* Emoções, plano de leitura e o Planner 2027 em destaque (bônus em produção; pedido da Thali em 21/11) */}
+            <div className="mt-6 grid gap-6 lg:grid-cols-3">
+              <article className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)]">
+                <div className="flex items-center justify-center bg-[#f3eefb] p-6">
+                  <Image src="/emocoes/livro.png" alt="Capa do estudo Jesus Cuida das Minhas Emoções" width={693} height={1108} className="h-56 w-auto drop-shadow-[0_18px_24px_rgba(74,42,122,0.35)] md:h-64" />
                 </div>
-                <div className="p-6 sm:flex sm:w-[58%] sm:flex-col sm:justify-center md:p-8">
+                <div className="p-6 md:p-7">
                   <h3 className="font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[2].titulo}</h3>
                   <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[2].resumo} {BLOCOS[2].detalhe}</p>
                 </div>
               </article>
-              <article className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] sm:flex-row">
-                <div className="flex items-center justify-center bg-[#fff6e3] p-6 sm:w-[42%]">
-                  <Image src="/black-biblinho/plano-de-leitura.webp" alt="Página real do plano de leitura anual" width={1200} height={848} className="w-full max-w-[240px] rounded-[0.75rem] shadow-[0_18px_24px_-14px_rgba(138,90,60,0.45)] ring-1 ring-pa-tinta/10" />
+              <article className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)]">
+                <div className="flex h-[17.5rem] items-center justify-center bg-[#eaf6ff] p-6 md:h-[19.5rem]">
+                  <Image src="/black-biblinho/plano-de-leitura.webp" alt="Página real do plano de leitura anual" width={1200} height={848} className="w-full max-w-[260px] rounded-[0.75rem] shadow-[0_18px_24px_-14px_rgba(11,60,100,0.35)] ring-1 ring-pa-tinta/10" />
                 </div>
-                <div className="p-6 sm:flex sm:w-[58%] sm:flex-col sm:justify-center md:p-8">
+                <div className="p-6 md:p-7">
                   <h3 className="font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[3].titulo}</h3>
                   <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[3].resumo} {BLOCOS[3].detalhe}</p>
+                </div>
+              </article>
+              <article className="relative flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] ring-2 ring-pa-sol">
+                <span className="absolute left-5 top-5 z-10 rounded-full bg-pa-sol px-3 py-1 font-display text-sm uppercase tracking-wide text-pa-tinta">Bônus</span>
+                <div className="flex h-[17.5rem] items-center justify-center bg-[#fff6e3] p-6 md:h-[19.5rem]">
+                  <Image src="/black-biblinho/planner-2027.webp" alt="Capa do Planner Ministério Infantil 2027, Chamadas a Cuidar" width={900} height={1273} className="h-56 w-auto rounded-[8px] border-2 border-white shadow-[0_18px_24px_-14px_rgba(138,90,60,0.45)] md:h-64" />
+                </div>
+                <div className="p-6 md:p-7">
+                  <h3 className="font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[4].titulo}</h3>
+                  <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[4].resumo} {BLOCOS[4].detalhe}</p>
                 </div>
               </article>
             </div>
@@ -340,8 +311,8 @@ export default async function BlackBiblinhoPage({ searchParams }) {
           </div>
         </section>
 
-        {/* 7. Por que só agora */}
-        <section className="bg-white">
+        {/* 6. Por que só agora + a conta do valor (a conta vem aqui, depois de todo o material: pedido da Thali em 21/11) */}
+        <section id="valor" className="scroll-mt-20 bg-white">
           <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
             <H2>Por que isso só existe na Black Friday.</H2>
             <div className="mt-6 space-y-5 text-[17px] font-medium leading-relaxed text-pa-tinta/85 md:text-xl">
@@ -349,10 +320,41 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                 No resto do ano, o Plano Anual é uma assinatura: {OFERTA.ancora.preco} por um ano, com uma história liberada por mês, na ordem. É assim que a igreja inteira acompanha a mesma história no mesmo mês.
               </p>
               <p>
-                Na Black Friday a gente abre tudo de uma vez: o ano de 2026, a biblioteca de 2025, o Emoções e o plano de leitura, por {OFERTA.por}, com o Planner 2027 de bônus quando ficar pronto. Em 2027 o Plano Anual é novo, com histórias que não estão aqui, e esta oferta não se repete.
+                Na Black Friday a gente abre tudo de uma vez: o ano de 2026, a biblioteca de 2025, o Emoções e o plano de leitura, com o Planner 2027 de bônus assim que ficar pronto. Em 2027 o Plano Anual é novo, com histórias que não estão aqui, e esta oferta não se repete.
               </p>
               <p>
                 Se você prefere receber mês a mês, o <Link href={PLANO_ANUAL_URL} className="font-bold text-pa-campo-escuro underline underline-offset-4">Plano Anual de sempre</Link> continua lá. Se você quer o material todo na mão agora, é aqui.
+              </p>
+            </div>
+
+            <h3 className="mt-14 font-display text-[1.6rem] leading-tight text-pa-tinta md:text-[2rem]">Faça a conta.</h3>
+            <Texto className="mt-3">Tudo que você acabou de ver já existe e é vendido separado, pelos preços de hoje. Somando, dá isto:</Texto>
+            <ul className="mt-8 divide-y divide-pa-tinta/10 rounded-[1.5rem] bg-pa-ceu-claro px-6 py-2 md:px-8">
+              {VALOR.map((v) => (
+                <li key={v.item} className="flex items-baseline justify-between gap-4 py-4">
+                  <span>
+                    <span className="block text-[16px] font-bold text-pa-tinta md:text-[17px]">{v.item}</span>
+                    <span className="block text-[13px] font-semibold text-pa-tinta/60">{v.detalhe}</span>
+                  </span>
+                  <span className="shrink-0 font-display text-[1.25rem] text-pa-tinta/80 tabular-nums">{moeda(v.preco)}</span>
+                </li>
+              ))}
+              <li className="flex items-baseline justify-between gap-4 py-4">
+                <span className="text-[16px] font-extrabold text-pa-tinta md:text-[17px]">Separado, tudo isso custa</span>
+                <span className="shrink-0 font-display text-[1.6rem] text-pa-tinta tabular-nums line-through decoration-pa-laranja decoration-4">{moeda(Math.round(VALOR_TOTAL))}</span>
+              </li>
+            </ul>
+            <div className="mt-8 rounded-[1.5rem] bg-bb-noite px-6 py-7 text-white md:px-8">
+              <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-white/60">Na Black Friday, até {OFERTA.fimCurto}</p>
+              <p className="mt-2 flex flex-wrap items-end gap-x-3">
+                <span className="font-display text-[3rem] leading-none text-pa-sol md:text-[3.6rem]">{OFERTA.por}</span>
+                <span className="pb-1 text-[16px] font-bold text-white/85">tudo junto, liberado de uma vez</span>
+              </p>
+              <p className="mt-3 text-[16px] font-medium leading-relaxed text-white/85 md:text-[17px]">
+                Menos da metade do que custa o Plano Anual sozinho, e você leva {DOMINGOS} domingos de aula pronta, {SERIES} séries, as três faixas, o Emoções e o plano de leitura. Ou {OFERTA.parcela}.
+              </p>
+              <p className="mt-3 text-[15px] font-medium leading-relaxed text-white/75">
+                E de bônus: o {BONUS.nome} {BONUS.texto}.
               </p>
             </div>
           </div>

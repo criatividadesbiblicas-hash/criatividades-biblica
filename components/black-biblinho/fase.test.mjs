@@ -88,7 +88,8 @@ test("promessa honesta: contagem bate com a prévia oficial do Plano Anual (PDF 
   assert.equal(nomes.size, 14);
   const em2026 = new Set(PLANO_2026.map((h) => h.historia));
   assert.deepEqual(BIBLIOTECA_2025.filter((h) => em2026.has(h.historia)).map((h) => h.historia), ["Ovelha Perdida"]);
-  assert.equal(BLOCOS.length, 4, "quatro partes na área de membros (sem chamar de bloco na página)");
+  assert.equal(BLOCOS.length, 5, "cinco partes na área de membros, a quinta é o bônus (sem chamar de bloco na página)");
+  assert.match(BLOCOS[2].detalhe, /Mais de 1\.000 famílias/, "Emoções: mais de 1.000 (Thali, 21/11), não 890");
   // 21/11: capas = apostila do professor (capa-prof-*); só Zaqueu de março fica com a das atividades
   for (const h of PLANO_2026.filter((h) => h.src)) {
     if (h.mes === "mar") assert.equal(h.src, "/plano-anual/capa-zaqueu.webp");
@@ -97,7 +98,10 @@ test("promessa honesta: contagem bate com a prévia oficial do Plano Anual (PDF 
   assert.ok(BIBLIOTECA_2025.every((h) => /\/capa-prof-2025-/.test(h.src)), "Biblioteca 2025 com a capa do professor");
   // 21/11: Planner 2026 fora; Planner 2027 só como bônus; plano de leitura continua
   assert.match(BLOCOS[3].titulo, /Plano de leitura/);
-  assert.match(BLOCOS[3].detalhe, /Planner Ministério Infantil 2027/);
+  assert.ok(!/Planner/.test(BLOCOS[3].detalhe), "o Planner tem cartão próprio, não fica dentro do plano de leitura");
+  assert.equal(BLOCOS[4].titulo, "Planner Ministério Infantil 2027");
+  assert.ok(BLOCOS[4].bonus && /Chamadas a Cuidar/.test(BLOCOS[4].resumo) && /a qualquer momento/.test(BLOCOS[4].resumo));
+  assert.ok(!/2026/.test(BLOCOS[4].resumo + BLOCOS[4].detalhe), "não dizer que o Planner é o de 2026 reaproveitado");
   assert.ok(!JSON.stringify({ BLOCOS, FAQ, NUMEROS, VALOR }).includes("Planner Ministério Infantil 2026"), "Planner 2026 ainda citado");
   assert.ok(!/\bblocos?\b/i.test(JSON.stringify([BLOCOS, FAQ, NUMEROS])), "a palavra 'bloco' não aparece nos textos da página");
   // capa da prévia: 16 séries de estudo, 71 domingos de aula pronta (52 de 2026 + 19 de 2025)

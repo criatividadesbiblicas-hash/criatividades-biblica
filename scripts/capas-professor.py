@@ -41,6 +41,20 @@ ITENS = [
     ("black-biblinho", "capa-prof-2025-plano-perfeito", B25, "8 O PLANO PERFEITO - JO*O 3.16/2 APOSTILA E ATIVIDADES/KIDS APOSTILA PROFESSOR - O PLANO PERFEITO.pdf", 900),
 ]
 
+def aparar(img, width):
+    """Alguns PDFs antigos (ex.: O Plano Perfeito 2025) tem a arte menor que a pagina, com margem branca
+    a direita e embaixo; na pagina a capa aparecia "recortada" (Thali, 21/11). Corta a margem branca
+    (so se for pequena, ate 10 %) e volta pra largura pedida, mantendo a proporcao da arte."""
+    cinza = img.convert("L")
+    caixa = cinza.point(lambda v: 0 if v > 235 else 255).getbbox()
+    if not caixa:
+        return img
+    x0, y0, x1, y1 = caixa
+    if (img.width - (x1 - x0)) / img.width > 0.1 or (img.height - (y1 - y0)) / img.height > 0.1:
+        return img  # margem grande demais pra ser sobra de pagina; deixa como esta
+    rec = img.crop((x0, y0, x1, y1))
+    return rec.resize((width, round(rec.height * width / rec.width)), Image.LANCZOS)
+
 def salvar(pasta, nome, base, rel, width):
     out = os.path.join(RAIZ, pasta)
     os.makedirs(out, exist_ok=True)
@@ -50,6 +64,7 @@ def salvar(pasta, nome, base, rel, width):
     zoom = width / pg.rect.width
     pix = pg.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom), alpha=False)
     img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+    img = aparar(img, width)
     img.save(os.path.join(out, nome + ".webp"), "WEBP", quality=82, method=6)
     side = {
         "prompt": f"Origem: pagina 1 (capa da apostila do professor) do PDF real '{os.path.basename(origem)}' (Criatividades Biblicas, 2 PLANO ANUAL), renderizada com PyMuPDF via scripts/capas-professor.py. Nao e imagem gerada por IA.",
