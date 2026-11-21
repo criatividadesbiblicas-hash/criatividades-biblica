@@ -10,7 +10,7 @@
   FASES: venda (preço, contador até 30/11, Kiwify) → fechada. Sem pré-abertura: pelo método ADP a
   página que recebe a D é a de venda, com botão, desde o primeiro dia (decisão da Thali em 15/11).
   A fase vem da data (fuso de Brasília); ?fase=fechada serve só pra conferir antes do dia.
-  HONESTIDADE: contagem do inventário real (14 histórias, 6 em duas versões), âncora só com o preço
+  HONESTIDADE: contagem igual à prévia oficial do Plano Anual (16 séries, 71 domingos; 21/11), âncora só com o preço
   público do Plano Anual (R$ 597), "em até 12x" sem valor da parcela, nada simulado, nenhum depoimento.
 */
 import Image from "next/image";
@@ -234,21 +234,13 @@ export default async function BlackBiblinhoPage({ searchParams }) {
                     <span className="w-8 shrink-0 font-display text-sm uppercase text-pa-campo-escuro">{h.mes}</span>
                     <span className="flex-1 text-[15px] font-semibold leading-snug text-pa-tinta">
                       {h.nome}
-                      <span className="block text-[12px] font-semibold text-pa-tinta/60">{h.tema}</span>
+                      <span className="block text-[12px] font-semibold text-pa-tinta/60">{h.tema}{h.nota ? ` · ${h.nota}` : ""}</span>
                     </span>
                     <span className={`shrink-0 whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wide ${h.emProducao ? "bg-pa-laranja/15 text-pa-laranja" : h.junior ? "bg-pa-campo/15 text-pa-campo-escuro" : "bg-pa-ceu/30 text-pa-tinta/70"}`}>
                       {h.emProducao ? "em produção" : h.junior ? "3 faixas" : "Baby · Kids"}
                     </span>
                   </li>
                 ))}
-                <li className="flex items-center gap-3 rounded-[1rem] bg-pa-ceu-claro px-4 py-3">
-                  <span className="w-8 shrink-0 font-display text-sm uppercase text-pa-campo-escuro">dez</span>
-                  <span className="flex-1 text-[15px] font-semibold leading-snug text-pa-tinta">
-                    Josias e o Livro Perdido
-                    <span className="block text-[12px] font-semibold text-pa-tinta/60">Eu vivo o que a Bíblia diz · entra na sua área de membros quando ficar pronto</span>
-                  </span>
-                  <span className="shrink-0 rounded-full bg-pa-laranja/15 px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wide text-pa-laranja">em produção</span>
-                </li>
               </ul>
             </article>
 
@@ -257,12 +249,13 @@ export default async function BlackBiblinhoPage({ searchParams }) {
               <p className="font-display text-sm uppercase tracking-[0.1em] text-pa-campo-escuro">Bloco 2</p>
               <h3 className="mt-1 font-display text-[1.6rem] leading-tight text-pa-tinta md:text-[2.1rem]">{BLOCOS[1].titulo}</h3>
               <p className="mt-2 max-w-[62ch] text-[16px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[1].resumo} {BLOCOS[1].detalhe}</p>
-              <ul className="mt-8 grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-9">
+              <ul className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5">
                 {BIBLIOTECA_2025.map((h) => (
                   <li key={h.historia} className="flex flex-col">
-                    <Image src={h.src} alt={`Capa 2025: ${h.nome}`} width={720} height={1019} sizes="(min-width: 1024px) 11vw, 30vw" className="w-full rounded-[8px] border-2 border-white shadow-[0_14px_26px_-14px_rgba(11,60,100,0.45)] ring-1 ring-pa-tinta/10" />
-                    <span className="mt-2 text-[12px] font-bold leading-tight text-pa-tinta/80">{h.nome}</span>
-                    <span className="text-[11px] font-semibold text-pa-tinta/55">{h.estudos} estudos · {h.junior ? "3 faixas" : "Baby e Kids"}</span>
+                    <Image src={h.src} alt={`Capa 2025: ${h.nome}`} width={720} height={1019} sizes="(min-width: 640px) 22vw, 45vw" className="w-full rounded-[10px] border-2 border-white shadow-[0_14px_26px_-14px_rgba(11,60,100,0.45)] ring-1 ring-pa-tinta/10" />
+                    <span className="mt-3 text-[14px] font-bold leading-tight text-pa-tinta">{h.nome}</span>
+                    <span className="text-[12px] font-semibold leading-snug text-pa-tinta/60">{h.tema}</span>
+                    <span className="mt-1 text-[12px] font-semibold text-pa-tinta/55">{h.estudos} estudos · {h.junior ? "3 faixas" : "Baby e Kids"}</span>
                   </li>
                 ))}
               </ul>
