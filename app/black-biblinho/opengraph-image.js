@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
 
 // Imagem de compartilhamento da /black-biblinho (WhatsApp, Instagram, Facebook).
 // Gerada no servidor: fundo noite, selo sol, nome da oferta e a janela da venda.
@@ -33,7 +34,7 @@ export default function Image() {
           <div style={{ display: "flex", fontSize: 92, fontWeight: 800, lineHeight: 1 }}>Black Biblinho</div>
           <div style={{ display: "flex", fontSize: 56, fontWeight: 800, lineHeight: 1, color: "#ffc531" }}>Acesso Total</div>
           <div style={{ display: "flex", marginTop: 14, fontSize: 30, lineHeight: 1.3, color: "rgba(255,255,255,0.85)", maxWidth: 980 }}>
-            Tudo que a Criatividades Bíblicas já criou, numa compra só: 20 séries de estudo, 89 domingos de aula pronta.
+            Tudo que a Criatividades Bíblicas já criou, numa compra só: {SERIES} séries de estudo, {DOMINGOS} domingos de aula pronta.
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 26, color: "rgba(255,255,255,0.7)" }}>

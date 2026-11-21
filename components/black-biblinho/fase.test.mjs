@@ -57,38 +57,46 @@ test("oferta exata da Camada 1 (02/11)", () => {
   assert.ok(!/SUBSTITUIR/.test(KIWIFY_URL), "o marcador do link da Kiwify ainda está na página");
 });
 
-test("a conta do valor usa preços públicos e soma mais de R$ 1.500", () => {
+test("a conta do valor usa preços públicos e soma mais de R$ 1.000", () => {
   assert.equal(VALOR.length, 4, "quatro linhas, uma por bloco");
   assert.equal(VALOR[0].preco, 597, "Plano Anual no preço público");
-  assert.equal(VALOR[1].preco, 9 * 97, "9 histórias de 2025 a R$ 97 cada");
-  assert.ok(VALOR_TOTAL > 1500 && VALOR_TOTAL < 1700, `total fora do esperado: ${VALOR_TOTAL}`);
-  assert.ok(VALOR_TOTAL / OFERTA.precoNumero > 5, "a oferta é mais de 5x mais barata que separado");
+  assert.equal(VALOR[1].preco, BIBLIOTECA_2025.length * 97, "histórias de 2025 a R$ 97 cada, uma linha por história da Biblioteca");
+  assert.ok(VALOR_TOTAL > 1000 && VALOR_TOTAL < 1200, `total fora do esperado: ${VALOR_TOTAL}`);
+  assert.ok(VALOR_TOTAL / OFERTA.precoNumero > 3, "a oferta é mais de 3x mais barata que separado");
   assert.equal(moeda(597), "R$ 597");
   assert.equal(moeda(57.9), "R$ 57,90");
 });
 
-test("promessa honesta: contagem bate com o inventário de 02/11", () => {
-  // 11 temas de 2026 (10 histórias diferentes, Zaqueu repete em novembro)
-  assert.equal(PLANO_2026.length, 11);
+test("promessa honesta: contagem bate com a prévia oficial do Plano Anual (PDF de 19/11, mandado em 21/11)", () => {
+  // 12 temas de 2026 (11 histórias diferentes, Zaqueu repete em novembro); dezembro = Josias
+  assert.equal(PLANO_2026.length, 12);
   assert.equal(PLANO_2026.filter((h) => h.junior).length, 6, "Júnior existe em 6 temas de 2026");
-  assert.equal(PLANO_2026.filter((h) => h.emProducao).length, 0, "19/11: novembro ficou pronto; nada em produção");
-  assert.ok(PLANO_2026.every((h) => h.src), "todos os 11 temas têm capa");
-  // 9 histórias completas de 2025 (Josias só tem o estudo 1 e fica fora da lista)
-  assert.equal(BIBLIOTECA_2025.length, 9);
-  assert.ok(!BIBLIOTECA_2025.some((h) => /josias/i.test(h.nome)));
-  // 13 histórias completas diferentes somando os dois anos (o brief dizia 14 contando Josias, que só tem o estudo 1)
+  assert.deepEqual(PLANO_2026.filter((h) => h.emProducao).map((h) => h.mes), ["dez"], "só dezembro (Josias) está em produção");
+  assert.ok(PLANO_2026.filter((h) => !h.emProducao).every((h) => h.src), "todo tema pronto tem capa");
+  assert.equal(PLANO_2026.at(-1).src, null, "Josias ainda não tem capa (a Thali vai fazer)");
+  assert.equal(PLANO_2026.map((h) => h.estudos).join(","), "4,4,5,4,5,4,4,5,4,4,5,4", "estudos por tema, como na página 4 da prévia");
+  // Biblioteca 2025: só as 4 histórias que ficaram na plataforma, todas com as 3 faixas
+  assert.equal(BIBLIOTECA_2025.length, 4);
+  assert.deepEqual(BIBLIOTECA_2025.map((h) => h.estudos), [7, 4, 4, 4]);
+  assert.ok(BIBLIOTECA_2025.every((h) => h.junior && h.tema), "as 4 têm Júnior e tema");
+  assert.ok(!BIBLIOTECA_2025.some((h) => /josias|arca|semeador|daniel|pr[óo]digo|ad[ãa]o/i.test(h.nome)), "as versões 2025 repaginadas não entram");
+  // 14 histórias diferentes somando os dois anos; só a Ovelha Perdida aparece nos dois
   const nomes = new Set([...PLANO_2026.map((h) => h.historia), ...BIBLIOTECA_2025.map((h) => h.historia)]);
-  assert.equal(nomes.size, 13);
-  // 6 delas em duas versões
+  assert.equal(nomes.size, 14);
   const em2026 = new Set(PLANO_2026.map((h) => h.historia));
-  assert.equal(BIBLIOTECA_2025.filter((h) => em2026.has(h.historia)).length, 6);
+  assert.deepEqual(BIBLIOTECA_2025.filter((h) => em2026.has(h.historia)).map((h) => h.historia), ["Ovelha Perdida"]);
   assert.equal(BLOCOS.length, 4, "a entrega tem 4 blocos");
-  // domingos de aula pronta: 2026 (11 meses prontos desde 19/11) + 2025 (9 histórias), conferidos nas notas do cofre
-  assert.equal(DOMINGOS_2026, 48);
-  assert.equal(DOMINGOS_2025, 41);
-  assert.equal(DOMINGOS, 89);
-  assert.equal(SERIES, 20);
-  assert.equal(NUMEROS[0].n, "89");
+  // capa da prévia: 16 séries de estudo, 71 domingos de aula pronta (52 de 2026 + 19 de 2025)
+  assert.equal(DOMINGOS_2026, 52);
+  assert.equal(DOMINGOS_2025, 19);
+  assert.equal(DOMINGOS, 71);
+  assert.equal(SERIES, 16);
+  assert.equal(NUMEROS[0].n, "71");
+  assert.equal(NUMEROS[1].n, "16");
+  // os textos dos blocos e da FAQ não podem ficar com a contagem antiga
+  const textos = JSON.stringify({ BLOCOS, FAQ });
+  assert.ok(!/11 temas|9 histórias|dos 11|7 das 9|estudo 1 d[ae] (série do )?(Rei )?Josias/i.test(textos), "resto da contagem antiga nos textos");
+  assert.ok(/12 temas/.test(textos) && /4 histórias/.test(textos));
 });
 
 test("todas as capas referenciadas existem", () => {
