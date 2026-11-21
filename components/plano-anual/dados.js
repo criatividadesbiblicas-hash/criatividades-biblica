@@ -12,16 +12,16 @@ export const OFERTA = {
   precoNumero: 597,
 };
 
-// Roda das historias: 8 capas Kids, SEM numero e SEM ordem de calendario (decisao da Thali, 2026-09-09).
+// Roda das historias: 8 capas Kids (capa da APOSTILA DO PROFESSOR desde 21/11/2026; Zaqueu nao tem, fica a das atividades), SEM numero e SEM ordem de calendario (decisao da Thali, 2026-09-09).
 export const HISTORIAS = [
-  { slug: "semeador", nome: "Parábola do Semeador", estudos: 4, src: "/plano-anual/capa-semeador.webp" },
+  { slug: "semeador", nome: "Parábola do Semeador", estudos: 4, src: "/plano-anual/capa-prof-semeador.webp" },
   { slug: "zaqueu", nome: "Jesus e Zaqueu", estudos: 5, src: "/plano-anual/capa-zaqueu.webp" },
-  { slug: "arca", nome: "Arca de Noé", estudos: 4, src: "/plano-anual/capa-arca.webp" },
-  { slug: "filho-prodigo", nome: "Filho Pródigo", estudos: 4, src: "/plano-anual/capa-filho-prodigo.webp" },
-  { slug: "fornalha", nome: "Na Fornalha", estudos: 4, src: "/plano-anual/capa-fornalha.webp" },
-  { slug: "ovelha-perdida", nome: "Ovelha Perdida", estudos: 5, src: "/plano-anual/capa-ovelha-perdida.webp" },
-  { slug: "adao-e-eva", nome: "Adão e Eva", estudos: 4, src: "/plano-anual/capa-adao-e-eva.webp" },
-  { slug: "dez-leprosos", nome: "Dez Leprosos", estudos: 4, src: "/plano-anual/capa-dez-leprosos.webp" },
+  { slug: "arca", nome: "Arca de Noé", estudos: 4, src: "/plano-anual/capa-prof-arca.webp" },
+  { slug: "filho-prodigo", nome: "Filho Pródigo", estudos: 4, src: "/plano-anual/capa-prof-filho-prodigo.webp" },
+  { slug: "fornalha", nome: "Na Fornalha", estudos: 4, src: "/plano-anual/capa-prof-fornalha.webp" },
+  { slug: "ovelha-perdida", nome: "Ovelha Perdida", estudos: 5, src: "/plano-anual/capa-prof-ovelha-perdida.webp" },
+  { slug: "adao-e-eva", nome: "Adão e Eva", estudos: 4, src: "/plano-anual/capa-prof-adao-e-eva.webp" },
+  { slug: "dez-leprosos", nome: "Dez Leprosos", estudos: 4, src: "/plano-anual/capa-prof-dez-leprosos.webp" },
 ];
 
 // "Um mes por dentro": os 4 domingos da Arca (mesmos textos aprovados na landing do Pack).

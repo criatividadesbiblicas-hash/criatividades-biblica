@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { FIM, FASES, faseEm, faseDaUrl, restanteAte } from "./fase.js";
-import { OFERTA, KIWIFY_URL, VALOR, VALOR_TOTAL, moeda, PLANO_2026, BIBLIOTECA_2025, FAQ, BLOCOS, NUMEROS, DOMINGOS, DOMINGOS_2026, DOMINGOS_2025, SERIES } from "./dados.js";
+import { OFERTA, KIWIFY_URL, VALOR, VALOR_TOTAL, BONUS, moeda, PLANO_2026, BIBLIOTECA_2025, FAQ, BLOCOS, NUMEROS, DOMINGOS, DOMINGOS_2026, DOMINGOS_2025, SERIES } from "./dados.js";
 
 const pub = (src) => join(process.cwd(), "public", src);
 const t = (iso) => Date.parse(iso);
@@ -57,12 +57,15 @@ test("oferta exata da Camada 1 (02/11)", () => {
   assert.ok(!/SUBSTITUIR/.test(KIWIFY_URL), "o marcador do link da Kiwify ainda está na página");
 });
 
-test("a conta do valor usa preços públicos e soma mais de R$ 1.000", () => {
-  assert.equal(VALOR.length, 4, "quatro linhas, uma por bloco");
+test("a conta do valor usa preços públicos e soma mais de R$ 1.000; Planner 2027 é bônus fora da soma", () => {
+  assert.equal(VALOR.length, 3, "três linhas: Plano Anual, histórias de 2025, Emoções (21/11: Planner 2026 saiu)");
   assert.equal(VALOR[0].preco, 597, "Plano Anual no preço público");
   assert.equal(VALOR[1].preco, BIBLIOTECA_2025.length * 97, "histórias de 2025 a R$ 97 cada, uma linha por história da Biblioteca");
-  assert.ok(VALOR_TOTAL > 1000 && VALOR_TOTAL < 1200, `total fora do esperado: ${VALOR_TOTAL}`);
+  assert.ok(!VALOR.some((v) => /planner/i.test(v.item)), "Planner não entra na soma");
+  assert.ok(VALOR_TOTAL > 1000 && VALOR_TOTAL < 1100, `total fora do esperado: ${VALOR_TOTAL}`);
   assert.ok(VALOR_TOTAL / OFERTA.precoNumero > 3, "a oferta é mais de 3x mais barata que separado");
+  assert.match(BONUS.nome, /Planner Ministério Infantil 2027/);
+  assert.match(BONUS.texto, /ficar pronto/);
   assert.equal(moeda(597), "R$ 597");
   assert.equal(moeda(57.9), "R$ 57,90");
 });
@@ -85,7 +88,18 @@ test("promessa honesta: contagem bate com a prévia oficial do Plano Anual (PDF 
   assert.equal(nomes.size, 14);
   const em2026 = new Set(PLANO_2026.map((h) => h.historia));
   assert.deepEqual(BIBLIOTECA_2025.filter((h) => em2026.has(h.historia)).map((h) => h.historia), ["Ovelha Perdida"]);
-  assert.equal(BLOCOS.length, 4, "a entrega tem 4 blocos");
+  assert.equal(BLOCOS.length, 4, "quatro partes na área de membros (sem chamar de bloco na página)");
+  // 21/11: capas = apostila do professor (capa-prof-*); só Zaqueu de março fica com a das atividades
+  for (const h of PLANO_2026.filter((h) => h.src)) {
+    if (h.mes === "mar") assert.equal(h.src, "/plano-anual/capa-zaqueu.webp");
+    else assert.match(h.src, /\/capa-prof-/, `${h.mes} ainda usa a capa das atividades`);
+  }
+  assert.ok(BIBLIOTECA_2025.every((h) => /\/capa-prof-2025-/.test(h.src)), "Biblioteca 2025 com a capa do professor");
+  // 21/11: Planner 2026 fora; Planner 2027 só como bônus; plano de leitura continua
+  assert.match(BLOCOS[3].titulo, /Plano de leitura/);
+  assert.match(BLOCOS[3].detalhe, /Planner Ministério Infantil 2027/);
+  assert.ok(!JSON.stringify({ BLOCOS, FAQ, NUMEROS, VALOR }).includes("Planner Ministério Infantil 2026"), "Planner 2026 ainda citado");
+  assert.ok(!/\bblocos?\b/i.test(JSON.stringify([BLOCOS, FAQ, NUMEROS])), "a palavra 'bloco' não aparece nos textos da página");
   // capa da prévia: 16 séries de estudo, 71 domingos de aula pronta (52 de 2026 + 19 de 2025)
   assert.equal(DOMINGOS_2026, 52);
   assert.equal(DOMINGOS_2025, 19);
