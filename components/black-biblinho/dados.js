@@ -80,20 +80,21 @@ export const BLOCOS = [
   {
     n: 1,
     titulo: "Plano Anual 2026",
-    resumo: "12 temas, uma história bíblica por mês, com a aula pronta pra Baby e Kids em todos e Júnior em 6.",
-    detalhe: "Apostila do professor com a fala escrita, quadro de história, atividades, versículo, lembrancinha e carta pra família. De janeiro a novembro, tudo pronto. Dezembro (Eu Vivo o que a Bíblia Diz, com a história do rei Josias) está em produção e entra na sua área de membros assim que ficar pronto.",
+    resumo: "12 temas, uma história bíblica por mês, com a aula pronta pra Baby e Kids em todos e Júnior em 6 deles.",
+    detalhe: "Apostila do professor com a fala escrita, quadro de história, atividades, versículo para memorização, lembrança e o espaço Querida Família. De janeiro a novembro, tudo pronto. Dezembro (Eu Vivo o que a Bíblia Diz, com a história do rei Josias) está em produção e entra na sua área de membros assim que ficar pronto.",
   },
   {
     n: 2,
     titulo: "Biblioteca 2025",
-    resumo: "4 histórias da versão anterior do Plano, numa pasta separada.",
-    detalhe: "A Criação, Jesus, o Bom Pastor (Ovelha Perdida), Jesus anda sobre as águas e O Plano Perfeito, com Baby, Kids e Júnior. As outras histórias de 2025 foram repaginadas e estão no Plano Anual 2026.",
+    resumo: "4 histórias da versão anterior do Plano, numa pasta separada, com as 3 faixas etárias.",
+    // 24/11 (Thali): sem "somando são 10 Júnior" e sem "as outras foram repaginadas"; só dizer as 3 faixas.
+    detalhe: "A Criação, Jesus, o Bom Pastor (Ovelha Perdida), Jesus anda sobre as águas e O Plano Perfeito, todas com Baby, Kids e Júnior.",
   },
   {
     n: 3,
     titulo: "Jesus Cuida das Minhas Emoções",
     resumo: "O estudo das 9 emoções, o mais pedido da casa.",
-    detalhe: "9 cards com versículo, a história do Salmo 23 em 15 lâminas, a caixinha Pergunta ou Desafio, atividades em duas faixas e lembrancinhas. Mais de 1.000 famílias e professoras já usaram.",
+    detalhe: "9 cards com versículo, a história do Salmo 23 em 15 lâminas, a caixinha Pergunta ou Desafio, atividades em duas faixas e lembranças. Mais de 1.000 famílias e professoras já usaram.",
   },
   {
     n: 4,
@@ -108,6 +109,14 @@ export const BLOCOS = [
     bonus: true,
     titulo: "Planner Ministério Infantil 2027",
     resumo: "Chamadas a Cuidar. Bônus de quem comprar o Black Biblinho: já está em produção e entra na sua área de membros a qualquer momento.",
+    // Páginas internas reais (miolos da pasta do Planner, renderizados em 24/11 a pedido da Thali).
+    paginas: [
+      { src: "/black-biblinho/planner-minha-turma.webp", nome: "Minha turma" },
+      { src: "/black-biblinho/planner-plano-de-aula.webp", nome: "Plano de aula" },
+      { src: "/black-biblinho/planner-ideias-do-ano.webp", nome: "Ideias pro ano todo" },
+      { src: "/black-biblinho/planner-culto-kids.webp", nome: "Plano do culto kids" },
+      { src: "/black-biblinho/planner-equipe.webp", nome: "Equipe do ministério" },
+    ],
     detalhe: "Pra organizar o ano do ministério: minha turma, lista de presença, escala, planejamento de aula e do mês, culto kids, equipe, reunião, financeiro e anotações. Em PDF, pra imprimir ou usar no tablet.",
   },
 ];
@@ -119,22 +128,24 @@ export const DOMINGOS_2026 = PLANO_2026.reduce((t, h) => t + h.estudos, 0);
 export const DOMINGOS_2025 = BIBLIOTECA_2025.reduce((t, h) => t + h.estudos, 0);
 export const DOMINGOS = DOMINGOS_2026 + DOMINGOS_2025;
 export const SERIES = PLANO_2026.length + BIBLIOTECA_2025.length;
+// 24/11 (Thali): "o total do Júnior, temos 10 materiais" = 6 temas de 2026 + 4 histórias da Biblioteca 2025.
+export const JUNIOR = PLANO_2026.filter((h) => h.junior).length + BIBLIOTECA_2025.filter((h) => h.junior).length;
 export const NUMEROS = [
   { n: String(DOMINGOS), t: "domingos de aula pronta, com a fala do professor escrita" },
   { n: String(SERIES), t: "séries de estudo, uma história bíblica em cada" },
-  { n: "3", t: "faixas: Baby, Kids e Júnior" },
+  { n: String(JUNIOR), t: "materiais Júnior, pra turma de 7 a 9 anos" },
   { n: "12", t: "temas do Plano Anual 2026, uma história bíblica por mês" },
 ];
 
 export const FAQ = [
   { q: "Recebo tudo na hora ou vai liberando aos poucos?", a: "Tudo na hora. Assim que o pagamento é aprovado, a Kiwify manda o acesso pro seu e-mail e tudo já está liberado na área de membros. Só dezembro de 2026 (Eu Vivo o que a Bíblia Diz) e o Planner 2027 entram depois, quando ficarem prontos." },
-  { q: "O material Júnior vem em todas as histórias?", a: "Não, e a gente prefere dizer antes. Em 2026 o Júnior (7 a 10 anos) existe em 6 dos 12 temas: Semeador, Fornalha, Zaqueu, Arca de Noé, Adão e Eva e Filho Pródigo. Na Biblioteca 2025, as 4 histórias têm as três faixas. Baby e Kids estão em todas." },
-  { q: "A Biblioteca 2025 é a mesma coisa repetida?", a: "Não. É a versão anterior do Plano, com linguagem e diagramação de 2025, entregue numa pasta separada, com 4 histórias: A Criação, Jesus, o Bom Pastor (Ovelha Perdida), Jesus anda sobre as águas e O Plano Perfeito. Só a Ovelha Perdida existe nos dois anos, com temas diferentes. As outras histórias de 2025 foram repaginadas e estão no Plano Anual 2026." },
+  { q: "Quantos materiais Júnior vêm no Acesso Total?", a: "São 10 materiais Júnior (7 a 9 anos). Seis são do Plano Anual 2026: Semeador, Fornalha, Zaqueu, Arca de Noé, Adão e Eva e Filho Pródigo. Os outros quatro são da Biblioteca 2025: A Criação, Ovelha Perdida, Jesus anda sobre as águas e O Plano Perfeito. Baby e Kids estão em todas as histórias." },
+  { q: "A Biblioteca 2025 é a mesma coisa repetida?", a: "Não. É a versão anterior do Plano, com linguagem e diagramação de 2025, entregue numa pasta separada, com 4 histórias: A Criação, Jesus, o Bom Pastor (Ovelha Perdida), Jesus anda sobre as águas e O Plano Perfeito. Só a Ovelha Perdida existe nos dois anos, com temas diferentes. As 4 vêm com as 3 faixas etárias." },
   { q: "Já tenho o Jesus Cuida das Minhas Emoções. Compensa?", a: "O Emoções é uma parte. O Plano Anual 2026, a Biblioteca 2025 e o plano de leitura são novos pra você, e sozinho o Plano Anual 2026 custa R$ 597 no formato de sempre." },
   { q: "Sou assinante do Plano Anual. E agora?", a: "Fala com a gente no Direct do @criatividadesbiblicas antes de comprar. A gente olha o que você já recebeu e te diz, com sinceridade, se vale a pena." },
   { q: "E dezembro de 2026 e o Planner 2027?", a: "Os dois estão em produção e entram na sua área de membros assim que saírem, sem pagar nada a mais. O tema de dezembro é Eu Vivo o que a Bíblia Diz, com a história do rei Josias e o livro perdido. O Planner Ministério Infantil 2027 é bônus de quem comprar o Black Biblinho. Novembro (As Cores da Salvação, com Zaqueu) já está pronto e liberado na hora." },
   { q: "Vai voltar depois do dia 30?", a: "Não. O Black Biblinho existe só nesta Black Friday, até 30 de novembro. Depois disso o Plano Anual volta ao formato de sempre, uma história por mês, e em 2027 o material é novo, com histórias que não estão aqui." },
-  { q: "Vou receber impresso?", a: "Não. É 100% digital, em PDF. Você imprime em casa, na igreja ou numa gráfica, só o que for usar. Quadro de história, versículo e lembrancinha ficam melhores em papel 180g; apostila e atividades vão bem em sulfite comum." },
+  { q: "Vou receber impresso?", a: "Não. É 100% digital, em PDF. Você imprime em casa, na igreja ou numa gráfica, só o que for usar." },
   { q: "Posso usar com a equipe da minha igreja?", a: "Sim, dentro do seu ministério. O que não pode é revender ou repassar os PDFs em grupos." },
   { q: "Tem garantia?", a: "Tem. 7 dias depois da compra pra pedir o reembolso total direto na Kiwify, a mesma plataforma do pagamento. Sem precisar explicar o motivo." },
   { q: "Moro num estado com fuso diferente. Até que horas vai?", a: "Fecha segunda, 30 de novembro, às 23h59 no horário de Brasília. No Acre, Amazonas e Mato Grosso, por exemplo, fecha mais cedo no relógio de casa." },

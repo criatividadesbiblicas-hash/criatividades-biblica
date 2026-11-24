@@ -25,10 +25,35 @@ import Leque from "@/components/arca/Leque";
 import Tracking from "@/components/black-biblinho/Tracking";
 import { ContadorBlocos, BarraContador } from "@/components/black-biblinho/Contador";
 import { faseDaUrl } from "@/components/black-biblinho/fase";
-import { KIWIFY_URL, PLANO_ANUAL_URL, OFERTA, VALOR, VALOR_TOTAL, BONUS, moeda, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES } from "@/components/black-biblinho/dados";
+import { KIWIFY_URL, PLANO_ANUAL_URL, OFERTA, VALOR, VALOR_TOTAL, BONUS, moeda, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES, JUNIOR } from "@/components/black-biblinho/dados";
 import { PECAS, FAIXAS } from "@/components/plano-anual/dados";
 
 const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
+
+// 24/11 (Thali): textos próprios desta página pra duas peças. Versículo é "para memorização" (não "pra parede")
+// e a lembrança não fala de papel: são jogos pedagógicos, coroas, relógios, e a criança leva a história pra casa.
+const TEXTOS_PECAS = {
+  "Versículo pra parede": { titulo: "Versículo para memorização", texto: "O versículo do mês em cartaz. No Júnior, um por estudo. A turma decora e ele vira parte da sala." },
+  Lembrancinha: { titulo: "Lembrança", texto: "Jogos pedagógicos, coroas, relógios e outras peças pra montar. A criança sai da aula com a história na mão e conta em casa." },
+  // 24/11 (Thali): apostila "escrita para a criança" (não "de criança"), aplicação na linguagem da faixa;
+  // quadro de história com o texto atrás pro professor ler enquanto a criança vê a imagem.
+  "Apostila do professor": { texto: "Cada estudo com a fala escrita para a criança, na linguagem da faixa etária: roda de conversa, curiosidade bíblica, hora da história, aplicação, brincadeira e oração. Você lê, adapta e conduz." },
+  "Quadro de história": { texto: "Enquanto a criança vê a imagem, o professor lê o texto escrito atrás da lâmina. Assim você ministra a Palavra de Deus com segurança, e a história gruda." },
+  // 24/11 (Thali): não é "carta pra família", é o espaço Querida Família, dentro do livro de atividades.
+  "Carta pra família": { titulo: "Querida Família", texto: "No livro de atividades que a criança leva no fim do mês, um espaço contando o que ela aprendeu em cada estudo e o que desenvolveu em cada atividade." },
+};
+const PECAS_BB = PECAS.map((p) => ({ ...p, ...(TEXTOS_PECAS[p.titulo] || {}) }));
+
+// 24/11 (Thali): três faixas com cor viva, idade no lugar de "colo/roda" e o que vem em cada uma.
+// Júnior de 7 a 9 anos (mudou em 24/11). Cores das faixas iguais às do site novo (água, menta, rosa). Versículo: 1 por série no Baby e Kids, 1 por estudo no Júnior.
+const FAIXAS_BB = [
+  { ...FAIXAS[0], idade: "1 a 3 anos", chamada: "Versão para bebês", cor: "#90d8e4", ponto: "#4aa8ee", letreiro: "bb-letreiro--agua", onde: `em todas as ${SERIES} séries`,
+    vem: ["Apostila do professor com a fala escrita em frases curtas, do jeito que o bebê entende", "Quadro de história com o texto atrás pro professor", "Atividade em cada estudo", "Versículo para memorização, um por série"] },
+  { ...FAIXAS[1], idade: "4 a 6 anos", chamada: "Para crianças de 4 a 6 anos", cor: "#d8e4c0", ponto: "#2fb56b", letreiro: "bb-letreiro--sol", onde: `em todas as ${SERIES} séries`,
+    vem: ["Apostila do professor com a fala escrita na linguagem da idade", "Quadro de história com o texto atrás pro professor", "Atividade em cada estudo", "Versículo para memorização, um por série"] },
+  { ...FAIXAS[2], idade: "7 a 9 anos", chamada: "Para a turma de 7 a 9 anos", cor: "#f0a89c", ponto: "#8b5cf6", letreiro: "bb-letreiro--coral", onde: `em ${JUNIOR} séries`,
+    vem: ["Apostila do professor com a fala escrita pra quem já lê", "Quadro de história com o texto atrás pro professor", "Atividade em cada estudo", "Versículo para memorização, um por estudo"] },
+];
 
 // A fase depende do relógio: a página é montada a cada visita, nunca congelada no build.
 export const dynamic = "force-dynamic";
@@ -64,8 +89,9 @@ function Botao({ href, children, className = "", externo = true, tom = "sol" }) 
   );
 }
 
-function H2({ children, className = "" }) {
-  return <h2 className={`text-balance font-display text-[2rem] leading-[1.08] text-pa-tinta md:text-[2.75rem] ${className}`}>{children}</h2>;
+// 24/11 (Thali): títulos com as letras do site oficial novo (letreiro de contorno marinho e sombra dura).
+function H2({ children, className = "", cor = "" }) {
+  return <h2 className={`bb-letreiro text-balance text-[2.1rem] md:text-[3rem] ${cor} ${className}`}>{children}</h2>;
 }
 
 function Texto({ children, className = "" }) {
@@ -177,10 +203,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
         <section id="entra" className="scroll-mt-20 bg-pa-ceu-claro">
           <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
             <Selo>O que entra</Selo>
-            <H2 className="mt-4">Todo o material, liberado na hora.</H2>
-            <Texto className="mt-4 max-w-[60ch]">
-              Tudo é página real dos nossos PDFs. O que ainda não existe está escrito aqui, não escondido.
-            </Texto>
+            <H2 className="mt-5">Todo o material, <span className="bb-marca">liberado na hora.</span></H2>
 
             {/* Plano Anual 2026 */}
             <article className="mt-12 overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)]">
@@ -223,37 +246,54 @@ export default async function BlackBiblinhoPage({ searchParams }) {
               </ul>
             </article>
 
-            {/* Emoções, plano de leitura e o Planner 2027 em destaque (bônus em produção; pedido da Thali em 21/11) */}
-            <div className="mt-6 grid gap-6 lg:grid-cols-3">
-              <article className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)]">
-                <div className="flex items-center justify-center bg-[#f3eefb] p-6">
-                  <Image src="/emocoes/livro.png" alt="Capa do estudo Jesus Cuida das Minhas Emoções" width={693} height={1108} className="h-56 w-auto drop-shadow-[0_18px_24px_rgba(74,42,122,0.35)] md:h-64" />
+            {/* 24/11 (Thali): Emoções e plano de leitura lado a lado, meia página cada; embaixo, o bônus em
+                destaque com páginas de dentro do Planner. */}
+            <div className="mt-6 grid gap-6 md:grid-cols-2">
+              <article className="group flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] transition-transform duration-300 hover:-translate-y-1">
+                <div className="flex h-[19rem] items-center justify-center bg-[#f3eefb] p-6 md:h-[21rem]">
+                  <Image src="/emocoes/livro.png" alt="Capa do estudo Jesus Cuida das Minhas Emoções" width={693} height={1108} className="h-60 w-auto drop-shadow-[0_18px_24px_rgba(74,42,122,0.35)] transition-transform duration-300 group-hover:-rotate-2 group-hover:scale-105 md:h-72" />
                 </div>
-                <div className="p-6 md:p-7">
-                  <h3 className="font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[2].titulo}</h3>
-                  <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[2].resumo} {BLOCOS[2].detalhe}</p>
-                </div>
-              </article>
-              <article className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)]">
-                <div className="flex h-[17.5rem] items-center justify-center bg-[#eaf6ff] p-6 md:h-[19.5rem]">
-                  <Image src="/black-biblinho/plano-de-leitura.webp" alt="Página real do plano de leitura anual" width={1200} height={848} className="w-full max-w-[260px] rounded-[0.75rem] shadow-[0_18px_24px_-14px_rgba(11,60,100,0.35)] ring-1 ring-pa-tinta/10" />
-                </div>
-                <div className="p-6 md:p-7">
-                  <h3 className="font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[3].titulo}</h3>
-                  <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[3].resumo} {BLOCOS[3].detalhe}</p>
+                <div className="p-6 md:p-8">
+                  <h3 className="font-display text-[1.6rem] leading-tight text-[#4a2a7a] md:text-[1.9rem]">{BLOCOS[2].titulo}</h3>
+                  <p className="mt-2 text-[16px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[2].resumo} {BLOCOS[2].detalhe}</p>
                 </div>
               </article>
-              <article className="relative flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] ring-2 ring-pa-sol">
-                <span className="absolute left-5 top-5 z-10 rounded-full bg-pa-sol px-3 py-1 font-display text-sm uppercase tracking-wide text-pa-tinta">Bônus</span>
-                <div className="flex h-[17.5rem] items-center justify-center bg-[#fff6e3] p-6 md:h-[19.5rem]">
-                  <Image src="/black-biblinho/planner-2027.webp" alt="Capa do Planner Ministério Infantil 2027, Chamadas a Cuidar" width={900} height={1273} className="h-56 w-auto rounded-[8px] border-2 border-white shadow-[0_18px_24px_-14px_rgba(138,90,60,0.45)] md:h-64" />
+              <article className="group flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)] transition-transform duration-300 hover:-translate-y-1">
+                <div className="flex h-[19rem] items-center justify-center bg-[#eaf6ff] p-6 md:h-[21rem]">
+                  <Image src="/black-biblinho/plano-de-leitura.webp" alt="Página do plano de leitura anual" width={1200} height={848} className="w-full max-w-[340px] rounded-[0.75rem] shadow-[0_18px_24px_-14px_rgba(11,60,100,0.35)] ring-1 ring-pa-tinta/10 transition-transform duration-300 group-hover:rotate-1 group-hover:scale-105" />
                 </div>
-                <div className="p-6 md:p-7">
-                  <h3 className="font-display text-[1.45rem] leading-tight text-pa-tinta">{BLOCOS[4].titulo}</h3>
-                  <p className="mt-2 text-[15px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[4].resumo} {BLOCOS[4].detalhe}</p>
+                <div className="p-6 md:p-8">
+                  <h3 className="font-display text-[1.6rem] leading-tight text-[#1c86d6] md:text-[1.9rem]">{BLOCOS[3].titulo}</h3>
+                  <p className="mt-2 text-[16px] font-medium leading-relaxed text-pa-tinta/80">{BLOCOS[3].resumo} {BLOCOS[3].detalhe}</p>
                 </div>
               </article>
             </div>
+
+            <article className="relative mt-6 overflow-hidden rounded-[2rem] bg-[#fff6e3] shadow-[0_14px_36px_-18px_rgba(138,90,60,0.45)] ring-4 ring-pa-sol">
+              <div className="grid items-center gap-8 p-6 md:grid-cols-[auto_1fr] md:p-10">
+                <div className="flex justify-center">
+                  <Image src="/black-biblinho/planner-2027.webp" alt="Capa do Planner Ministério Infantil 2027, Chamadas a Cuidar" width={900} height={1273} className="pa-flutua h-72 w-auto rounded-[10px] border-4 border-white shadow-[0_22px_34px_-14px_rgba(138,90,60,0.5)] md:h-80" style={{ "--r": "-3deg", "--dur": "7s" }} />
+                </div>
+                <div>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-pa-laranja px-4 py-1.5 font-display text-[15px] uppercase tracking-[0.08em] text-white">
+                    <Sparkle size={15} weight="fill" /> Bônus
+                  </span>
+                  <h3 className="mt-4 font-display text-[1.9rem] leading-[1.05] text-pa-tinta md:text-[2.6rem]">{BLOCOS[4].titulo}</h3>
+                  <p className="mt-3 max-w-[60ch] text-[16px] font-medium leading-relaxed text-pa-tinta/80 md:text-[17px]">{BLOCOS[4].resumo} {BLOCOS[4].detalhe}</p>
+                </div>
+              </div>
+              <div className="border-t-2 border-dashed border-pa-sol/70 px-6 pb-8 pt-6 md:px-10">
+                <p className="font-display text-[1.15rem] text-pa-terra">Uma espiada por dentro</p>
+                <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+                  {BLOCOS[4].paginas.map((p, i) => (
+                    <li key={p.src} className="group flex flex-col items-center">
+                      <Image src={p.src} alt={`Página do Planner: ${p.nome}`} width={720} height={1023} sizes="(min-width: 1024px) 18vw, (min-width: 640px) 30vw, 45vw" className={`w-full rounded-[10px] border-4 border-white shadow-[0_14px_24px_-12px_rgba(138,90,60,0.5)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-0 ${i % 2 ? "rotate-2" : "-rotate-2"}`} />
+                      <span className="mt-3 text-center text-[14px] font-extrabold text-pa-tinta">{p.nome}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
           </div>
         </section>
 
@@ -274,10 +314,10 @@ export default async function BlackBiblinhoPage({ searchParams }) {
         {/* 5. O que vem em cada história: páginas reais */}
         <section className="bg-white">
           <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
-            <H2>O que vem dentro de cada história.</H2>
-            <Texto className="mt-4 max-w-[58ch]">As imagens são páginas reais do material, sem retoque. Você imprime em casa, na igreja ou na gráfica.</Texto>
+            <H2 cor="bb-letreiro--ceu">O que vem dentro de <span className="bb-marca bb-marca--agua">cada sequência.</span></H2>
+            <Texto className="mt-4 max-w-[58ch]">Tudo isso vem em cada história, pronto pra imprimir em casa, na igreja ou na gráfica.</Texto>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {PECAS.map((p) => (
+              {PECAS_BB.map((p) => (
                 <article key={p.titulo} className="flex flex-col overflow-hidden rounded-[2rem] bg-pa-ceu-claro">
                   <div className="px-6 pt-6">
                     <Leque imagens={p.imagens.slice(0, 3)} alt={`Páginas reais: ${p.titulo}`} paisagem={p.paisagem} />
@@ -292,70 +332,89 @@ export default async function BlackBiblinhoPage({ searchParams }) {
           </div>
         </section>
 
-        {/* 6. Três faixas, uma história */}
-        <section className="bg-pa-ceu-claro">
+        {/* 6. Três faixas, uma história (24/11: letras e cores do site novo, cartão de contorno marinho) */}
+        <section className="bg-[#f3f7fb]">
           <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
-            <H2>Três faixas, uma história.</H2>
-            <Texto className="mt-4 max-w-[58ch]">O mesmo estudo do Filho Pródigo, escrito três vezes: pro colo, pra roda e pra turma que já lê. A linguagem muda. A história, não.</Texto>
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {FAIXAS.map((f) => (
-                <article key={f.faixa} className="flex flex-col overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(11,60,100,0.3)]">
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <Image src={f.src} alt={`Página real da apostila ${f.faixa}: Hora da História do Filho Pródigo`} fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover object-top" />
-                    <span className="absolute bottom-4 left-4 rounded-full bg-pa-sol px-3 py-1 font-display text-sm text-pa-tinta">{f.faixa} · {f.idade}</span>
+            <H2>Três faixas, <span className="bb-marca">uma história.</span></H2>
+            <Texto className="mt-6 max-w-[60ch]">O mesmo estudo do Filho Pródigo, escrito três vezes: uma versão para bebês, uma para crianças de 4 a 6 anos e uma para a turma de 7 a 9 anos. A linguagem muda. A história, não.</Texto>
+            <div className="mt-12 grid gap-8 md:grid-cols-3">
+              {FAIXAS_BB.map((f, i) => (
+                <article key={f.faixa} className={`bb-cartao group flex flex-col overflow-hidden bg-white transition-transform duration-300 hover:-translate-y-1.5 ${i === 1 ? "md:rotate-1" : i === 2 ? "md:-rotate-1" : ""}`}>
+                  <div className="flex items-end justify-between gap-3 border-b-[3px] border-[#1d1a4f] px-6 pb-4 pt-5" style={{ background: f.cor }}>
+                    <p className={`bb-letreiro ${f.letreiro} text-[2.4rem]`}>{f.faixa}</p>
+                    <p className="mb-1 rounded-full border-2 border-[#1d1a4f] bg-white px-3 py-1 font-display text-[15px] text-[#1d1a4f]">{f.idade}</p>
                   </div>
-                  <blockquote className="p-6 text-[15px] font-medium italic leading-relaxed text-pa-tinta/85">“{f.trecho}”</blockquote>
+                  <div className="relative aspect-[4/3] overflow-hidden border-b-[3px] border-[#1d1a4f] bg-white">
+                    <Image src={f.src} alt={`Página da apostila ${f.faixa}: Hora da História do Filho Pródigo`} fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <p className="font-display text-[1.3rem] leading-tight text-[#1d1a4f]">{f.chamada}</p>
+                    <p className="mt-1 text-[13px] font-extrabold uppercase tracking-[0.08em] text-[#4b487c]">{f.onde}</p>
+                    <ul className="mt-4 space-y-2.5">
+                      {f.vem.map((v) => (
+                        <li key={v} className="flex items-start gap-2.5 text-[15px] font-semibold leading-snug text-[#1d1a4f]/85">
+                          <span aria-hidden="true" className="mt-1.5 h-3 w-3 shrink-0 rounded-full border-2 border-[#1d1a4f]" style={{ background: f.ponto }} /> {v}
+                        </li>
+                      ))}
+                    </ul>
+                    <blockquote className="mt-5 rounded-[1.25rem] p-4 text-[14px] font-medium italic leading-relaxed text-[#1d1a4f]/85" style={{ background: f.cor + "55" }}>“{f.trecho}”</blockquote>
+                  </div>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        {/* 6. Por que só agora + a conta do valor (a conta vem aqui, depois de todo o material: pedido da Thali em 21/11) */}
+        {/* 7. Por que só agora + a conta do valor (24/11, Thali: destaque separado que chama atenção, com o Biblinho fazendo a conta) */}
         <section id="valor" className="scroll-mt-20 bg-white">
-          <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
-            <H2>Por que isso só existe na Black Friday.</H2>
-            <div className="mt-6 space-y-5 text-[17px] font-medium leading-relaxed text-pa-tinta/85 md:text-xl">
-              <p>
-                No resto do ano, o Plano Anual é uma assinatura: {OFERTA.ancora.preco} por um ano, com uma história liberada por mês, na ordem. É assim que a igreja inteira acompanha a mesma história no mesmo mês.
-              </p>
-              <p>
-                Na Black Friday a gente abre tudo de uma vez: o ano de 2026, a biblioteca de 2025, o Emoções e o plano de leitura, com o Planner 2027 de bônus assim que ficar pronto. Em 2027 o Plano Anual é novo, com histórias que não estão aqui, e esta oferta não se repete.
-              </p>
-              <p>
-                Se você prefere receber mês a mês, o <Link href={PLANO_ANUAL_URL} className="font-bold text-pa-campo-escuro underline underline-offset-4">Plano Anual de sempre</Link> continua lá. Se você quer o material todo na mão agora, é aqui.
-              </p>
-            </div>
+          <div className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-24">
+            <div className="bb-cartao relative bg-[#fff6d6] px-6 pb-10 pt-12 md:px-12 md:pb-12 md:pt-14">
+              <span className="absolute -top-5 left-6 rotate-[-4deg] rounded-full border-[3px] border-[#1d1a4f] bg-[#f06060] px-5 py-2 font-display text-[15px] uppercase tracking-[0.08em] text-white shadow-[0_5px_0_#1d1a4f] md:left-12">Só na Black Friday</span>
+              <H2 cor="bb-letreiro--sol">Por que isso só existe <span className="bb-marca bb-marca--rosa">na Black Friday.</span></H2>
+              <div className="mt-7 grid gap-5 text-[16px] font-medium leading-relaxed text-[#1d1a4f]/85 md:grid-cols-3">
+                <p className="rounded-[1.25rem] border-2 border-[#1d1a4f] bg-white p-5"><strong className="mb-1 block font-display text-[1.2rem] font-normal text-[#0c78b8]">No resto do ano</strong>O Plano Anual é uma assinatura: {OFERTA.ancora.preco} por um ano, com uma história liberada por mês, na ordem. Assim a igreja inteira acompanha a mesma história no mesmo mês.</p>
+                <p className="rounded-[1.25rem] border-2 border-[#1d1a4f] bg-white p-5"><strong className="mb-1 block font-display text-[1.2rem] font-normal text-[#f06060]">Na Black Friday</strong>A gente abre tudo de uma vez: o ano de 2026, a biblioteca de 2025, o Emoções e o plano de leitura, com o Planner 2027 de bônus assim que ficar pronto.</p>
+                <p className="rounded-[1.25rem] border-2 border-[#1d1a4f] bg-white p-5"><strong className="mb-1 block font-display text-[1.2rem] font-normal text-[#17753f]">Depois do dia 30</strong>Em 2027 o Plano Anual é novo, com histórias que não estão aqui, e esta oferta não se repete. Quem prefere mês a mês tem o <Link href={PLANO_ANUAL_URL} className="font-bold text-[#0c78b8] underline underline-offset-4">Plano Anual de sempre</Link>.</p>
+              </div>
 
-            <h3 className="mt-14 font-display text-[1.6rem] leading-tight text-pa-tinta md:text-[2rem]">Faça a conta.</h3>
-            <Texto className="mt-3">Tudo que você acabou de ver já existe e é vendido separado, pelos preços de hoje. Somando, dá isto:</Texto>
-            <ul className="mt-8 divide-y divide-pa-tinta/10 rounded-[1.5rem] bg-pa-ceu-claro px-6 py-2 md:px-8">
-              {VALOR.map((v) => (
-                <li key={v.item} className="flex items-baseline justify-between gap-4 py-4">
-                  <span>
-                    <span className="block text-[16px] font-bold text-pa-tinta md:text-[17px]">{v.item}</span>
-                    <span className="block text-[13px] font-semibold text-pa-tinta/60">{v.detalhe}</span>
-                  </span>
-                  <span className="shrink-0 font-display text-[1.25rem] text-pa-tinta/80 tabular-nums">{moeda(v.preco)}</span>
-                </li>
-              ))}
-              <li className="flex items-baseline justify-between gap-4 py-4">
-                <span className="text-[16px] font-extrabold text-pa-tinta md:text-[17px]">Separado, tudo isso custa</span>
-                <span className="shrink-0 font-display text-[1.6rem] text-pa-tinta tabular-nums line-through decoration-pa-laranja decoration-4">{moeda(Math.round(VALOR_TOTAL))}</span>
-              </li>
-            </ul>
-            <div className="mt-8 rounded-[1.5rem] bg-bb-noite px-6 py-7 text-white md:px-8">
-              <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-white/60">Na Black Friday, até {OFERTA.fimCurto}</p>
-              <p className="mt-2 flex flex-wrap items-end gap-x-3">
-                <span className="font-display text-[3rem] leading-none text-pa-sol md:text-[3.6rem]">{OFERTA.por}</span>
-                <span className="pb-1 text-[16px] font-bold text-white/85">tudo junto, liberado de uma vez</span>
-              </p>
-              <p className="mt-3 text-[16px] font-medium leading-relaxed text-white/85 md:text-[17px]">
-                Menos da metade do que custa o Plano Anual sozinho, e você leva {DOMINGOS} domingos de aula pronta, {SERIES} séries, as três faixas, o Emoções e o plano de leitura. Ou {OFERTA.parcela}.
-              </p>
-              <p className="mt-3 text-[15px] font-medium leading-relaxed text-white/75">
-                E de bônus: o {BONUS.nome} {BONUS.texto}.
-              </p>
+              <div className="mt-12 grid items-center gap-8 md:grid-cols-[0.8fr_1.2fr]">
+                <div className="relative mx-auto w-full max-w-[20rem]">
+                  <Image src="/black-biblinho/biblinho-calculadora.webp" alt="O Biblinho fazendo a conta numa calculadora" width={752} height={800} className="pa-flutua h-auto w-full" style={{ "--r": "-2deg", "--dur": "6.5s" }} />
+                </div>
+                <div>
+                  <h3 className="bb-letreiro bb-letreiro--ceu text-[2rem] md:text-[2.4rem]">Faça a conta.</h3>
+                  <p className="mt-3 text-[16px] font-medium leading-relaxed text-[#1d1a4f]/80 md:text-[17px]">Tudo que você acabou de ver já existe e é vendido separado, pelos preços de hoje. Somando, dá isto:</p>
+                  <ul className="mt-5 divide-y-2 divide-dashed divide-[#1d1a4f]/15 rounded-[1.25rem] border-2 border-[#1d1a4f] bg-white px-5 py-1">
+                    {VALOR.map((v) => (
+                      <li key={v.item} className="flex items-baseline justify-between gap-4 py-3.5">
+                        <span>
+                          <span className="block text-[16px] font-bold text-[#1d1a4f]">{v.item}</span>
+                          <span className="block text-[13px] font-semibold text-[#4b487c]">{v.detalhe}</span>
+                        </span>
+                        <span className="shrink-0 font-display text-[1.2rem] text-[#1d1a4f]/80 tabular-nums">{moeda(v.preco)}</span>
+                      </li>
+                    ))}
+                    <li className="flex items-baseline justify-between gap-4 py-3.5">
+                      <span className="text-[16px] font-extrabold text-[#1d1a4f]">Separado, tudo isso custa</span>
+                      <span className="shrink-0 font-display text-[1.5rem] text-[#1d1a4f] tabular-nums line-through decoration-[#f06060] decoration-4">{moeda(Math.round(VALOR_TOTAL))}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-8 rounded-[1.5rem] border-[3px] border-[#1d1a4f] bg-bb-noite px-6 py-7 text-white shadow-[0_6px_0_rgb(29_26_79/0.25)] md:px-8">
+                <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-white/60">Na Black Friday, até {OFERTA.fimCurto}</p>
+                <p className="mt-2 flex flex-wrap items-end gap-x-3">
+                  <span className="font-display text-[3rem] leading-none text-pa-sol md:text-[3.6rem]">{OFERTA.por}</span>
+                  <span className="pb-1 text-[16px] font-bold text-white/85">tudo junto, liberado de uma vez</span>
+                </p>
+                <p className="mt-3 text-[16px] font-medium leading-relaxed text-white/85 md:text-[17px]">
+                  Menos da metade do que custa o Plano Anual sozinho, e você leva {DOMINGOS} domingos de aula pronta, {SERIES} séries, as três faixas, o Emoções e o plano de leitura. Ou {OFERTA.parcela}.
+                </p>
+                <p className="mt-3 text-[15px] font-medium leading-relaxed text-white/75">
+                  E de bônus: o {BONUS.nome} {BONUS.texto}.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -447,7 +506,7 @@ export default async function BlackBiblinhoPage({ searchParams }) {
         <section id="fim" className="bg-bb-noite text-center text-white">
           <div className="mx-auto max-w-2xl px-5 py-20 md:py-28">
             <Image src={RODA_2026[7].src} alt="" width={900} height={1273} className="pa-flutua mx-auto h-52 w-auto rounded-[12px] border-4 border-white shadow-[0_18px_40px_-16px_rgba(0,0,0,0.6)]" style={{ "--dur": "6s", "--r": "-3deg" }} />
-            <h2 className="mt-8 text-balance font-display text-[2rem] leading-[1.08] md:text-[2.75rem]">
+            <h2 className="bb-letreiro bb-letreiro--sol mt-8 text-balance text-[2rem] md:text-[2.75rem]">
               {fase === "fechada" ? "Até a próxima." : "Segunda, 30 de novembro, 23h59. Depois, não volta."}
             </h2>
             <p className="mt-3 text-[17px] font-medium leading-relaxed text-white/80 md:text-xl">
