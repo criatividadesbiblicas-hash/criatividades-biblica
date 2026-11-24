@@ -10,7 +10,7 @@
   FINISH: unreviewed is unfinished — build, revisão impeccable, capturas 1440/390, roda no toque, pixel.
 */
 import Image from "next/image";
-import { Lilita_One } from "next/font/google";
+import { lilita } from "@/app/fontes";
 import { ArrowDown, CheckCircle, Gift } from "@phosphor-icons/react/dist/ssr";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -20,7 +20,6 @@ import Leque from "@/components/arca/Leque";
 import FaqItem from "@/components/FaqItem";
 import { KIWIFY_URL, OFERTA, HISTORIAS, FAQ, AULAS_ARCA, PECAS, ANOTACOES, FAIXAS, DEPOIMENTOS } from "@/components/plano-anual/dados";
 
-const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
 
 const HOST = "https://materiais.criatividadesbiblicas.com.br";
 const PAGE_URL = `${HOST}/plano-anual`;

@@ -19,7 +19,7 @@
   verdict, DESIGN.md, and every shipping raster carrying its provenance.
 */
 import Image from "next/image";
-import { Baloo_2, Quicksand } from "next/font/google";
+import { baloo, quicksand } from "@/app/fontes";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FaqItem from "@/components/FaqItem";
@@ -29,8 +29,6 @@ import { ContadorBlocos, BarraContador } from "@/components/arca/Contador";
 import { promoAtiva } from "@/components/arca/promo";
 import { CheckCircle, ShieldCheck, ArrowDown, Gift, Infinity as InfinityIcon } from "@phosphor-icons/react/dist/ssr";
 
-const baloo = Baloo_2({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-baloo", display: "swap" });
-const quicksand = Quicksand({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-quicksand", display: "swap" });
 
 // URL pública desta página (subdomínio próprio dos Packs; o metadataBase do layout é o da /emocoes)
 const HOST = "https://materiais.criatividadesbiblicas.com.br";

@@ -14,12 +14,11 @@
   Inventar urgência aqui seria mentir para quem acabou de confiar.
 */
 import Image from "next/image";
-import { Lilita_One } from "next/font/google";
+import { lilita } from "@/app/fontes";
 import { CheckCircle, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import KiwifyUpsell from "@/components/plano-anual/KiwifyUpsell";
 import { OFERTA, HISTORIAS, PECAS } from "@/components/plano-anual/dados";
 
-const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
 
 export const metadata = {
   title: "Uma oferta para o seu ano | Criatividades Bíblicas",

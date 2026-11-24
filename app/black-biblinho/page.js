@@ -15,7 +15,7 @@
 */
 import Image from "next/image";
 import Link from "next/link";
-import { Lilita_One } from "next/font/google";
+import { lilita } from "@/app/fontes";
 import { CheckCircle, Clock, LockSimpleOpen, ShieldCheck, Sparkle } from "@phosphor-icons/react/dist/ssr";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -28,7 +28,6 @@ import { faseDaUrl } from "@/components/black-biblinho/fase";
 import { KIWIFY_URL, PLANO_ANUAL_URL, OFERTA, VALOR, VALOR_TOTAL, BONUS, moeda, PLANO_2026, RODA_2026, BIBLIOTECA_2025, BLOCOS, NUMEROS, FAQ, DOMINGOS, SERIES, JUNIOR } from "@/components/black-biblinho/dados";
 import { PECAS, FAIXAS } from "@/components/plano-anual/dados";
 
-const lilita = Lilita_One({ subsets: ["latin"], weight: "400", variable: "--font-lilita", display: "swap" });
 
 // 24/11 (Thali): textos próprios desta página pra duas peças. Versículo é "para memorização" (não "pra parede")
 // e a lembrança não fala de papel: são jogos pedagógicos, coroas, relógios, e a criança leva a história pra casa.

@@ -1,19 +1,7 @@
-import { Fraunces, Nunito } from "next/font/google";
+import { fraunces, nunito } from "@/app/fontes";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
 
-const nunito = Nunito({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-nunito",
-  display: "swap",
-});
 
 import { SITE_URL } from "@/lib/site";
 
