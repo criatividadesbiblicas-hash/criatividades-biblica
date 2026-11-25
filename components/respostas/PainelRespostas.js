@@ -1,9 +1,13 @@
 "use client";
 
+import "./carteiro.css";
 import { useCallback, useEffect, useState } from "react";
 import { api, store, fmt, API } from "./api";
 
-// ——— utilitários de interface ———
+const LOGO = "/marca/logo-horizontal.png";
+const MASCOTE = "/marca/biblinho-mascote-grande.png";
+
+// ——— utilitários ———
 
 function useLoad(fn, deps = []) {
   const [data, setData] = useState(null);
@@ -16,290 +20,277 @@ function useLoad(fn, deps = []) {
 
 let avisar = () => {};
 const toast = (m) => avisar(m);
+const CORES_AVATAR = ["#ffc531", "#90d8e4", "#f0a89c", "#d8e4c0", "#fccc84"];
+const sigla = (label = "") => (label.match(/\b([AD-P]\d)\b/) || [])[1] || label.slice(0, 2).toUpperCase();
 
-const card = "rounded-2xl border border-sand/40 bg-white p-4 shadow-sm";
-const btn = "rounded-xl border border-sand/50 bg-white px-3.5 py-2 text-sm font-bold text-cacau hover:bg-sand-light disabled:opacity-50";
-const btnPri = "rounded-xl bg-coral-deep px-4 py-2 text-sm font-bold text-white hover:bg-coral disabled:opacity-50";
-const input = "w-full rounded-xl border border-sand/60 bg-white px-3 py-2.5 text-[15px] text-cacau outline-none focus:border-coral-deep focus:ring-2 focus:ring-coral/20";
-const label = "mb-1.5 mt-3.5 block text-[13px] font-bold text-cacau";
-const hint = "mt-1 text-xs text-cacau/55";
-
-function Chip({ tom = "neutro", children }) {
-  const t = {
-    ok: "bg-olive/15 text-[#4f6e35]",
-    ruim: "bg-coral/15 text-coral-deep",
-    alerta: "bg-mustard/25 text-[#8a6206]",
-    info: "bg-dusk/15 text-[#3b6a82]",
-    neutro: "bg-sand-light text-cacau/70",
-  }[tom];
-  return <span className={"inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-bold " + t}>{children}</span>;
+function Chave({ on, onClick, rotulo }) {
+  return <button type="button" className="chave" aria-pressed={!!on} aria-label={rotulo} onClick={onClick} />;
 }
 
-function Toggle({ on, onClick, rotulo }) {
-  return (
-    <button type="button" aria-label={rotulo} aria-pressed={on} onClick={onClick}
-      className={"relative h-[26px] w-[46px] shrink-0 rounded-full transition " + (on ? "bg-olive" : "bg-sand/60")}>
-      <span className={"absolute top-[3px] h-5 w-5 rounded-full bg-white shadow transition-all " + (on ? "left-[23px]" : "left-[3px]")} />
-    </button>
-  );
-}
-
-function Tags({ value = [], onChange, placeholder }) {
+function Tags({ value = [], onChange, placeholder, rosa }) {
   const [t, setT] = useState("");
   const add = () => { const v = t.trim(); if (v && !value.includes(v)) onChange([...value, v]); setT(""); };
   return (
-    <div className="flex flex-wrap gap-1.5 rounded-xl border border-sand/60 bg-white p-2">
+    <div className={"tags" + (rosa ? " tags--rosa" : "")}>
       {value.map((k) => (
-        <span key={k} className="inline-flex items-center gap-1.5 rounded-full bg-sand-light px-2.5 py-1 text-xs font-bold text-cacau/80">
-          {k}
-          <button type="button" aria-label={"remover " + k} className="opacity-60 hover:opacity-100" onClick={() => onChange(value.filter((x) => x !== k))}>✕</button>
-        </span>
+        <span key={k} className="tag">{k}<button type="button" aria-label={"remover " + k} onClick={() => onChange(value.filter((x) => x !== k))}>✕</button></span>
       ))}
       <input value={t} placeholder={placeholder || "digite e aperte enter"} onChange={(e) => setT(e.target.value)}
-        onKeyDown={(e) => { if (e.key === "Enter" || e.key === ",") { e.preventDefault(); add(); } }} onBlur={add}
-        className="min-w-[140px] flex-1 border-0 bg-transparent px-1 py-1 text-sm outline-none" />
+        onKeyDown={(e) => { if (e.key === "Enter" || e.key === ",") { e.preventDefault(); add(); } }} onBlur={add} />
     </div>
   );
 }
 
-function Copiar({ valor }) {
+function Copiar({ valor, id }) {
   return (
-    <div className="flex gap-2">
-      <input readOnly value={valor || ""} onFocus={(e) => e.target.select()} className={input + " font-mono text-xs"} />
-      <button type="button" className={btn} onClick={() => { navigator.clipboard.writeText(valor); toast("copiado"); }}>copiar</button>
+    <div className="linha-form">
+      <input id={id} readOnly className="entrada mono" value={valor || ""} onFocus={(e) => e.target.select()} />
+      <button type="button" className="btn btn--mini" onClick={() => navigator.clipboard?.writeText(valor).then(() => toast("copiado"), () => toast("selecione e copie o texto"))}>copiar</button>
     </div>
   );
 }
 
-// ——— saúde ———
+function Titulo({ cor, antes, marca, tom, depois, sub }) {
+  return (
+    <div className="titulo-tela">
+      <div>
+        <h1 className={"letreiro" + (cor ? " letreiro--" + cor : "")}>{antes} <span className={"marca" + (tom ? " marca--" + tom : "")}>{marca}</span>{depois ? " " + depois : ""}</h1>
+        {sub && <p>{sub}</p>}
+      </div>
+    </div>
+  );
+}
 
-function Saude({ health, onRetomar }) {
+const ICONES = {
+  painel: <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />,
+  regras: <><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 9h8M8 13h5" /></>,
+  testar: <><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" /></>,
+  conexao: <path d="M9 7V2M15 7V2M6 7h12v4a6 6 0 0 1-12 0zM12 17v5" />,
+};
+const Icone = ({ id }) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{ICONES[id]}</svg>;
+
+// ——— avisos de saúde ———
+
+function Avisos({ health, onRetomar }) {
   if (!health) return null;
-  const alertas = [];
+  const lista = [];
   const pausa = health.paused_until && new Date(health.paused_until) > new Date();
-  if (pausa) alertas.push({ tom: "ruim", txt: `robô em pausa de proteção até ${fmt(health.paused_until)} (a Meta sinalizou limite de envio)`, acao: true });
-  if (health.falhas_busca_15min >= 3) alertas.push({ tom: "ruim", txt: "a busca de comentários falhou várias vezes nos últimos 15 min. confira o token na aba conexão" });
-  if (health.last_poll_ok && Date.now() - new Date(health.last_poll_ok).getTime() > 5 * 60e3 && !pausa)
-    alertas.push({ tom: "alerta", txt: `última busca concluída em ${fmt(health.last_poll_ok)}. o robô pode estar parado` });
-  if (health.token_age_days >= 50) alertas.push({ tom: "alerta", txt: `o token tem ${health.token_age_days} dias. gere um novo e cole na aba conexão antes dos 60` });
-  if (health.queue > 0) alertas.push({ tom: "info", txt: `${health.queue} comentário(s) na fila esperando o limite por hora liberar. vão sair nas próximas rodadas` });
-  if (!alertas.length) return null;
-  return (
-    <div className="mb-3 flex flex-col gap-2">
-      {alertas.map((a, i) => (
-        <div key={i} className={"flex flex-wrap items-center justify-between gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold " +
-          (a.tom === "ruim" ? "border-coral/40 bg-coral/10 text-coral-deep" : a.tom === "alerta" ? "border-mustard/50 bg-mustard/15 text-[#7a5605]" : "border-dusk/30 bg-dusk/10 text-[#3b6a82]")}>
-          <span>{a.txt}</span>
-          {a.acao && <button type="button" className={btn} onClick={onRetomar}>retomar agora</button>}
-        </div>
-      ))}
+  if (pausa) lista.push(["ruim", `Carteiro em pausa de proteção até ${fmt(health.paused_until)}. a Meta sinalizou limite de envio.`, true]);
+  if (health.falhas_busca_15min >= 3) lista.push(["ruim", "a busca de comentários falhou várias vezes nos últimos 15 minutos. confira o token na aba conexão."]);
+  if (health.last_poll_ok && Date.now() - new Date(health.last_poll_ok).getTime() > 5 * 60e3 && !pausa) lista.push(["alerta", `a última busca terminou em ${fmt(health.last_poll_ok)}. o carteiro pode estar parado.`]);
+  if (health.token_age_days >= 50) lista.push(["alerta", `a licença do carteiro (token) tem ${health.token_age_days} dias. gere um novo e cole na aba conexão antes dos 60.`]);
+  if (health.queue > 0) lista.push(["info", `${health.queue} comentário(s) na fila do carteiro. o limite de segurança segurou um pico, e eles saem nas próximas rodadas.`]);
+  return lista.map(([tom, txt, acao], i) => (
+    <div key={i} className={"aviso" + (tom !== "alerta" ? " aviso--" + tom : "")} role="status">
+      <p>{txt}</p>
+      {acao && <button type="button" className="btn btn--mini" onClick={onRetomar}>retomar agora</button>}
     </div>
-  );
+  ));
 }
 
 // ——— aba painel ———
 
-const STATUS = { enviado: ["ok", "direct enviado"], falhou: ["ruim", "falhou"], processando: ["alerta", "enviando"] };
 const LOGK = {
   ignorado: "ignorado", duplicado: "repetido", falha_envio: "falha", falha_busca: "falha na busca", assinatura_invalida: "assinatura inválida",
-  sem_token: "sem token", pausado: "pausado", webhook_verificado: "webhook verificado", token_renovado: "token renovado",
+  sem_token: "sem token", pausado: "desligado", webhook_verificado: "webhook verificado", token_renovado: "token renovado",
   token_falha_renovacao: "falha ao renovar token", pausa_automatica: "pausa automática", proximo_post_ligado: "próximo post ligado",
 };
 
+function Grafico({ dias }) {
+  if (!dias?.length) return <p className="vazio">ainda sem comentários nesse período</p>;
+  const W = 560, H = 230, L = 34, R = 8, T = 18, B = 30;
+  const topo = Math.max(...dias.map((d) => d.captados));
+  const passo = topo <= 5 ? 1 : topo <= 20 ? 5 : topo <= 50 ? 10 : topo <= 100 ? 20 : Math.ceil(topo / 5 / 10) * 10;
+  const max = Math.max(passo, Math.ceil(topo / passo) * passo);
+  const y = (v) => T + (H - T - B) * (1 - v / max);
+  const ticks = []; for (let v = 0; v <= max; v += passo) ticks.push(v);
+  const slot = (W - L - R) / dias.length, bw = Math.min(26, slot / 3);
+  return (
+    <svg className="grafico" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="comentários captados e cliques por dia">
+      {ticks.map((v) => (
+        <g key={v}>
+          <line x1={L} x2={W - R} y1={y(v)} y2={y(v)} stroke="rgb(29 26 79 / .12)" strokeWidth="1.5" strokeDasharray={v ? "4 5" : "0"} />
+          <text x={L - 8} y={y(v) + 4} textAnchor="end" fontSize="11" fontWeight="800" fill="rgb(29 26 79 / .55)">{v}</text>
+        </g>
+      ))}
+      {dias.map((d, i) => {
+        const cx = L + slot * i + slot / 2;
+        return (
+          <g key={d.dia}>
+            <rect x={cx - bw - 1} y={y(d.captados)} width={bw} height={y(0) - y(d.captados)} rx="5" fill="#f06060" stroke="#1d1a4f" strokeWidth="2"><title>{`${d.dia}: ${d.captados} captados`}</title></rect>
+            <rect x={cx + 1} y={y(d.cliques)} width={bw} height={y(0) - y(d.cliques)} rx="5" fill="#4aa8ee" stroke="#1d1a4f" strokeWidth="2"><title>{`${d.dia}: ${d.cliques} cliques`}</title></rect>
+            <text x={cx} y={H - 9} textAnchor="middle" fontSize="11.5" fontWeight="800" fill="rgb(29 26 79 / .6)">{d.dia.slice(8)}/{d.dia.slice(5, 7)}</text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
 function Painel() {
   const [dias, setDias] = useState(7);
-  const [q, setQ] = useState("");
-  const [etiqueta, setEtiqueta] = useState("");
-  const [origem, setOrigem] = useState("");
+  const [filtro, setFiltro] = useState("todos");
+  const [busca, setBusca] = useState("");
   const [d, reload] = useLoad(() => api("dashboard", { days: dias }), [dias]);
-  const [adm, reloadAdm] = useLoad(() => api("admin"), []);
   useEffect(() => { const t = setInterval(reload, 20000); return () => clearInterval(t); }, [reload]);
 
-  const on = adm?.settings?.enabled;
-  const alternar = async () => { await api("save_settings", { enabled: !on }); reloadAdm(); toast(on ? "robô desligado" : "robô ligado"); };
   const t = d?.totals || {};
   const taxa = t.enviados ? Math.round((t.cliques / t.enviados) * 100) : 0;
+  const pctOrg = t.captados ? Math.round(((t.organico || 0) / t.captados) * 100) : 0;
+  const maxMedia = Math.max(1, ...(d?.by_media || []).map((m) => m.captados));
   const leads = (d?.leads || []).filter((l) =>
-    (!q || `${l.username} ${l.comment_text}`.toLowerCase().includes(q.toLowerCase())) &&
-    (!etiqueta || (l.tag || "sem etiqueta") === etiqueta) && (!origem || l.source === origem));
-  const maxDia = Math.max(1, ...(d?.by_day || []).map((x) => x.captados));
+    (filtro === "todos" || (filtro === "clicou" && l.clicks > 0) || (filtro === "anuncio" && l.source === "anuncio")) &&
+    (!busca || `${l.username} ${l.comment_text}`.toLowerCase().includes(busca.toLowerCase())));
 
   const csv = () => {
-    const linhas = [["data", "usuario", "comentario", "status", "cliques", "origem", "etiqueta", "regra"]].concat(
-      leads.map((l) => [l.created_at, "@" + l.username, (l.comment_text || "").replace(/"/g, "'"), l.status, l.clicks, l.source, l.tag || "", l.rule_name || ""]));
+    const linhas = [["data", "usuario", "comentario", "status", "cliques", "origem", "etiqueta"]].concat(
+      leads.map((l) => [l.created_at, "@" + l.username, (l.comment_text || "").replace(/"/g, "'"), l.status, l.clicks, l.source, l.tag || ""]));
     const blob = new Blob(["﻿" + linhas.map((r) => r.map((c) => `"${c ?? ""}"`).join(";")).join("\n")], { type: "text/csv" });
     const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "leads-instagram.csv"; a.click();
   };
 
   return (
-    <>
-      <Saude health={d?.health} onRetomar={async () => { await api("pause", { minutes: 0 }); reload(); toast("robô retomado"); }} />
-      <div className="flex flex-wrap items-start justify-between gap-3">
+    <section className="miolo">
+      <div className="titulo-tela">
         <div>
-          <h1 className="font-display text-2xl font-semibold">Painel</h1>
-          <p className="mb-4 text-sm text-cacau/60">quem comentou, recebeu direct e clicou no botão</p>
+          <h1 className="letreiro letreiro--sol">Seu <span className="marca">painel</span></h1>
+          <p>quem comentou, recebeu o direct e clicou no botão</p>
         </div>
-        <div className="flex items-center gap-2.5">
-          <Chip tom={on ? "ok" : "alerta"}>{on ? "● robô ligado" : "❚❚ desligado"}</Chip>
-          <Toggle on={!!on} onClick={alternar} rotulo="ligar ou desligar o robô" />
+        <div className="filtros" role="group" aria-label="período">
+          {[[1, "hoje"], [7, "7 dias"], [30, "30 dias"]].map(([n, l]) => (
+            <button key={n} type="button" className="pilula" aria-pressed={dias === n} onClick={() => setDias(n)}>{l}</button>
+          ))}
         </div>
-      </div>
-      {adm && !adm.settings.has_token && (
-        <div className={card + " mb-3 border-coral/40"}><b>falta conectar o instagram.</b> abra a aba conexão.</div>
-      )}
-      <div className="mb-3 inline-flex rounded-xl bg-sand-light p-1">
-        {[1, 7, 30].map((n) => (
-          <button key={n} type="button" onClick={() => setDias(n)}
-            className={"rounded-lg px-3 py-1.5 text-sm font-bold " + (dias === n ? "bg-white shadow-sm" : "text-cacau/55")}>
-            {n === 1 ? "hoje" : n + " dias"}
-          </button>
-        ))}
-      </div>
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        {[
-          ["comentários captados", t.captados, d ? `${t.organico || 0} orgânico · ${t.anuncio || 0} anúncio` : ""],
-          ["directs enviados", t.enviados, t.falhas ? `${t.falhas} falharam` : ""],
-          ["clicaram no botão", t.cliques, ""],
-          ["taxa de clique", d ? taxa + "%" : null, ""],
-        ].map(([l, v, h]) => (
-          <div key={l} className={card}>
-            <p className="text-[13px] text-cacau/60">{l}</p>
-            <p className="font-display text-3xl font-semibold tabular-nums">{v ?? "–"}</p>
-            <p className="text-xs text-cacau/50">{h || " "}</p>
-          </div>
-        ))}
       </div>
 
-      <div className="mt-3 grid gap-3 lg:grid-cols-[1.4fr_1fr]">
-        <div className={card}>
-          <div className="flex items-center justify-between">
-            <h2 className="mb-2 font-bold">por dia</h2>
-            <div className="flex gap-3 text-xs text-cacau/60">
-              <span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-coral-deep align-[-1px]" />captados</span>
-              <span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-dusk align-[-1px]" />cliques</span>
+      <Avisos health={d?.health} onRetomar={async () => { await api("pause", { minutes: 0 }); reload(); toast("Carteiro voltou pras entregas 📬"); }} />
+
+      <div className="kpis">
+        <div className="cartao kpi"><div className="rot">comentários captados</div><div className="num">{t.captados ?? "–"}</div><div className="apoio">{d ? `${t.organico || 0} orgânico · ${t.anuncio || 0} anúncio` : " "}</div></div>
+        <div className="cartao kpi"><div className="rot">directs entregues</div><div className="num">{t.enviados ?? "–"}</div><div className="apoio">{t.falhas ? `${t.falhas} com falha` : "nenhuma falha"}</div></div>
+        <div className="cartao kpi"><div className="rot">clicaram no botão</div><div className="num">{t.cliques ?? "–"}</div><div className="apoio">foram pra página de destino</div></div>
+        <div className="cartao kpi kpi--destaque"><div className="rot">taxa de clique</div><div className="num">{d ? taxa + "%" : "–"}</div><div className="apoio">de quem recebeu o direct</div></div>
+      </div>
+
+      <div className="duas">
+        <div className="cartao">
+          <div className="cab"><h2>Por dia</h2><div className="legenda"><span><i style={{ background: "var(--coral)" }} />captados</span><span><i style={{ background: "var(--ceu)" }} />cliques</span></div></div>
+          {d ? <Grafico dias={d.by_day} /> : <p className="vazio">carregando…</p>}
+        </div>
+        <div className="cartao">
+          <h2>De onde vêm</h2>
+          <p className="sub">posts orgânicos × anúncios (só leitura dos anúncios)</p>
+          {t.captados ? (
+            <div className="barra-origem">
+              {pctOrg > 0 && <span style={{ width: pctOrg + "%", background: "var(--sol)" }}>orgânico {pctOrg}%</span>}
+              {pctOrg < 100 && <span style={{ width: 100 - pctOrg + "%", background: "var(--agua)", borderLeft: pctOrg ? "2px solid var(--marinho)" : 0 }}>anúncio {100 - pctOrg}%</span>}
             </div>
-          </div>
-          {d?.by_day?.length ? (
-            <div className="flex h-36 items-end gap-1.5 pt-2">
-              {d.by_day.map((x) => (
-                <div key={x.dia} className="flex h-full flex-1 flex-col items-center gap-1" title={`${x.dia}: ${x.captados} captados, ${x.cliques} cliques`}>
-                  <div className="flex w-full flex-1 items-end gap-0.5">
-                    <div className="flex-1 rounded-t bg-coral-deep" style={{ height: (x.captados / maxDia) * 100 + "%", minHeight: 2 }} />
-                    <div className="flex-1 rounded-t bg-dusk" style={{ height: (x.cliques / maxDia) * 100 + "%", minHeight: 2 }} />
-                  </div>
-                  <span className="text-[11px] text-cacau/50">{x.dia.slice(8)}/{x.dia.slice(5, 7)}</span>
+          ) : null}
+          <div className="lista" style={{ marginTop: 12 }}>
+            {(d?.by_media || []).slice(0, 5).map((m) => (
+              <div key={m.media_id || "x"} className="linha-item">
+                {m.thumb ? <img className="capa" src={m.thumb} alt="" /> : <span className="capa capa--ad">{m.source === "anuncio" ? sigla(m.caption) : "IG"}</span>}
+                <div className="txt">
+                  <div className="t">{(m.caption || "post").split("\n")[0].slice(0, 60)}</div>
+                  <div className="c">{m.captados} comentários · {m.cliques} cliques</div>
+                  <div className="barrinha"><i style={{ width: (m.captados / maxMedia) * 100 + "%" }} /></div>
                 </div>
-              ))}
-            </div>
-          ) : <p className="py-6 text-center text-sm text-cacau/50">ainda sem comentários captados nesse período</p>}
-        </div>
-        <div className={card}>
-          <h2 className="mb-2 font-bold">posts e anúncios que mais puxam</h2>
-          {d?.by_media?.length ? d.by_media.map((m) => (
-            <div key={m.media_id || "x"} className="flex gap-3 border-t border-sand/30 py-2.5 first:border-0">
-              {m.thumb ? <img src={m.thumb} alt="" className="h-12 w-12 shrink-0 rounded-lg object-cover" /> : <div className="h-12 w-12 shrink-0 rounded-lg bg-sand-light" />}
-              <div className="min-w-0">
-                <p className="text-sm font-bold">{m.captados} comentários · {m.cliques} cliques {m.source === "anuncio" && <Chip tom="info">anúncio</Chip>}</p>
-                <p className="truncate text-sm text-cacau/60">{(m.caption || m.media_id || "").slice(0, 80)}</p>
               </div>
-            </div>
-          )) : <p className="py-6 text-center text-sm text-cacau/50">aparece aqui quando chegarem comentários</p>}
-        </div>
-      </div>
-
-      <div className={card + " mt-3"}>
-        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="font-bold">leads</h2>
-          <div className="flex flex-wrap gap-2">
-            <input className={input + " w-48 py-2"} placeholder="buscar @ ou texto" value={q} onChange={(e) => setQ(e.target.value)} />
-            <select className={input + " w-auto py-2"} value={origem} onChange={(e) => setOrigem(e.target.value)} aria-label="filtrar por origem">
-              <option value="">toda origem</option><option value="organico">orgânico</option><option value="anuncio">anúncio</option>
-            </select>
-            <select className={input + " w-auto py-2"} value={etiqueta} onChange={(e) => setEtiqueta(e.target.value)} aria-label="filtrar por etiqueta">
-              <option value="">toda etiqueta</option>
-              {(d?.tags || []).map((x) => <option key={x.tag} value={x.tag}>{x.tag} ({x.n})</option>)}
-            </select>
-            <button type="button" className={btn} onClick={csv}>exportar csv</button>
+            ))}
+            {d && !d.by_media?.length && <p className="vazio">aparece aqui quando chegarem comentários</p>}
           </div>
         </div>
-        {leads.length ? leads.map((l) => {
-          const [tom, txt] = STATUS[l.status] || ["neutro", l.status];
-          return (
-            <div key={l.id} className="border-t border-sand/30 py-3 first:border-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <a className="font-bold underline-offset-2 hover:underline" href={"https://instagram.com/" + l.username} target="_blank" rel="noreferrer">@{l.username}</a>
-                <Chip tom={tom}>{txt}</Chip>
-                {l.clicks > 0 && <Chip tom="info">clicou{l.clicks > 1 ? ` ${l.clicks}x` : ""}</Chip>}
-                <Chip tom={l.source === "anuncio" ? "info" : "neutro"}>{l.source === "anuncio" ? "anúncio" : "orgânico"}</Chip>
-                {l.tag && <Chip>{l.tag}</Chip>}
-              </div>
-              <p className="mt-0.5 text-sm text-cacau/60 [overflow-wrap:anywhere]">“{l.comment_text}” · {fmt(l.created_at)}</p>
-              {l.error && <p className="text-sm text-coral-deep">{l.error}</p>}
-            </div>
-          );
-        }) : <p className="py-6 text-center text-sm text-cacau/50">nenhum lead com esses filtros</p>}
       </div>
 
-      <details className={card + " mt-3"}>
-        <summary className="cursor-pointer font-bold">atividade do robô (últimos eventos)</summary>
-        <div className="mt-2">
-          {(d?.logs || []).map((g, i) => (
-            <div key={i} className="flex flex-wrap items-start gap-2 border-t border-sand/30 py-2 text-sm first:border-0">
-              <Chip>{LOGK[g.kind] || g.kind}</Chip>
-              <span className="text-cacau/60 [overflow-wrap:anywhere]">
-                {fmt(g.created_at)} · {g.detail?.username ? "@" + g.detail.username + " · " : ""}{g.detail?.texto ? `“${g.detail.texto}” · ` : ""}
-                {g.detail?.motivo || g.detail?.erro || g.detail?.dica || ""}
-              </span>
+      <div className="cartao">
+        <div className="cab">
+          <h2>Quem pediu o link</h2>
+          <div className="filtros">
+            {[["todos", "todos"], ["clicou", "clicaram"], ["anuncio", "vieram de anúncio"]].map(([k, l]) => (
+              <button key={k} type="button" className="pilula" aria-pressed={filtro === k} onClick={() => setFiltro(k)}>{l}</button>
+            ))}
+            <button type="button" className="btn btn--mini" onClick={csv}>exportar planilha</button>
+          </div>
+        </div>
+        <input id="busca-leads" className="entrada" style={{ marginTop: 12 }} placeholder="buscar @ ou comentário" value={busca} onChange={(e) => setBusca(e.target.value)} />
+        <div className="lista" style={{ marginTop: 6 }}>
+          {leads.map((l, i) => (
+            <div key={l.id} className="lead">
+              <span className="avatar" style={{ background: CORES_AVATAR[i % CORES_AVATAR.length] }}>{(l.username || "?")[0].toUpperCase()}</span>
+              <div style={{ minWidth: 0 }}>
+                <div className="topo-lead">
+                  <a className="arroba" href={"https://instagram.com/" + l.username} target="_blank" rel="noreferrer">@{l.username}</a>
+                  {l.status === "enviado" ? <span className="chip chip--ok">entregue 📬</span> : l.status === "falhou" ? <span className="chip chip--ruim">não entregue</span> : <span className="chip chip--alerta">na fila do carteiro</span>}
+                  {l.clicks > 0 && <span className="chip chip--info">clicou{l.clicks > 1 ? ` ${l.clicks}x` : ""}</span>}
+                  {l.source === "anuncio" ? <span className="chip chip--sol">anúncio</span> : <span className="chip">orgânico</span>}
+                  {l.tag && <span className="chip">{l.tag}</span>}
+                </div>
+                <p className="com"><q>{l.comment_text}</q> · {fmt(l.created_at)}</p>
+                {l.error && <p className="erro">{l.error}</p>}
+              </div>
             </div>
           ))}
-          {!d?.logs?.length && <p className="py-4 text-center text-sm text-cacau/50">nada ainda</p>}
+          {d && !leads.length && <p className="vazio">ninguém nesse filtro ainda</p>}
+        </div>
+      </div>
+
+      <details className="cartao">
+        <summary>O que o carteiro fez por último</summary>
+        <div className="lista" style={{ marginTop: 8 }}>
+          {(d?.logs || []).map((g, i) => (
+            <div key={i} className="linha-item" style={{ alignItems: "flex-start" }}>
+              <span className="chip">{LOGK[g.kind] || g.kind}</span>
+              <div className="txt c">{fmt(g.created_at)} · {g.detail?.username ? "@" + g.detail.username + " · " : ""}{g.detail?.texto ? `“${g.detail.texto}” · ` : ""}{g.detail?.motivo || g.detail?.erro || g.detail?.dica || ""}</div>
+            </div>
+          ))}
+          {d && !d.logs?.length && <p className="vazio">nada ainda</p>}
         </div>
       </details>
-    </>
+    </section>
   );
 }
 
-// ——— aba regras ———
+// ——— aba respostas ———
 
 function EditorRegra({ regra, palavrasGerais, onSalvo, onCancelar }) {
   const [r, setR] = useState(regra);
   const [salvando, setSalvando] = useState(false);
   const set = (k, v) => setR({ ...r, [k]: v });
+  const id = (k) => `${k}-${regra.id || regra.media_id || "nova"}`;
   const salvar = async () => {
     if (!(r.link_url || "").startsWith("http")) return toast("coloque um link começando com https://");
-    if ((r.button_text || "").length > 20) return toast("o texto do botão pode ter no máximo 20 caracteres");
     setSalvando(true);
-    try { await api("save_rule", r); toast("regra salva"); onSalvo(); } catch (e) { toast(e.message); }
+    try { await api("save_rule", r); toast("resposta salva"); onSalvo(); } catch (e) { toast(e.message); }
     setSalvando(false);
   };
   return (
-    <div>
-      <label className={label}>link de destino (landing page)</label>
-      <input className={input} value={r.link_url || ""} onChange={(e) => set("link_url", e.target.value)} placeholder="https://materiais.criatividadesbiblicas.com.br/..." />
-      <p className={hint}>o link fica escondido no botão do direct. o clique é contado e a pessoa chega na página com utm_source=instagram</p>
-      <label className={label}>mensagem do direct</label>
-      <textarea className={input + " min-h-[120px]"} value={r.dm_message || ""} onChange={(e) => set("dm_message", e.target.value)} />
-      <p className={hint}>a linha com <b>{"{link}"}</b> some quando o botão funciona. ela só é usada se a Meta recusar o botão</p>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className={label}>texto do botão <span className="font-normal text-cacau/50">({(r.button_text || "").length}/20)</span></label>
-          <input className={input} maxLength={20} value={r.button_text || ""} onChange={(e) => set("button_text", e.target.value)} placeholder="Quero ver agora" />
-        </div>
-        <div>
-          <label className={label}>etiqueta dos leads</label>
-          <input className={input} value={r.tag || ""} onChange={(e) => set("tag", e.target.value)} placeholder="ex: black, kids, emoções" />
-        </div>
+    <>
+      <div className="grade-campos">
+        <div className="campo"><label htmlFor={id("link")}>Página de destino</label>
+          <input id={id("link")} className="entrada" value={r.link_url || ""} onChange={(e) => set("link_url", e.target.value)} placeholder="https://materiais.criatividadesbiblicas.com.br/..." />
+          <span className="dica">o link vai escondido no botão. a gente conta quem clicou.</span></div>
+        <div className="campo"><label htmlFor={id("msg")}>Mensagem do direct</label>
+          <textarea id={id("msg")} className="entrada" value={r.dm_message || ""} onChange={(e) => set("dm_message", e.target.value)} />
+          <span className="dica">a linha com <b>{"{link}"}</b> só aparece se a Meta recusar o botão.</span></div>
       </div>
-      <label className={label}>respostas públicas no comentário (sorteia uma)</label>
-      <Tags value={r.public_replies || []} onChange={(v) => set("public_replies", v)} placeholder="ex: Te chamei no direct! 💛" />
-      <label className={label}>palavras-chave {regra.media_id ? "desta regra" : "da regra padrão"}</label>
-      <Tags value={r.keywords || []} onChange={(v) => set("keywords", v)} placeholder="vazio = usa as palavras gerais" />
-      {!r.keywords?.length && <p className={hint}>usando as gerais: {palavrasGerais.join(", ")}</p>}
-      <div className="mt-4 flex gap-2">
-        <button type="button" className={btnPri} onClick={salvar} disabled={salvando}>{salvando ? "salvando…" : "salvar"}</button>
-        {onCancelar && <button type="button" className={btn + " border-transparent"} onClick={onCancelar}>cancelar</button>}
+      <div className="grade-campos duas-col">
+        <div className="campo"><label htmlFor={id("btn")}>Texto do botão <span style={{ color: "var(--tinta-50)" }}>{(r.button_text || "").length}/20</span></label>
+          <input id={id("btn")} className="entrada" maxLength={20} value={r.button_text || ""} onChange={(e) => set("button_text", e.target.value)} placeholder="Quero ver agora" /></div>
+        <div className="campo"><label htmlFor={id("tag")}>Etiqueta dos leads</label>
+          <input id={id("tag")} className="entrada" value={r.tag || ""} onChange={(e) => set("tag", e.target.value)} placeholder="ex: black, kids, emoções" /></div>
       </div>
-    </div>
+      <div className="grade-campos">
+        <div className="campo"><span className="rotulo">Resposta no comentário <span style={{ fontWeight: 600, color: "var(--tinta-65)" }}>(sorteia uma)</span></span>
+          <Tags value={r.public_replies || []} onChange={(v) => set("public_replies", v)} placeholder="ex: Te chamei no direct! 💛" /></div>
+        <div className="campo"><span className="rotulo">Palavras de interesse {regra.media_id ? "desta resposta" : ""}</span>
+          <Tags value={r.keywords || []} onChange={(v) => set("keywords", v)} placeholder="vazio = usa as palavras gerais" />
+          {!r.keywords?.length && <span className="dica">usando as gerais: {palavrasGerais.join(", ")}</span>}</div>
+      </div>
+      <div className="filtros" style={{ marginTop: 16 }}>
+        <button type="button" className="btn btn--sol" onClick={salvar} disabled={salvando}>{salvando ? "salvando…" : "Salvar resposta"}</button>
+        {onCancelar && <button type="button" className="btn" onClick={onCancelar}>Cancelar</button>}
+      </div>
+    </>
   );
 }
 
@@ -309,8 +300,8 @@ function Regras() {
   const [editando, setEditando] = useState(null);
   const [kw, setKw] = useState(null);
   const [novoAd, setNovoAd] = useState({ media_id: "", label: "" });
+  if (!adm) return <section className="miolo"><p className="vazio">carregando…</p></section>;
 
-  if (!adm) return <p className="py-10 text-center text-cacau/50">carregando…</p>;
   const s = adm.settings;
   const padrao = adm.rules.find((r) => !r.media_id);
   const proximo = adm.rules.find((r) => r.media_id === "__next__");
@@ -318,158 +309,167 @@ function Regras() {
   const porMidia = Object.fromEntries(especificas.map((r) => [r.media_id, r]));
   const kwS = kw || { default_keywords: s.default_keywords, negative_keywords: s.negative_keywords };
   const base = (extra) => ({ dm_message: padrao?.dm_message, link_url: padrao?.link_url, public_replies: padrao?.public_replies, button_text: padrao?.button_text, tag: padrao?.tag, keywords: [], ...extra });
-  const personalizar = (m) => { setEditando(base({ name: (m.caption || "post").split("\n")[0].slice(0, 60), media_id: m.id, media_caption: (m.caption || "").slice(0, 300), media_thumb: m.thumbnail_url || m.media_url, media_permalink: m.permalink })); scrollTo({ top: 0, behavior: "smooth" }); };
+  const subir = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <>
-      <h1 className="font-display text-2xl font-semibold">Regras</h1>
-      <p className="mb-4 text-sm text-cacau/60">o que o robô responde. a regra padrão vale pra todos os posts e anúncios. personalize um post pra mandar outro link</p>
+    <section className="miolo">
+      <Titulo cor="ceu" antes="O que o" marca="Carteiro" tom="agua" depois="entrega" sub="vale pra todos os posts e anúncios. personalize um post quando ele levar pra outra página." />
 
       {editando && (
-        <div className={card + " mb-3 border-coral/50"}>
-          <div className="mb-1 flex items-center gap-3">
-            {editando.media_thumb && <img src={editando.media_thumb} alt="" className="h-12 w-12 rounded-lg object-cover" />}
-            <h2 className="font-bold">{editando.media_id === "__next__" ? "regra do próximo post" : "personalizar: " + editando.name}</h2>
-          </div>
+        <div className="cartao" style={{ borderColor: "var(--coral)" }}>
+          <div className="cab"><h2>{editando.media_id === "__next__" ? "Resposta do próximo post" : "Personalizar: " + (editando.name || "post")}</h2>
+            {editando.media_thumb && <img className="capa" src={editando.media_thumb} alt="" />}</div>
           <EditorRegra key={editando.id || editando.media_id} regra={editando} palavrasGerais={s.default_keywords} onSalvo={() => { setEditando(null); reload(); }} onCancelar={() => setEditando(null)} />
         </div>
       )}
 
-      <div className={card}>
-        <div className="flex items-center justify-between"><h2 className="font-bold">regra padrão · todos os posts e anúncios</h2><Chip tom="ok">ativa</Chip></div>
-        {padrao && <EditorRegra key={padrao.id + padrao.updated_at} regra={padrao} palavrasGerais={s.default_keywords} onSalvo={reload} />}
-      </div>
-
-      <div className={card + " mt-3"}>
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="font-bold">próximo post publicado</h2>
-          {proximo ? <Chip tom="info">aguardando o próximo post</Chip> : null}
+      <div className="regras-grade">
+        <div className="coluna">
+          <div className="cartao">
+            <div className="cab"><h2>Resposta padrão</h2><span className="chip chip--ok">● ativa</span></div>
+            {padrao && <EditorRegra key={padrao.id + padrao.updated_at} regra={padrao} palavrasGerais={s.default_keywords} onSalvo={reload} />}
+          </div>
+          <div className="cartao">
+            <h2>Palavras de interesse</h2>
+            <p className="sub">entende “EU QUEROOO!!!”, sem acento e com letra repetida. comece com <b>=</b> pra exigir o comentário exato (<b>=eu</b>).</p>
+            <div style={{ marginTop: 12 }}><Tags value={kwS.default_keywords} onChange={(v) => setKw({ ...kwS, default_keywords: v })} /></div>
+            <p className="rotulo" style={{ margin: "14px 0 6px" }}>Ignorar quando tiver</p>
+            <Tags rosa value={kwS.negative_keywords} onChange={(v) => setKw({ ...kwS, negative_keywords: v })} />
+            {kw && <button type="button" className="btn btn--sol" style={{ marginTop: 14 }} onClick={async () => { await api("save_settings", kw); setKw(null); reload(); toast("palavras salvas"); }}>Salvar palavras</button>}
+          </div>
         </div>
-        <p className="mt-1 text-sm text-cacau/60">
-          deixe pronta a regra do próximo reels. quando ele for publicado, o robô aplica automaticamente, sem você precisar entrar aqui
-        </p>
-        <div className="mt-3 flex gap-2">
-          {proximo ? (
-            <>
-              <button type="button" className={btn} onClick={() => { setEditando(proximo); scrollTo({ top: 0, behavior: "smooth" }); }}>editar</button>
-              <button type="button" className={btn + " text-coral-deep"} onClick={async () => { await api("delete_rule", { id: proximo.id }); reload(); toast("regra do próximo post removida"); }}>remover</button>
-            </>
-          ) : (
-            <button type="button" className={btnPri} onClick={() => { setEditando(base({ name: "regra do próximo post", media_id: "__next__" })); scrollTo({ top: 0, behavior: "smooth" }); }}>criar regra do próximo post</button>
+
+        <div className="coluna">
+          <div className="cartao cartao--ceu">
+            <div className="cab"><h2>Próximo post</h2>{proximo && <span className="chip chip--sol">aguardando publicação</span>}</div>
+            <p className="sub">o próximo reels já sai com esta resposta. você não precisa voltar aqui depois de postar.</p>
+            <div className="filtros" style={{ marginTop: 12 }}>
+              {proximo ? (
+                <>
+                  <button type="button" className="btn btn--mini" onClick={() => { setEditando(proximo); subir(); }}>Editar</button>
+                  <button type="button" className="btn btn--mini btn--perigo" onClick={async () => { await api("delete_rule", { id: proximo.id }); reload(); toast("resposta do próximo post removida"); }}>Remover</button>
+                </>
+              ) : (
+                <button type="button" className="btn btn--sol btn--mini" onClick={() => { setEditando(base({ name: "resposta do próximo post", media_id: "__next__" })); subir(); }}>Preparar resposta</button>
+              )}
+            </div>
+          </div>
+
+          <div className="cartao">
+            <h2>Anúncios monitorados</h2>
+            <p className="sub">o carteiro só lê os comentários. nada é alterado nos anúncios.</p>
+            <div className="lista" style={{ marginTop: 8 }}>
+              {(adm.extra_media || []).map((e) => (
+                <div key={e.media_id} className="linha-item">
+                  <span className="capa capa--ad" style={{ width: 40, height: 40, borderRadius: 12 }}>{sigla(e.label)}</span>
+                  <div className="txt"><div className="t">{e.label}</div><div className="c mono">{e.media_id}</div></div>
+                  <Chave on={e.active} rotulo={"ler comentários de " + e.label} onClick={async () => { await api("save_extra", { media_id: e.media_id, active: !e.active }); reload(); }} />
+                </div>
+              ))}
+            </div>
+            <div className="grade-campos duas-col">
+              <input id="novo-ad-id" className="entrada" placeholder="id da mídia do anúncio" value={novoAd.media_id} onChange={(e) => setNovoAd({ ...novoAd, media_id: e.target.value.trim() })} />
+              <input id="novo-ad-nome" className="entrada" placeholder="nome (ex: anúncio P1)" value={novoAd.label} onChange={(e) => setNovoAd({ ...novoAd, label: e.target.value })} />
+            </div>
+            <button type="button" className="btn btn--mini" style={{ marginTop: 10 }} disabled={!/^\d{10,}$/.test(novoAd.media_id)} onClick={async () => { await api("save_extra", novoAd); setNovoAd({ media_id: "", label: "" }); reload(); toast("anúncio adicionado"); }}>+ Adicionar anúncio</button>
+            <p className="dica" style={{ marginTop: 8 }}>pode pedir pro Claude sincronizar os anúncios novos, como o conjunto P.</p>
+          </div>
+
+          {especificas.length > 0 && (
+            <div className="cartao">
+              <h2>Posts com resposta própria</h2>
+              <div className="lista" style={{ marginTop: 8 }}>
+                {especificas.map((r) => (
+                  <div key={r.id} className="linha-item">
+                    {r.media_thumb ? <img className="capa" src={r.media_thumb} alt="" /> : <span className="capa capa--ad">IG</span>}
+                    <div className="txt"><div className="t">{r.name}</div><div className="c">→ {(r.link_url || "").replace(/^https?:\/\//, "")}{r.tag ? ` · etiqueta ${r.tag}` : ""}</div>
+                      <div className="filtros" style={{ marginTop: 6 }}>
+                        <button type="button" className="btn btn--mini" onClick={() => { setEditando(r); subir(); }}>Editar</button>
+                        <button type="button" className="btn btn--mini btn--perigo" onClick={async () => { await api("delete_rule", { id: r.id }); reload(); toast("o post voltou pra resposta padrão"); }}>Remover</button>
+                      </div>
+                    </div>
+                    <Chave on={r.active} rotulo={"ativar resposta de " + r.name} onClick={async () => { await api("save_rule", { id: r.id, active: !r.active }); reload(); }} />
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
       </div>
 
-      <div className={card + " mt-3"}>
-        <h2 className="font-bold">palavras de interesse (gerais)</h2>
-        <div className="mt-2"><Tags value={kwS.default_keywords} onChange={(v) => setKw({ ...kwS, default_keywords: v })} /></div>
-        <p className={hint}>ignora acento, maiúscula, pontuação e letra repetida (“EU QUEROOO!!!” casa com “quero”). comece com <b>=</b> pra exigir o comentário exato (<b>=eu</b> pega só quem escreveu “eu”)</p>
-        <label className={label}>ignorar quando tiver</label>
-        <Tags value={kwS.negative_keywords} onChange={(v) => setKw({ ...kwS, negative_keywords: v })} />
-        {kw && <button type="button" className={btnPri + " mt-3"} onClick={async () => { await api("save_settings", kw); setKw(null); reload(); toast("palavras salvas"); }}>salvar palavras</button>}
-      </div>
-
-      <div className={card + " mt-3"}>
-        <h2 className="font-bold">anúncios monitorados</h2>
-        <p className="mt-1 text-sm text-cacau/60">anúncios criados direto no gerenciador (dark posts) não aparecem no perfil. o robô lê os comentários deles daqui. só leitura: nada é alterado nos anúncios</p>
-        <div className="mt-2">
-          {(adm.extra_media || []).map((e) => (
-            <div key={e.media_id} className="flex items-center justify-between gap-2 border-t border-sand/30 py-2.5 first:border-0">
-              <div className="min-w-0"><p className="text-sm font-bold">{e.label}</p><p className="font-mono text-xs text-cacau/50">{e.media_id}</p></div>
-              <div className="flex items-center gap-2">
-                <Toggle on={e.active} rotulo={"monitorar " + e.label} onClick={async () => { await api("save_extra", { media_id: e.media_id, active: !e.active }); reload(); }} />
-                <button type="button" className={btn + " px-2.5 py-1.5 text-xs text-coral-deep"} onClick={async () => { if (confirm("parar de monitorar " + e.label + "?")) { await api("save_extra", { media_id: e.media_id, delete: true }); reload(); } }}>remover</button>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_1fr_auto]">
-          <input className={input} placeholder="id da mídia do anúncio" value={novoAd.media_id} onChange={(e) => setNovoAd({ ...novoAd, media_id: e.target.value.trim() })} />
-          <input className={input} placeholder="nome (ex: anúncio P1)" value={novoAd.label} onChange={(e) => setNovoAd({ ...novoAd, label: e.target.value })} />
-          <button type="button" className={btn} disabled={!/^\d{10,}$/.test(novoAd.media_id)} onClick={async () => { await api("save_extra", novoAd); setNovoAd({ media_id: "", label: "" }); reload(); toast("anúncio adicionado"); }}>adicionar</button>
-        </div>
-        <p className={hint}>o id da mídia aparece no gerenciador de anúncios → anúncio → “ver publicação”. se preferir, peça pro Claude sincronizar os anúncios novos</p>
-      </div>
-
-      {especificas.length > 0 && (
-        <div className={card + " mt-3"}>
-          <h2 className="font-bold">posts personalizados</h2>
-          {especificas.map((r) => (
-            <div key={r.id} className="flex gap-3 border-t border-sand/30 py-3 first:border-0">
-              {r.media_thumb ? <img src={r.media_thumb} alt="" className="h-12 w-12 shrink-0 rounded-lg object-cover" /> : <div className="h-12 w-12 shrink-0 rounded-lg bg-sand-light" />}
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-bold">{r.name}</p>
-                <p className="truncate text-xs text-cacau/55">→ {r.link_url}</p>
-                <div className="mt-2 flex items-center gap-2">
-                  <Toggle on={r.active} rotulo="ativar regra" onClick={async () => { await api("save_rule", { id: r.id, active: !r.active }); reload(); }} />
-                  <button type="button" className={btn + " px-2.5 py-1.5 text-xs"} onClick={() => { setEditando(r); scrollTo({ top: 0, behavior: "smooth" }); }}>editar</button>
-                  <button type="button" className={btn + " px-2.5 py-1.5 text-xs text-coral-deep"} onClick={async () => { if (confirm("remover? o post volta pra regra padrão")) { await api("delete_rule", { id: r.id }); reload(); } }}>remover</button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div className={card + " mt-3"}>
-        <h2 className="mb-2 font-bold">seus posts recentes</h2>
-        {erroMidia && <p className={hint}>{erroMidia}</p>}
-        {!midia && !erroMidia && <p className="py-6 text-center text-sm text-cacau/50">carregando posts…</p>}
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="cartao">
+        <h2>Seus posts recentes</h2>
+        <p className="sub">toque em personalizar quando um post precisar levar pra outra página.</p>
+        {erroMidia && <p className="dica">{erroMidia}</p>}
+        {!midia && !erroMidia && <p className="vazio">carregando posts…</p>}
+        <div className="posts">
           {(midia?.data || []).map((m) => (
-            <div key={m.id} className="flex flex-col overflow-hidden rounded-xl border border-sand/40 bg-white">
-              <img src={m.thumbnail_url || m.media_url} alt="" loading="lazy" className="aspect-[4/5] w-full bg-sand-light object-cover" />
-              <div className="flex flex-1 flex-col gap-2 p-2.5 text-xs text-cacau/60">
-                <p className="line-clamp-2">{m.caption || "(sem legenda)"}</p>
-                {porMidia[m.id] ? <Chip tom="info">personalizado</Chip> : <button type="button" className={btn + " px-2 py-1.5 text-xs"} onClick={() => personalizar(m)}>personalizar</button>}
+            <div key={m.id} className="post">
+              <img src={m.thumbnail_url || m.media_url} alt="" loading="lazy" />
+              <div className="b">
+                <span className="cap">{m.caption || "(sem legenda)"}</span>
+                {porMidia[m.id] ? <span className="chip chip--info">personalizado</span> :
+                  <button type="button" className="btn btn--mini" onClick={() => { setEditando(base({ name: (m.caption || "post").split("\n")[0].slice(0, 60), media_id: m.id, media_caption: (m.caption || "").slice(0, 300), media_thumb: m.thumbnail_url || m.media_url, media_permalink: m.permalink })); subir(); }}>Personalizar</button>}
               </div>
             </div>
           ))}
         </div>
       </div>
-    </>
+    </section>
   );
 }
 
 // ——— aba testar ———
 
 function Testar() {
-  const [texto, setTexto] = useState("Eu quero!!! 😍");
-  const [mid, setMid] = useState("");
+  const [texto, setTexto] = useState("EU QUEROOO 😍");
   const [res, setRes] = useState(null);
-  const [midia] = useLoad(() => api("media").catch(() => ({ data: [] })), []);
-  const rodar = async () => { try { setRes(await api("test", { text: texto, media_id: mid || null, username: "professora.ana" })); } catch (e) { toast(e.message); } };
+  const rodar = useCallback(async (t) => { try { setRes(await api("test", { text: t, username: "professora.ana" })); } catch (e) { toast(e.message); } }, []);
+  useEffect(() => { const h = setTimeout(() => rodar(texto), 350); return () => clearTimeout(h); }, [texto, rodar]);
   return (
-    <>
-      <h1 className="font-display text-2xl font-semibold">Testar</h1>
-      <p className="mb-4 text-sm text-cacau/60">simula um comentário e mostra o que o robô faria. não envia nada</p>
-      <div className={card}>
-        <label className={label + " mt-0"}>comentário</label>
-        <input className={input} value={texto} onChange={(e) => setTexto(e.target.value)} onKeyDown={(e) => e.key === "Enter" && rodar()} />
-        <label className={label}>em qual post</label>
-        <select className={input} value={mid} onChange={(e) => setMid(e.target.value)}>
-          <option value="">qualquer post (regra padrão)</option>
-          {(midia?.data || []).map((m) => <option key={m.id} value={m.id}>{(m.caption || m.id).slice(0, 70)}</option>)}
-        </select>
-        <button type="button" className={btnPri + " mt-4"} onClick={rodar}>simular</button>
-      </div>
-      {res && (
-        <div className={card + " mt-3"}>
-          {res.match ? (
-            <>
-              <div className="mb-3 flex flex-wrap gap-2"><Chip tom="ok">responderia</Chip><Chip>regra: {res.regra}</Chip><Chip>palavra: {res.palavra}</Chip></div>
-              <p className={label + " mt-0"}>resposta pública no comentário</p>
-              <p className="inline-block rounded-xl bg-coral/10 px-3 py-2 text-sm">{res.publica || "(sem resposta pública)"}</p>
-              <p className={label}>direct</p>
-              <div className="max-w-sm overflow-hidden rounded-[20px] rounded-bl-md bg-sand-light">
-                <p className="whitespace-pre-wrap px-4 py-3 text-sm">{res.direct}</p>
-                <a href={res.link} target="_blank" rel="noreferrer" className="block border-t border-sand/50 bg-white py-2.5 text-center text-sm font-bold text-cacau">{res.botao}</a>
-              </div>
-            </>
-          ) : <div className="flex flex-wrap items-center gap-2"><Chip tom="alerta">não responderia</Chip><span className="text-sm">{res.motivo}</span></div>}
+    <section className="miolo">
+      <Titulo cor="coral" antes="Testa" marca="aqui" tom="rosa" sub="escreve um comentário como se fosse uma professora. nada é enviado de verdade." />
+      <div className="duas">
+        <div className="cartao">
+          <div className="campo"><label htmlFor="t-com">Comentário</label><input id="t-com" className="entrada" value={texto} onChange={(e) => setTexto(e.target.value)} /></div>
+          <div className="filtros" style={{ marginTop: 10 }}>
+            {["tenho interesse!!", "qual o valor?", "que lindo 😍", "não quero"].map((x) => <button key={x} type="button" className="pilula" onClick={() => setTexto(x)}>{x}</button>)}
+          </div>
+          <div style={{ display: "grid", gap: 10, marginTop: 18 }}>
+            {res?.match ? (
+              <>
+                <span className="chip chip--ok" style={{ justifySelf: "start" }}>entregaria · palavra “{(res.palavra || "").replace("=", "")}”</span>
+                <div className="passo"><span className="n">1</span><p>responde no comentário: “{res.publica}”</p></div>
+                <div className="passo"><span className="n">2</span><p>o carteiro entrega o direct com o botão “{res.botao}”</p></div>
+                <div className="passo"><span className="n">3</span><p>marca o lead e conta o clique</p></div>
+              </>
+            ) : res ? (
+              <>
+                <span className="chip chip--alerta" style={{ justifySelf: "start" }}>não entregaria</span>
+                <div className="passo"><span className="n">!</span><p>{res.motivo}</p></div>
+              </>
+            ) : <p className="vazio">testando…</p>}
+          </div>
         </div>
-      )}
-    </>
+        <div className="celular" aria-label="prévia no instagram">
+          <div className="tela-cel">
+            <div>
+              <div className="cel-topo"><span className="av"><img src={MASCOTE} alt="" /></span><div><b>criatividadesbiblicas</b><span>direct</span></div></div>
+              <div className="cel-coment"><div><b>professora.ana</b> {texto || "…"}</div>{res?.match && <div className="r"><b>criatividadesbiblicas</b> {res.publica}</div>}</div>
+            </div>
+            <div className="cel-msgs">
+              {res?.match ? (
+                <>
+                  <div className="aviso-ig">criatividadesbiblicas enviou uma mensagem sobre um comentário seu</div>
+                  <div className="bolha">{res.direct}</div>
+                  <a className="bolha-botao" href={res.link} target="_blank" rel="noreferrer">{res.botao}</a>
+                </>
+              ) : <div className="aviso-ig">nenhuma mensagem enviada</div>}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -477,71 +477,79 @@ function Testar() {
 
 function Conexao() {
   const [adm, reload] = useLoad(() => api("admin"), []);
+  const [d] = useLoad(() => api("dashboard", { days: 1 }), []);
   const [token, setToken] = useState("");
   const [segredo, setSegredo] = useState("");
   const [senha, setSenha] = useState("");
   const [ocupado, setOcupado] = useState(false);
-  if (!adm) return <p className="py-10 text-center text-cacau/50">carregando…</p>;
-  const s = adm.settings;
+  if (!adm) return <section className="miolo"><p className="vazio">carregando…</p></section>;
+  const s = adm.settings, h = d?.health;
   const pausado = s.paused_until && new Date(s.paused_until) > new Date();
+  const idade = s.token_updated_at ? Math.floor((Date.now() - new Date(s.token_updated_at).getTime()) / 864e5) : null;
+  const buscaOk = h?.last_poll_ok && Date.now() - new Date(h.last_poll_ok).getTime() < 5 * 60e3;
+  const usados = h?.enviados_ultima_hora ?? 0;
   const conectar = async () => {
     setOcupado(true);
     try { const r = await api("connect", { token }); setToken(""); reload(); toast(`conectado como @${r.me.username} ✓`); }
-    catch (e) { toast("token não funcionou: " + e.message); }
+    catch (e) { toast("o token não funcionou: " + e.message); }
     setOcupado(false);
   };
-  const pausar = async (min) => { await api("pause", { minutes: min }); reload(); toast(min ? `robô pausado por ${min >= 60 ? min / 60 + "h" : min + " min"}` : "robô retomado"); };
+  const pausar = async (min) => { await api("pause", { minutes: min }); reload(); toast(min ? `carteiro em pausa por ${min >= 60 ? min / 60 + "h" : min + " min"}` : "Carteiro voltou pras entregas 📬"); };
+
   return (
-    <>
-      <h1 className="font-display text-2xl font-semibold">Conexão</h1>
-      <p className="mb-4 text-sm text-cacau/60">ligação com o instagram e controles de segurança</p>
-      <div className={card}>
-        <div className="flex flex-wrap items-center gap-2">
-          <h2 className="font-bold">token do instagram</h2>
-          {s.has_token && <Chip tom="ok">@{s.ig_username} conectado</Chip>}
+    <section className="miolo">
+      <Titulo antes="Tudo" marca="ligado?" tom="menta" sub="saúde do carteiro e controles de segurança" />
+      <div className="duas">
+        <div className="cartao">
+          <h2>Saúde do carteiro</h2>
+          <div className="checklist">
+            <div className="check"><span className={"ic" + (s.has_token ? "" : " ic--ruim")}>{s.has_token ? "✓" : "!"}</span><div><b>Instagram conectado</b><span>{s.has_token ? `@${s.ig_username} · token colado em ${fmt(s.token_updated_at)}` : "cole o token abaixo"}</span></div><span className={"chip " + (s.has_token ? "chip--ok" : "chip--ruim")}>{s.has_token ? "ok" : "falta"}</span></div>
+            <div className="check"><span className={"ic" + (buscaOk ? "" : " ic--alerta")}>{buscaOk ? "✓" : "!"}</span><div><b>Busca de comentários</b><span>{h?.last_poll_ok ? `última rodada em ${fmt(h.last_poll_ok)} · posts + ${(adm.extra_media || []).filter((e) => e.active).length} anúncios` : "ainda sem rodada registrada"}</span></div><span className={"chip " + (buscaOk ? "chip--ok" : "chip--alerta")}>{buscaOk ? "ok" : "verificar"}</span></div>
+            <div className="check"><span className={"ic" + (pausado ? " ic--alerta" : "")}>{pausado ? "❚❚" : "✓"}</span><div><b>Entregas</b><span>{pausado ? `em pausa até ${fmt(s.paused_until)}` : s.enabled ? "carteiro ligado e entregando" : "carteiro desligado"}</span></div><span className={"chip " + (pausado || !s.enabled ? "chip--alerta" : "chip--ok")}>{pausado ? "pausa" : s.enabled ? "ok" : "desligado"}</span></div>
+            {idade !== null && <div className="check"><span className={"ic" + (idade >= 50 ? " ic--alerta" : "")}>{idade >= 50 ? "!" : "✓"}</span><div><b>Validade do token</b><span>colado há {idade} dia(s). gere um novo antes de completar 60</span></div><span className={"chip " + (idade >= 50 ? "chip--alerta" : "chip--ok")}>{60 - idade} dias</span></div>}
+          </div>
         </div>
-        {s.token_updated_at && <p className={hint}>colado em {fmt(s.token_updated_at)}. gere um novo antes de completar 60 dias</p>}
-        <label className={label}>{s.has_token ? "trocar token" : "cole o token gerado no app da Meta"}</label>
-        <div className="flex gap-2">
-          <input type="password" className={input} value={token} onChange={(e) => setToken(e.target.value)} placeholder="EAG… ou IGAA…" />
-          <button type="button" className={btnPri} disabled={!token || ocupado} onClick={conectar}>{ocupado ? "conectando…" : "conectar"}</button>
-        </div>
-        <label className={label}>chave secreta do app {s.has_app_secret && <Chip tom="ok">salva</Chip>}</label>
-        <div className="flex gap-2">
-          <input type="password" className={input} value={segredo} onChange={(e) => setSegredo(e.target.value)} placeholder="cole aqui" />
-          <button type="button" className={btn} disabled={!segredo} onClick={async () => { await api("save_settings", { app_secret: segredo.trim() }); setSegredo(""); reload(); toast("chave salva"); }}>salvar</button>
-        </div>
-        <label className={label}>url de callback do webhook</label>
-        <Copiar valor={adm.webhook_url} />
-        <label className={label}>token de verificação</label>
-        <Copiar valor={s.verify_token} />
-      </div>
-
-      <div className={card + " mt-3"}>
-        <div className="flex flex-wrap items-center gap-2">
-          <h2 className="font-bold">pausa e limites</h2>
-          {pausado ? <Chip tom="ruim">pausado até {fmt(s.paused_until)}</Chip> : <Chip tom="ok">rodando</Chip>}
-        </div>
-        <p className="mt-1 text-sm text-cacau/60">
-          limite de segurança: até {s.max_per_hour} directs por hora, com 3 segundos entre cada um. o que passar espera na fila.
-          se a Meta sinalizar limite, o robô pausa sozinho por 30 min
-        </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <button type="button" className={btn} onClick={() => pausar(30)}>pausar 30 min</button>
-          <button type="button" className={btn} onClick={() => pausar(120)}>pausar 2h</button>
-          {pausado && <button type="button" className={btnPri} onClick={() => pausar(0)}>retomar agora</button>}
+        <div className="cartao cartao--ceu">
+          <h2>Limite de segurança</h2>
+          <p className="sub">protege a conta de bloqueio quando um reels viraliza</p>
+          <div className="cab" style={{ marginTop: 14, fontWeight: 800 }}><span>entregas na última hora</span><span style={{ fontFamily: "var(--f-letreiro)" }}>{usados} / {s.max_per_hour}</span></div>
+          <div className="medidor"><i style={{ width: Math.min(100, (usados / s.max_per_hour) * 100) + "%" }} /></div>
+          <p className="sub" style={{ marginTop: 12 }}>3 segundos entre cada entrega. se a Meta sinalizar limite, o carteiro pausa sozinho por 30 minutos.</p>
+          <div className="filtros" style={{ marginTop: 16 }}>
+            <button type="button" className="btn" onClick={() => pausar(30)}>Pausar 30 min</button>
+            <button type="button" className="btn" onClick={() => pausar(120)}>Pausar 2h</button>
+            {pausado && <button type="button" className="btn btn--sol" onClick={() => pausar(0)}>Retomar agora</button>}
+          </div>
         </div>
       </div>
 
-      <div className={card + " mt-3"}>
-        <h2 className="font-bold">senha do painel</h2>
-        <div className="mt-2 flex gap-2">
-          <input type="password" className={input} value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="nova senha (mínimo 6)" />
-          <button type="button" className={btn} disabled={senha.length < 6} onClick={async () => { try { await api("set_pass", { pass: senha }); store.set(senha); setSenha(""); toast("senha trocada"); } catch (e) { toast(e.message); } }}>trocar</button>
+      <div className="cartao">
+        <h2>Conexão com o Instagram</h2>
+        <div className="grade-campos">
+          <div className="campo"><label htmlFor="c-token">{s.has_token ? "Trocar token" : "Token do app da Meta"}</label>
+            <div className="linha-form"><input id="c-token" type="password" className="entrada" value={token} onChange={(e) => setToken(e.target.value)} placeholder="EAG… ou IGAA…" />
+              <button type="button" className="btn btn--sol" disabled={!token || ocupado} onClick={conectar}>{ocupado ? "conectando…" : "Conectar"}</button></div></div>
+          <div className="campo"><label htmlFor="c-segredo">Chave secreta do app {s.has_app_secret && <span className="chip chip--ok">salva</span>}</label>
+            <div className="linha-form"><input id="c-segredo" type="password" className="entrada" value={segredo} onChange={(e) => setSegredo(e.target.value)} placeholder="cole aqui" />
+              <button type="button" className="btn" disabled={!segredo} onClick={async () => { await api("save_settings", { app_secret: segredo.trim() }); setSegredo(""); reload(); toast("chave salva"); }}>Salvar</button></div></div>
+          <div className="campo"><label htmlFor="c-webhook">Endereço do webhook</label><Copiar id="c-webhook" valor={adm.webhook_url} /></div>
+          <div className="campo"><label htmlFor="c-verifica">Token de verificação</label><Copiar id="c-verifica" valor={s.verify_token} /></div>
         </div>
-        <button type="button" className={btn + " mt-3 border-transparent text-cacau/60"} onClick={() => { store.set(""); location.reload(); }}>sair</button>
       </div>
-    </>
+
+      <div className="cartao">
+        <div className="vazio-mascote"><img src={MASCOTE} alt="" /><p>Quando chegar a hora de renovar a minha licença de carteiro (o token), eu aviso no topo do painel com uma faixa amarela. Você só cola o novo e eu volto pras entregas.</p></div>
+      </div>
+
+      <div className="cartao">
+        <h2>Senha do painel</h2>
+        <div className="linha-form" style={{ marginTop: 12 }}>
+          <input id="c-senha" type="password" className="entrada" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="nova senha (mínimo 6)" />
+          <button type="button" className="btn" disabled={senha.length < 6} onClick={async () => { try { await api("set_pass", { pass: senha }); store.set(senha); setSenha(""); toast("senha trocada"); } catch (e) { toast(e.message); } }}>Trocar</button>
+        </div>
+        <button type="button" className="btn btn--mini" style={{ marginTop: 12 }} onClick={() => { store.set(""); location.reload(); }}>Sair</button>
+      </div>
+    </section>
   );
 }
 
@@ -556,19 +564,33 @@ function Login({ onOk }) {
     if (r.ok) { store.set(p); onOk(); } else setErro(true);
   };
   return (
-    <main className="grid min-h-screen place-items-center px-4">
-      <form onSubmit={entrar} className={card + " w-full max-w-sm"}>
-        <p className="font-display text-xl font-semibold">Respostas · Instagram</p>
-        <label className={label}>senha</label>
-        <input type="password" autoFocus className={input} value={p} onChange={(e) => { setP(e.target.value); setErro(false); }} />
-        {erro && <p className="mt-1 text-sm text-coral-deep">senha incorreta</p>}
-        <button className={btnPri + " mt-4 w-full"}>entrar</button>
+    <main className="login">
+      <form onSubmit={entrar} className="cartao">
+        <img className="logo" src={LOGO} alt="Criatividades Bíblicas" />
+        <span className="chip chip--sol nome">📬 Biblinho Carteiro</span>
+        <div className="campo"><label htmlFor="l-senha">Senha</label>
+          <input id="l-senha" type="password" autoFocus className="entrada" value={p} onChange={(e) => { setP(e.target.value); setErro(false); }} /></div>
+        {erro && <p className="dica" style={{ color: "var(--ruim)", margin: 0 }}>senha incorreta</p>}
+        <button className="btn btn--sol">Entrar</button>
       </form>
     </main>
   );
 }
 
-const ABAS = [["painel", "Painel", "📊", Painel], ["regras", "Regras", "⚙️", Regras], ["testar", "Testar", "🧪", Testar], ["conexao", "Conexão", "🔌", Conexao]];
+const ABAS = [["painel", "Painel", Painel], ["regras", "Respostas", Regras], ["testar", "Testar", Testar], ["conexao", "Conexão", Conexao]];
+
+function ChaveRobo({ curta }) {
+  const [adm, reload] = useLoad(() => api("admin"), []);
+  const on = adm?.settings?.enabled;
+  const alternar = async () => { await api("save_settings", { enabled: !on }); reload(); toast(on ? "Carteiro em pausa" : "Carteiro voltou pras entregas 📬"); };
+  return (
+    <div className="robo" data-on={String(on !== false)}>
+      <span className="ponto" />
+      <span>{adm ? (on ? (curta ? "ligado" : "carteiro ligado") : (curta ? "desligado" : "carteiro desligado")) : "…"}</span>
+      <Chave on={on !== false} rotulo="ligar ou desligar o carteiro" onClick={alternar} />
+    </div>
+  );
+}
 
 export default function PainelRespostas() {
   const [pronto, setPronto] = useState(false);
@@ -581,29 +603,43 @@ export default function PainelRespostas() {
     const h = location.hash.slice(1);
     if (ABAS.some((a) => a[0] === h)) setAba(h);
     setPronto(true);
-    avisar = (m) => { setMsg(m); setTimeout(() => setMsg(null), 2800); };
+    let t;
+    avisar = (m) => { setMsg(m); clearTimeout(t); t = setTimeout(() => setMsg(null), 2600); };
   }, []);
-  const ir = (a) => { setAba(a); history.replaceState(null, "", "#" + a); };
+  const ir = (a) => { setAba(a); history.replaceState(null, "", "#" + a); window.scrollTo(0, 0); };
 
   if (!pronto) return null;
   if (!logado) return <Login onOk={() => setLogado(true)} />;
-  const Atual = (ABAS.find((a) => a[0] === aba) || ABAS[0])[3];
+  const Atual = (ABAS.find((a) => a[0] === aba) || ABAS[0])[2];
+
   return (
-    <div className="min-h-screen bg-ivory pb-24 text-cacau md:pb-10">
-      <header className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-4">
-        <p className="font-display text-lg font-semibold">Respostas <span className="text-coral-deep">·</span> Instagram</p>
-        <nav className="fixed inset-x-0 bottom-0 z-10 flex justify-around border-t border-sand/40 bg-white px-1 pb-[calc(6px+env(safe-area-inset-bottom))] pt-1.5 md:static md:justify-end md:gap-1 md:border-0 md:bg-transparent md:p-0">
-          {ABAS.map(([id, nome, ic]) => (
-            <button key={id} type="button" onClick={() => ir(id)}
-              className={"flex flex-col items-center rounded-xl px-3 py-1.5 text-xs font-bold md:flex-row md:gap-1.5 md:text-sm " +
-                (aba === id ? "bg-coral/10 text-coral-deep md:bg-white md:text-cacau md:shadow-sm" : "text-cacau/55")}>
-              <span className="text-lg leading-none md:hidden">{ic}</span>{nome}
-            </button>
+    <div className="app">
+      <aside className="lateral" aria-label="menu">
+        <span className="chip chip--sol nome" style={{ fontSize: 13 }}>📬 Biblinho Carteiro</span>
+        <img className="logo" src={LOGO} alt="Criatividades Bíblicas" />
+        <nav className="nav">
+          {ABAS.map(([id, nome]) => (
+            <button key={id} type="button" aria-current={aba === id ? "page" : undefined} onClick={() => ir(id)}><Icone id={id} />{nome}</button>
           ))}
         </nav>
-      </header>
-      <main className="mx-auto max-w-5xl px-4"><Atual key={aba} /></main>
-      {msg && <div role="status" className="fixed bottom-24 left-1/2 z-20 -translate-x-1/2 rounded-xl bg-cacau px-4 py-2.5 text-sm font-bold text-ivory shadow-lg md:bottom-8">{msg}</div>}
+        <div className="lateral-pe">
+          <ChaveRobo />
+          <div className="mascote-pe"><img src={MASCOTE} alt="" /><p>entrego o link no direct de quem comenta <b>eu quero</b>, em até 1 minuto 📬</p></div>
+        </div>
+      </aside>
+      <div style={{ minWidth: 0 }}>
+        <header className="topo">
+          <img className="logo" src={LOGO} alt="Criatividades Bíblicas" />
+          <ChaveRobo curta />
+        </header>
+        <main className="conteudo"><Atual key={aba} /></main>
+      </div>
+      <nav className="abas" aria-label="abas">
+        {ABAS.map(([id, nome]) => (
+          <button key={id} type="button" aria-current={aba === id ? "page" : undefined} onClick={() => ir(id)}><Icone id={id} />{nome}</button>
+        ))}
+      </nav>
+      {msg && <div className="toast" role="status">{msg}</div>}
     </div>
   );
 }
