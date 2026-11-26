@@ -304,4 +304,19 @@ dialog.painel-pronto::backdrop{background:rgb(29 26 79 / .6)}
 .capa-vazia{width:100%;height:auto;aspect-ratio:4/5;border-radius:var(--raio-p)}
 .botao:disabled{opacity:.55;cursor:default;transform:none}
 .s-cri{border-style:dashed!important}
+/* reels de teste (26/11) */
+.s-teste{background:#FFE1DC}
+.dia button.p.teste{border-color:var(--coral);border-left-width:4px}
+.tag-teste{display:inline-flex;align-items:center;font-weight:900;font-size:.6875rem;letter-spacing:.04em;padding:.05rem .45rem;border-radius:999px;background:var(--coral);color:var(--branco);border:2px solid var(--marinho);white-space:nowrap}
+.filtro-tipo button[aria-pressed="true"]{background:var(--marinho);color:var(--sol)}
+.placar{display:grid;gap:.6rem}
+.placar-linha{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.4rem .8rem;align-items:center;border:2px solid var(--marinho);border-radius:var(--raio-p);padding:.55rem .75rem;background:var(--claro)}
+.placar-linha b{font-weight:900}
+.placar-ab{display:flex;gap:.4rem;flex-wrap:wrap}
+@media (max-width:36rem){.placar-linha{grid-template-columns:minmax(0,1fr)}}
+.placar-ab button{cursor:pointer;font-family:inherit;font-weight:800;font-size:.8125rem;border:2px solid var(--marinho);border-radius:999px;padding:.1rem .55rem;background:var(--branco);color:var(--marinho);text-decoration:none}
+.placar-ab .ganhou{background:var(--sol)}
+.saiu{display:grid;gap:.45rem}
+.saiu a{color:var(--azul);font-weight:800}
+#sala-video video{width:min(100%,17rem);height:auto;border-radius:.8rem;border:2px solid var(--marinho);background:var(--marinho);display:block}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

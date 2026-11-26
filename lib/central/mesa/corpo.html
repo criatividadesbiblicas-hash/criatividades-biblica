@@ -1,9 +1,9 @@
 <div class="aviso-prototipo" id="barra-pc" hidden><div class="miolo"><span id="barra-pc-texto"></span></div></div>
 
 <header class="topo"><div class="miolo">
-  <a href="/central" class="volta-central" aria-label="Voltar pra Central de Comando"><img src="/central-mesa/logo.webp" alt="Criatividades Bíblicas" width="563" height="183"></a>
+  <a href="/central/mesa" class="volta-central" aria-label="Mesa de Postagens, começo"><img src="/central-mesa/logo.webp" alt="Criatividades Bíblicas" width="563" height="183"></a>
   <div class="topo-dir">
-    <p class="data"><a href="/central">Central</a> · Mesa de postagens<br><span id="data-hoje"></span></p>
+    <p class="data">Mesa de postagens · <a href="/central/trocar-senha">Trocar senha</a><br><span id="data-hoje"></span></p>
     <div class="navega" role="group" aria-label="Navegar entre as telas">
       <button type="button" id="nav-voltar" aria-label="Voltar pra tela anterior" disabled><svg aria-hidden="true"><use href="#i-voltar"/></svg><span class="rot">Voltar</span></button>
       <button type="button" id="nav-avancar" aria-label="Avançar pra próxima tela" disabled><span class="rot">Avançar</span><svg aria-hidden="true"><use href="#i-avancar"/></svg></button>
@@ -57,6 +57,11 @@
         <p class="mudo">Feed e reels normais dos últimos 30 dias. Reels de teste ficam fora.</p>
         <div class="top" id="top-posts"></div>
       </div>
+      <div class="cartao" style="display:grid;gap:.6rem">
+        <h2 class="titulo-secao">Reels de teste: placar A × B</h2>
+        <p class="mudo">Cada tema sai com duas aberturas diferentes (gancho A e gancho B) pra ver qual prende mais. No Instagram, o reel de teste aparece só pra quem não segue; o mesmo vídeo sai também no TikTok e no Pinterest.</p>
+        <div id="placar-testes" class="placar"></div>
+      </div>
     </div>
     <div id="painel-outra" class="cartao" hidden>
       <h2 class="titulo-secao" id="outra-titulo">TikTok</h2>
@@ -75,6 +80,7 @@
   <div class="miolo secao">
     <div class="cal-ctrl">
       <h2 class="titulo-secao" id="cal-titulo">Próximas semanas</h2>
+      <div class="pilulas filtro-tipo" role="group" aria-label="Mostrar"><button type="button" aria-pressed="true" data-filtro="tudo">Tudo</button><button type="button" aria-pressed="false" data-filtro="normal">Normais</button><button type="button" aria-pressed="false" data-filtro="teste">Testes</button></div>
       <div class="alterna" role="group" aria-label="Ver por">
         <button type="button" aria-pressed="false" data-vista="semana">Semana</button>
         <button type="button" aria-pressed="true" data-vista="mes">Mês</button>
@@ -85,7 +91,7 @@
       <div class="cartao"><div class="semana-lista" id="semana-lista"></div></div>
     </div>
     <div class="legenda-cores" aria-label="Legenda das cores">
-      <span><i class="s-pub"></i>publicado</span><span><i class="s-ag"></i>agendado</span><span><i class="s-apr"></i>pra você aprovar</span><span><i class="s-cri"></i>aprovado, o Claude agenda</span><span><i class="s-ideia"></i>ideia esperando você</span><span><i style="border-style:dashed"></i>dia livre</span>
+      <span><i class="s-pub"></i>publicado</span><span><i class="s-ag"></i>agendado</span><span><i class="s-apr"></i>pra você aprovar</span><span><i class="s-cri"></i>aprovado, o Claude agenda</span><span><i class="s-ideia"></i>ideia esperando você</span><span><i class="s-teste"></i>reel de teste</span><span><i style="border-style:dashed"></i>dia livre</span>
     </div>
     <div class="cartao" style="display:grid;gap:.7rem" id="prateleira">
       <h2 class="titulo-secao">Prontos, esperando dia <span class="chip chip--atencao" id="cont-prontos">0</span></h2>
@@ -171,6 +177,7 @@
     <div class="fig"><img src="/central-mesa/biblinho-coracao.webp" alt="" width="1000" height="1000"><svg class="giz" aria-hidden="true" preserveAspectRatio="none"><use href="#giz"/></svg></div>
   </div></div>
   <div class="miolo secao">
+    <div class="pilulas filtro-tipo" role="group" aria-label="Mostrar"><button type="button" aria-pressed="true" data-filtro="tudo">Tudo</button><button type="button" aria-pressed="false" data-filtro="normal">Normais</button><button type="button" aria-pressed="false" data-filtro="teste">Testes</button></div>
     <div class="pilulas" id="escolha-post" role="group" aria-label="Post pra aprovar"></div>
     <div id="sala-vazia" class="cartao" hidden><p class="mensagem">Nada esperando aprovação agora.</p><p class="mudo">Quando eu terminar um post, ele aparece aqui. Os prontos que só precisam de dia ficam no Calendário.</p></div>
     <div id="sala" style="display:grid;gap:1rem">
@@ -199,7 +206,13 @@
         <div><button class="botao botao--coral" type="button" id="env-massa">Refazer o post inteiro</button></div>
       </div>
 
-      <h2 class="titulo-secao">Ajuste card por card</h2>
+      <div class="cartao" id="sala-video" hidden style="display:grid;gap:.6rem;justify-items:start">
+        <h2 class="titulo-secao">O vídeo</h2>
+        <div id="sala-video-corpo"></div>
+        <p class="mudo" id="sala-video-nota"></p>
+      </div>
+
+      <h2 class="titulo-secao" id="titulo-cards">Ajuste card por card</h2>
       <div class="cards" id="cards"></div>
 
       <div class="cartao legenda-box">
@@ -258,6 +271,7 @@
           </div>
         </div>
         <p class="mudo" id="nota-grade" style="max-width:26rem;text-align:center">No perfil, o Instagram mostra cada post um pouco mais estreito e corta uma faixa fina das laterais. Toque num post pra ver ele inteiro.</p>
+        <p class="mudo" style="max-width:26rem;text-align:center">Os reels de teste não aparecem nesta grade: o Instagram mostra eles só pra quem não segue. Eles ficam no Calendário com a etiqueta TESTE.</p>
       </div>
       <div class="cartao" style="display:grid;gap:.7rem">
         <h2 class="titulo-secao">Próximos no feed</h2>
@@ -286,7 +300,11 @@
       <div class="pp-capas" id="pp-capas" role="group" aria-label="Opções de capa"></div>
       <p class="mudo" id="pp-capa-nota"></p>
     </section>
-    <section class="pp-sec">
+    <section class="pp-sec" id="pp-sec-saiu" hidden>
+      <h3>Onde saiu</h3>
+      <div id="pp-saiu"></div>
+    </section>
+    <section class="pp-sec" id="pp-sec-quando">
       <h3>Quando vai sair</h3>
       <div><p class="passo">Dia</p><div class="dias-escolha" id="pp-dias" role="group" aria-label="Dia da postagem"></div><p class="mudo" id="pp-no-dia"></p></div>
       <div><p class="passo">Horário</p><div class="pilulas" id="pp-horas" role="group" aria-label="Horário"></div>
@@ -306,7 +324,7 @@
       <ul class="regras" id="pp-regras"></ul>
       <div><button class="botao botao--p" type="button" id="pp-corrigir" hidden>Corrigir a legenda pra mim</button></div>
     </section>
-    <section class="pp-sec">
+    <section class="pp-sec" id="pp-sec-ajuste">
       <h3>Precisa de ajuste antes?</h3>
       <label for="pp-ajuste" class="passo" style="display:block">O que mudar no post (texto, cor, card). Toque no microfone pra falar.</label>
       <textarea id="pp-ajuste" maxlength="3000" placeholder="No card 3, aumenta a letra do título."></textarea>

@@ -1,4 +1,5 @@
 // app/central/recados/page.js
+import { redirect } from "next/navigation";
 import { exigirSessao } from "@/lib/central/acesso";
 import { listarItens, ultimaRodada, estadoPedidos } from "@/lib/central/caderno";
 import { contadores } from "@/lib/central/itens";
@@ -17,6 +18,7 @@ const SELO = {
 
 export default async function PaginaRecados() {
   await exigirSessao();
+  if (process.env.CENTRAL_PAGINAS_ANTIGAS !== "1") redirect("/central/mesa");
   const [{ itens }, rodada, pedidos] = await Promise.all([listarItens(), ultimaRodada(), estadoPedidos()]);
   const andando = pedidos.recados.some((r) => r.situacao === "novo" || r.situacao === "fazendo");
   return (

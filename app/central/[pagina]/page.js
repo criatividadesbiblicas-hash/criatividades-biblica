@@ -1,5 +1,5 @@
 // app/central/[pagina]/page.js
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { exigirSessao } from "@/lib/central/acesso";
 import { listarItens, ultimaRodada } from "@/lib/central/caderno";
 import { PAGINAS, itensDaPagina, contadores } from "@/lib/central/itens";
@@ -11,6 +11,7 @@ export const dynamic = "force-dynamic";
 export default async function PaginaInterna({ params }) {
   const { pagina } = await params;
   await exigirSessao();
+  if (process.env.CENTRAL_PAGINAS_ANTIGAS !== "1") redirect("/central/mesa");
   if (!Object.hasOwn(PAGINAS, pagina)) notFound();
   const [{ itens, erro }, rodada] = await Promise.all([listarItens(), ultimaRodada()]);
   return (

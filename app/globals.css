@@ -375,7 +375,7 @@ body:has(> .central) { background: #eef7ff; }
 .c-erro { background: #fde8e6; color: #8f1f15; border-radius: 16px; padding: 12px 14px; font-size: 13.5px; font-weight: 600; }
 
 .c-entrar { min-height: 100dvh; display: grid; place-items: center; padding: 24px; }
-.c-entrar form { background: var(--c-branco); border-radius: 28px; padding: 28px; box-shadow: var(--c-sombra); width: min(100%, 380px); display: grid; gap: 14px; }
+.c-entrar form, .c-entrar .c-form-trocar { background: var(--c-branco); border-radius: 28px; padding: 28px; box-shadow: var(--c-sombra); width: min(100%, 380px); display: grid; gap: 14px; }
 .c-entrar img { height: 44px; width: auto; }
 .c-entrar input { border: 2px solid var(--c-ceu); border-radius: 14px; padding: 12px 14px; font: inherit; font-size: 16px; color: var(--c-tinta); }
 .c-entrar input:focus { border-color: var(--c-mar); outline: none; }
