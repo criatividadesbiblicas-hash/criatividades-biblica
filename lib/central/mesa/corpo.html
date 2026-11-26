@@ -1,0 +1,326 @@
+<div class="aviso-prototipo" id="barra-pc" hidden><div class="miolo"><span id="barra-pc-texto"></span></div></div>
+
+<header class="topo"><div class="miolo">
+  <a href="/central" class="volta-central" aria-label="Voltar pra Central de Comando"><img src="/central-mesa/logo.webp" alt="Criatividades Bíblicas" width="563" height="183"></a>
+  <div class="topo-dir">
+    <p class="data"><a href="/central">Central</a> · Mesa de postagens<br><span id="data-hoje"></span></p>
+    <div class="navega" role="group" aria-label="Navegar entre as telas">
+      <button type="button" id="nav-voltar" aria-label="Voltar pra tela anterior" disabled><svg aria-hidden="true"><use href="#i-voltar"/></svg><span class="rot">Voltar</span></button>
+      <button type="button" id="nav-avancar" aria-label="Avançar pra próxima tela" disabled><span class="rot">Avançar</span><svg aria-hidden="true"><use href="#i-avancar"/></svg></button>
+    </div>
+  </div>
+</div></header>
+
+<nav class="abas" aria-label="Telas da Mesa"><ul>
+  <li><a href="#painel" data-aba="painel"><span class="ico"><svg aria-hidden="true"><use href="#i-painel"/></svg></span>Painel</a></li>
+  <li><a href="#calendario" data-aba="calendario"><span class="ico"><svg aria-hidden="true"><use href="#i-cal"/></svg></span>Calendário<span class="bolha" id="bolha-prontos" hidden></span></a></li>
+  <li><a href="#pedido" data-aba="pedido"><span class="ico"><svg aria-hidden="true"><use href="#i-pedido"/></svg></span>Pedido<span class="bolha" id="bolha-ideias" hidden></span></a></li>
+  <li><a href="#aprovar" data-aba="aprovar"><span class="ico"><svg aria-hidden="true"><use href="#i-aprovar"/></svg></span>Aprovar<span class="bolha" id="bolha-aprovar" hidden></span></a></li>
+  <li><a href="#feed" data-aba="feed"><span class="ico"><svg aria-hidden="true"><use href="#i-feed"/></svg></span>Feed</a></li>
+</ul></nav>
+
+<p class="carregando miolo" id="carregando" aria-live="polite">Abrindo a Mesa...</p>
+
+<main id="principal" hidden>
+<!-- ============ PAINEL ============ -->
+<section class="tela" id="tela-painel" aria-labelledby="h-painel">
+  <div class="faixa f-ceu"><div class="miolo">
+    <div><h1 class="letreiro" id="h-painel">Como estão os <span class="sol">resultados</span></h1>
+    <p class="frase">Os números das redes e o comentário da analista de métricas.</p></div>
+    <div class="fig"><img src="/central-mesa/biblinho-lupa.webp" alt="" width="858" height="1000"><svg class="giz" aria-hidden="true" preserveAspectRatio="none"><use href="#giz"/></svg></div>
+  </div></div>
+  <div class="miolo secao">
+    <div class="redes" role="group" aria-label="Rede">
+      <button type="button" aria-pressed="true" data-rede="ig">Instagram</button>
+      <button type="button" aria-pressed="false" data-rede="tt">TikTok</button>
+      <button type="button" aria-pressed="false" data-rede="pin">Pinterest</button>
+    </div>
+    <div id="painel-ig" class="secao" style="padding:0">
+      <p class="mudo" id="painel-lido"></p>
+      <div class="numeros" id="numeros"></div>
+      <article class="cartao analista" aria-labelledby="h-analista">
+        <div class="rosto"><img src="/central-mesa/biblinho-pensando.webp" alt="" width="742" height="1000"></div>
+        <div id="analista" style="min-width:0"><p class="mudo">A analista ainda não comentou.</p></div>
+      </article>
+      <div class="cartao">
+        <h2 class="titulo-secao">Pessoas alcançadas por dia</h2>
+        <p class="mudo">Últimos 28 dias fechados, contando quem viu qualquer post ou reel. As bolinhas marcam datas comemorativas.</p>
+        <div id="graf-alcance"></div>
+      </div>
+      <div class="cartao">
+        <h2 class="titulo-secao">Seguidores novos por dia</h2>
+        <p class="mudo">Quantas pessoas começaram a seguir em cada dia. O Instagram não informa quantas deixaram de seguir.</p>
+        <div id="graf-seg"></div>
+      </div>
+      <div class="cartao">
+        <h2 class="titulo-secao">Posts que mais alcançaram <span class="chip" id="chip-mediana"></span></h2>
+        <p class="mudo">Feed e reels normais dos últimos 30 dias. Reels de teste ficam fora.</p>
+        <div class="top" id="top-posts"></div>
+      </div>
+    </div>
+    <div id="painel-outra" class="cartao" hidden>
+      <h2 class="titulo-secao" id="outra-titulo">TikTok</h2>
+      <p id="outra-texto"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALENDÁRIO ============ -->
+<section class="tela" id="tela-calendario" aria-labelledby="h-cal" hidden>
+  <div class="faixa f-sol"><div class="miolo">
+    <div><h1 class="letreiro" id="h-cal">Calendário das <span class="sol">semanas</span></h1>
+    <p class="frase">Cada semana anda no seu ritmo. Adiante o pedido das próximas quando quiser.</p></div>
+    <div class="fig"><img src="/central-mesa/biblinho-apontando.webp" alt="" width="1000" height="1000"><svg class="giz" aria-hidden="true" preserveAspectRatio="none"><use href="#giz"/></svg></div>
+  </div></div>
+  <div class="miolo secao">
+    <div class="cal-ctrl">
+      <h2 class="titulo-secao" id="cal-titulo">Próximas semanas</h2>
+      <div class="alterna" role="group" aria-label="Ver por">
+        <button type="button" aria-pressed="false" data-vista="semana">Semana</button>
+        <button type="button" aria-pressed="true" data-vista="mes">Mês</button>
+      </div>
+    </div>
+    <div id="vista-mes" class="cartao mes"><div class="mes-grade" id="mes-grade"></div></div>
+    <div id="vista-semana" hidden>
+      <div class="cartao"><div class="semana-lista" id="semana-lista"></div></div>
+    </div>
+    <div class="legenda-cores" aria-label="Legenda das cores">
+      <span><i class="s-pub"></i>publicado</span><span><i class="s-ag"></i>agendado</span><span><i class="s-apr"></i>pra você aprovar</span><span><i class="s-cri"></i>aprovado, o Claude agenda</span><span><i class="s-ideia"></i>ideia esperando você</span><span><i style="border-style:dashed"></i>dia livre</span>
+    </div>
+    <div class="cartao" style="display:grid;gap:.7rem" id="prateleira">
+      <h2 class="titulo-secao">Prontos, esperando dia <span class="chip chip--atencao" id="cont-prontos">0</span></h2>
+      <p class="mudo">Posts que já foram feitos e só precisam de capa, de um ajuste ou de dia e horário. Toque em Abrir pra ver o post inteiro, ajustar e escolher quando ele sai.</p>
+      <div class="prontos" id="prontos"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PEDIDO E IDEIAS ============ -->
+<section class="tela" id="tela-pedido" aria-labelledby="h-pedido" hidden>
+  <div class="faixa f-agua"><div class="miolo">
+    <div><h1 class="letreiro" id="h-pedido">Pedido e <span class="sol">ideias</span></h1>
+    <p class="frase">Peça uma semana nova ou mude um post que já existe. Pode falar em vez de digitar.</p></div>
+    <div class="fig"><img src="/central-mesa/biblinho-lampada-ideia.webp" alt="" width="600" height="800" style="aspect-ratio:auto"><svg class="giz" aria-hidden="true" preserveAspectRatio="none"><use href="#giz"/></svg></div>
+  </div></div>
+  <div class="miolo secao">
+    <form class="cartao" id="form-pedido" novalidate style="display:grid;gap:.85rem">
+      <h2 class="titulo-secao">Novo pedido</h2>
+      <div>
+        <p class="passo">O que você quer pedir?</p>
+        <div class="modo" id="modo-pedido" role="group" aria-label="Tipo de pedido">
+          <button type="button" aria-pressed="true" data-modo="semana"><b>Planejar uma semana</b><span>Eu pesquiso a fundo e trago ideias novas, com o motivo de cada uma</span></button>
+          <button type="button" aria-pressed="false" data-modo="mudar"><b>Mudar um post que já existe</b><span>Escolha o dia, marque o post e diga o que mudar nele inteiro</span></button>
+        </div>
+      </div>
+      <div data-so="semana">
+        <p class="passo">Pra qual semana?</p>
+        <div class="semanas-escolha" id="semanas-escolha" role="group" aria-label="Semana do pedido"></div>
+      </div>
+      <div data-so="mudar" hidden style="display:grid;gap:.85rem">
+        <div>
+          <p class="passo">Qual dia?</p>
+          <div class="dias-escolha" id="dias-escolha" role="group" aria-label="Dia do post"></div>
+        </div>
+        <div>
+          <p class="passo" id="passo-posts">Qual post desse dia?</p>
+          <div class="posts-escolha" id="posts-do-dia"></div>
+        </div>
+        <div>
+          <p class="passo">Que tipo de mudança?</p>
+          <div class="pilulas" id="tipo-mudar" role="group" aria-label="Tipo de mudança">
+            <button type="button" aria-pressed="true" data-tipo="sentido">Mudar o sentido do post</button>
+            <button type="button" aria-pressed="false" data-tipo="todos">Mesmo ajuste em todos os cards</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label for="pedido-texto" class="passo" style="display:block">O que você quer? Toque no microfone pra falar.</label>
+        <textarea id="pedido-texto" maxlength="3000" placeholder="Claudinha, monta o cronograma dessa semana. Quero um carrossel de porquê pras professoras e um post pros pais."></textarea>
+        <p class="erro-campo" id="pedido-erro" aria-live="polite"></p>
+      </div>
+      <fieldset data-so="semana" style="border:0;margin:0;padding:0">
+        <legend class="passo">Onde pesquisar antes de sugerir</legend>
+        <div class="fontes" id="fontes">
+          <label><input type="checkbox" value="Posts antigos que foram bem e valem voltar" checked>Posts antigos que foram bem e valem voltar</label>
+          <label><input type="checkbox" value="O que está viralizando no nicho" checked>O que está viralizando no nicho</label>
+          <label><input type="checkbox" value="Temas com bom engajamento" checked>Temas com bom engajamento</label>
+          <label><input type="checkbox" value="Dores do Ministério Infantil mais procuradas" checked>Dores do Ministério Infantil mais procuradas</label>
+          <label><input type="checkbox" value="Datas da semana" checked>Datas da semana</label>
+        </div>
+      </fieldset>
+      <div class="final" style="justify-content:flex-start">
+        <button class="botao botao--sol" type="submit" id="enviar-pedido"><svg width="18" height="18" aria-hidden="true"><use href="#i-lupa"/></svg>Enviar pedido</button>
+        <p class="mensagem" id="pedido-msg" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <div class="cartao" style="display:grid;gap:.6rem">
+      <h2 class="titulo-secao">Pedidos em andamento</h2>
+      <div class="pedidos" id="pedidos"></div>
+    </div>
+
+    <div id="bloco-ideias"></div>
+  </div>
+</section>
+
+<!-- ============ APROVAR ============ -->
+<section class="tela" id="tela-aprovar" aria-labelledby="h-aprovar" hidden>
+  <div class="faixa f-coral"><div class="miolo">
+    <div><h1 class="letreiro" id="h-aprovar">Sala de <span class="sol">aprovação</span></h1>
+    <p class="frase">Mude o post inteiro de uma vez, ou ajuste card por card na caixa embaixo de cada um.</p></div>
+    <div class="fig"><img src="/central-mesa/biblinho-coracao.webp" alt="" width="1000" height="1000"><svg class="giz" aria-hidden="true" preserveAspectRatio="none"><use href="#giz"/></svg></div>
+  </div></div>
+  <div class="miolo secao">
+    <div class="pilulas" id="escolha-post" role="group" aria-label="Post pra aprovar"></div>
+    <div id="sala-vazia" class="cartao" hidden><p class="mensagem">Nada esperando aprovação agora.</p><p class="mudo">Quando eu terminar um post, ele aparece aqui. Os prontos que só precisam de dia ficam no Calendário.</p></div>
+    <div id="sala" style="display:grid;gap:1rem">
+      <div class="cartao" style="display:grid;gap:.6rem">
+        <div class="cab-post">
+          <div><h2 class="titulo-secao" style="font-size:1.2rem" id="sala-titulo"></h2>
+          <p class="mudo" id="sub-post"></p></div>
+          <span class="chip chip--atencao" id="cont-cards"></span>
+        </div>
+        <div class="progresso" aria-hidden="true"><i id="barra-prog"></i></div>
+        <p class="aviso-post" id="aviso-post" aria-live="polite" hidden></p>
+      </div>
+
+      <div class="cartao massa" id="massa">
+        <h2 class="titulo-secao">Mudar o post inteiro</h2>
+        <p class="mudo">Use quando o sentido do post não está certo, ou quando o mesmo ajuste vale pra todos os cards. Pra um detalhe de um card só, use a caixa embaixo dele.</p>
+        <div class="pilulas" id="tipo-massa" role="group" aria-label="Tipo de mudança">
+          <button type="button" aria-pressed="true" data-tipo="sentido">Mudar o sentido do post</button>
+          <button type="button" aria-pressed="false" data-tipo="todos">Mesmo ajuste em todos os cards</button>
+        </div>
+        <div>
+          <label for="com-massa" class="passo" style="display:block">O que você quer? Toque no microfone pra falar.</label>
+          <textarea id="com-massa" maxlength="3000" placeholder="Mudar o sentido: quero um post que explique o que é a data, por que a gente comemora e como a criança pode agradecer a Deus."></textarea>
+          <p class="erro-campo" id="erro-massa" aria-live="polite"></p>
+        </div>
+        <div><button class="botao botao--coral" type="button" id="env-massa">Refazer o post inteiro</button></div>
+      </div>
+
+      <h2 class="titulo-secao">Ajuste card por card</h2>
+      <div class="cards" id="cards"></div>
+
+      <div class="cartao legenda-box">
+        <h2 class="titulo-secao">Legenda e hashtags <span class="chip" id="estado-legenda">esperando você</span></h2>
+        <div class="legenda-abas" id="legenda-abas" role="group" aria-label="Rede da legenda"></div>
+        <div class="legenda-texto" id="legenda-texto"></div>
+        <div>
+          <h3 style="font-size:.9375rem;font-weight:900;margin-bottom:.4rem">Regras da casa, conferidas na legenda acima</h3>
+          <ul class="regras" id="regras"></ul>
+        </div>
+        <label for="com-legenda" style="font-weight:900">O que ajustar na legenda</label>
+        <textarea id="com-legenda" maxlength="3000" placeholder="Troca a pergunta do final por uma mais curta"></textarea>
+        <p class="erro-campo" id="erro-legenda" aria-live="polite"></p>
+        <div class="linha-bt" style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="botao botao--p" type="button" id="env-legenda">Enviar ajuste</button>
+          <button class="botao botao--p botao--verde" type="button" id="ok-legenda">Aprovar legenda</button>
+        </div>
+      </div>
+
+      <div class="cartao final">
+        <p class="mensagem" id="msg-final" aria-live="polite">Quando todos os cards e a legenda estiverem aprovados, escolha o dia e o horário.</p>
+        <button class="botao botao--sol" type="button" id="aprovar-tudo">Aprovar e escolher o dia</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEED ============ -->
+<section class="tela" id="tela-feed" aria-labelledby="h-feed" hidden>
+  <div class="faixa f-pessego"><div class="miolo">
+    <div><h1 class="letreiro" id="h-feed">Como fica o <span class="sol">feed</span></h1>
+    <p class="frase">O feed como aparece na tela do celular, com os próximos posts já no lugar deles.</p></div>
+    <div class="fig"><img src="/central-mesa/biblinho-aberto.webp" alt="" width="1000" height="977"><svg class="giz" aria-hidden="true" preserveAspectRatio="none"><use href="#giz"/></svg></div>
+  </div></div>
+  <div class="miolo secao">
+    <div class="feed-wrap">
+      <div class="feed-col">
+        <div class="feed-ctrl">
+          <div class="alterna" role="group" aria-label="Como ver a grade">
+            <button type="button" aria-pressed="true" data-grade="ig">Como o Instagram mostra</button>
+            <button type="button" aria-pressed="false" data-grade="inteiro">Post inteiro</button>
+          </div>
+          <label class="tamanho" for="tam-cel">Tamanho <input type="range" id="tam-cel" min="260" max="460" step="20" value="360"></label>
+        </div>
+        <div class="celular" id="celular">
+          <div class="cel-tela">
+            <div class="cel-barra" aria-hidden="true"><i></i></div>
+            <p class="ig-topo" id="ig-conta">criatividadesbiblicas</p>
+            <div class="ig-perfil">
+              <div class="ig-avatar"><img src="/central-mesa/biblinho-aberto.webp" alt="" width="1000" height="977"></div>
+              <div style="min-width:0"><p class="ig-nome">Criatividades Bíblicas</p>
+                <div class="ig-cont"><span><b id="ig-posts">0</b>posts</span><span><b id="ig-seg">0</b>seguidores</span></div></div>
+            </div>
+            <div class="ig-abas" aria-hidden="true"><span><svg><use href="#i-feed"/></svg></span><span><svg><use href="#i-reel"/></svg></span><span><svg><use href="#i-pessoa"/></svg></span></div>
+            <div class="ig-grade" id="ig-grade"></div>
+          </div>
+        </div>
+        <p class="mudo" id="nota-grade" style="max-width:26rem;text-align:center">No perfil, o Instagram mostra cada post um pouco mais estreito e corta uma faixa fina das laterais. Toque num post pra ver ele inteiro.</p>
+      </div>
+      <div class="cartao" style="display:grid;gap:.7rem">
+        <h2 class="titulo-secao">Próximos no feed</h2>
+        <div id="proximos-feed" class="prateleira"></div>
+        <p class="mudo">A conferência automática da cor da capa contra as vizinhas entra na próxima etapa. Por enquanto, olhe a grade aqui do lado antes de aprovar a capa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<dialog class="painel-pronto" id="pronto" aria-labelledby="pp-titulo">
+  <div class="pp-cab">
+    <div style="min-width:0"><p class="mudo" id="pp-formato" style="font-weight:800"></p><h2 class="titulo-secao" id="pp-titulo" style="font-size:1.2rem"></h2></div>
+    <button class="botao botao--p" type="button" id="pp-fechar">Fechar</button>
+  </div>
+  <div class="pp-corpo">
+    <p class="aviso-post" id="pp-aviso" hidden></p>
+    <section class="pp-sec">
+      <h3>O post</h3>
+      <div class="pp-pecas" id="pp-pecas"></div>
+      <p class="mudo" id="pp-pecas-nota"></p>
+    </section>
+    <section class="pp-sec" id="pp-sec-capa">
+      <h3>Escolha a capa</h3>
+      <div class="pp-capas" id="pp-capas" role="group" aria-label="Opções de capa"></div>
+      <p class="mudo" id="pp-capa-nota"></p>
+    </section>
+    <section class="pp-sec">
+      <h3>Quando vai sair</h3>
+      <div><p class="passo">Dia</p><div class="dias-escolha" id="pp-dias" role="group" aria-label="Dia da postagem"></div><p class="mudo" id="pp-no-dia"></p></div>
+      <div><p class="passo">Horário</p><div class="pilulas" id="pp-horas" role="group" aria-label="Horário"></div>
+        <label id="pp-outra-hora" hidden style="display:flex;gap:.5rem;align-items:center;margin-top:.5rem;font-weight:800">Outro horário <input type="time" id="pp-hora-livre" style="border:2px solid var(--marinho);border-radius:.6rem;padding:.25rem .5rem"></label>
+        <p class="mudo" style="margin-top:.4rem">18h é o horário que a analista sugere pro post principal do dia.</p></div>
+      <fieldset style="border:0;margin:0;padding:0"><legend class="passo">Onde</legend>
+        <div class="fontes" id="pp-redes">
+          <label><input type="checkbox" value="ig">Instagram</label>
+          <label><input type="checkbox" value="tt">TikTok</label>
+          <label><input type="checkbox" value="pin">Pinterest <span class="mudo">(vai só a capa)</span></label>
+        </div></fieldset>
+    </section>
+    <section class="pp-sec">
+      <h3>Legenda</h3>
+      <div class="legenda-abas" id="pp-leg-abas" role="group" aria-label="Rede da legenda"></div>
+      <div class="legenda-texto" id="pp-legenda"></div>
+      <ul class="regras" id="pp-regras"></ul>
+      <div><button class="botao botao--p" type="button" id="pp-corrigir" hidden>Corrigir a legenda pra mim</button></div>
+    </section>
+    <section class="pp-sec">
+      <h3>Precisa de ajuste antes?</h3>
+      <label for="pp-ajuste" class="passo" style="display:block">O que mudar no post (texto, cor, card). Toque no microfone pra falar.</label>
+      <textarea id="pp-ajuste" maxlength="3000" placeholder="No card 3, aumenta a letra do título."></textarea>
+      <p class="erro-campo" id="pp-ajuste-erro" aria-live="polite"></p>
+      <div><button class="botao botao--p botao--azul" type="button" id="pp-enviar-ajuste">Enviar ajuste</button></div>
+    </section>
+  </div>
+  <div class="pp-rodape">
+    <p class="mensagem" id="pp-msg" aria-live="polite"></p>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="botao botao--p" type="button" id="pp-tirar" hidden>Tirar da agenda</button>
+      <button class="botao botao--sol" type="button" id="pp-agendar">Aprovar e agendar</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="zoom-modal" id="zoom"><img id="zoom-img" src="/central-mesa/biblinho-coracao.webp" alt="Peça em tamanho grande" width="720" height="900"><div style="display:flex;justify-content:flex-end;margin-top:.5rem"><button class="botao botao--p" type="button" id="zoom-fechar">Fechar</button></div></dialog>

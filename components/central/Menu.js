@@ -2,7 +2,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { House, User, Sparkle, CalendarBlank, ChatCircle, ChartLineUp, PaperPlaneTilt, List, X } from "@phosphor-icons/react";
+import { House, User, Sparkle, CalendarBlank, ChatCircle, ChartLineUp, PaperPlaneTilt, List, X, SquaresFour } from "@phosphor-icons/react";
 import { PAGINAS } from "@/lib/central/itens";
 
 const ICONES = { capa: House, "com-voce": User, "com-o-claude": Sparkle, agendado: CalendarBlank, comentarios: ChatCircle, campanhas: ChartLineUp, recados: PaperPlaneTilt };
@@ -19,7 +19,13 @@ function Itens({ ativa, contadores, aoTocar }) {
         {n > 0 && <span className={`c-cont${p.pedeVoce ? " c-sol" : ""}`}>{n}</span>}
       </Link>
     );
-  });
+  }).concat(
+    // A Mesa é uma página à parte (HTML próprio), por isso link comum e não Link do Next.
+    <a key="mesa" href="/central/mesa" className="c-item-menu" onClick={aoTocar}>
+      <span className="c-ic"><SquaresFour size={18} weight="bold" /></span>
+      <span className="c-txt">Mesa de Postagens<small>aprovar, agendar e resultados</small></span>
+    </a>
+  );
 }
 
 export default function Menu({ ativa, contadores, rotulo }) {

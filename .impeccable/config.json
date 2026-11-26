@@ -222,6 +222,42 @@
         ],
         "createdAt": "2026-11-21T04:25:01.568Z",
         "reason": "Preco em destaque do bloco do valor no desktop, aprovado em 20/11"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "lib/central/mesa/**"
+        ],
+        "createdAt": "2026-11-26T10:14:38.319Z",
+        "reason": "Mesa de Postagens segue site/oficial/DESIGN.md (identidade do site novo), pedido explícito da Thali em 25/11; estilo copiado do protótipo que ela aprovou em 26/11"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "lib/central/mesa/**"
+        ],
+        "createdAt": "2026-11-26T10:14:38.431Z",
+        "reason": "Mesa de Postagens segue site/oficial/DESIGN.md (identidade do site novo), pedido explícito da Thali em 25/11; estilo copiado do protótipo que ela aprovou em 26/11"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "lib/central/mesa/**"
+        ],
+        "createdAt": "2026-11-26T10:14:38.549Z",
+        "reason": "Mesa de Postagens segue site/oficial/DESIGN.md (identidade do site novo), pedido explícito da Thali em 25/11; estilo copiado do protótipo que ela aprovou em 26/11"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "lib/central/mesa/**"
+        ],
+        "createdAt": "2026-11-26T10:14:38.661Z",
+        "reason": "Mesa de Postagens segue site/oficial/DESIGN.md (identidade do site novo), pedido explícito da Thali em 25/11; estilo copiado do protótipo que ela aprovou em 26/11"
       }
     ]
   }
